@@ -9,7 +9,13 @@ interface HeaderProps {
   theme?: "dark" | "light";
 }
 
-const NAV_ITEMS = [
+type NavItem = {
+  id: string;
+  label: string;
+  href: string;
+};
+
+const NAV_ITEMS: NavItem[] = [
   { id: "home", label: "홈", href: "/" },
   { id: "apply", label: "신청하기", href: "/apply" },
   { id: "report", label: "내 리포트", href: "/report" },
