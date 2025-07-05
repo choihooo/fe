@@ -3,6 +3,11 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Logo from "./Logo";
+import { cn } from "@/utils/cn";
+
+interface HeaderProps {
+  theme?: "dark" | "light";
+}
 
 const NAV_ITEMS = [
   { id: "home", label: "홈", href: "/" },
@@ -10,27 +15,29 @@ const NAV_ITEMS = [
   { id: "report", label: "내 리포트", href: "/report" },
 ];
 
-function Header() {
+function Header({ theme = "dark" }: HeaderProps) {
   const pathname = usePathname();
 
   const getItemClassName = (itemId: string) => {
-    const baseClasses = "px-[15px] py-[10px]";
     const isActive =
       pathname === NAV_ITEMS.find((item) => item.id === itemId)?.href;
-
-    if (isActive) {
-      return `${baseClasses} font-B02-SB text-blue-main`;
-    }
-
-    return `${baseClasses} font-B02-M hover:text-white text-gray-200`;
+    return cn(
+      "px-[15px] py-[10px] font-B02-M",
+      theme === "dark"
+        ? "text-gray-200 hover:text-white"
+        : "text-gray-500 hover:text-gray-900",
+      isActive && ["font-B02-SB", "text-blue-main"]
+    );
   };
 
   return (
-    <header className="w-full flex px-[106px] py-5 justify-between bg-transparent">
+    <header
+      className={"w-full flex px-[106px] py-5 justify-between bg-transparent"}
+    >
       <div className="flex">
         <div className="py-[11px]">
           <Link href="/" className="cursor-pointer">
-            <Logo theme="dark" />
+            <Logo theme={theme} />
           </Link>
         </div>
         <nav
@@ -52,7 +59,12 @@ function Header() {
       </div>
       <Link
         href="/login"
-        className="px-[15px] py-[10px] font-B02-SB hover:text-white text-gray-200"
+        className={cn(
+          "px-[15px] py-[10px] font-B02-SB",
+          theme === "dark"
+            ? "text-gray-200 hover:text-white"
+            : "text-gray-500 hover:text-gray-900"
+        )}
         aria-label="로그인"
       >
         로그인
