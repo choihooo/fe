@@ -16,13 +16,13 @@ function CustomFeedbackSection() {
 
       <div className="mt-[101px] flex justify-center items-start gap-[31px]">
         <Image
-          src="/image/landing/feedbackimg.png"
+          src="/image/landing/FeedBackRightImg.png"
           alt="맞춤형피드백 왼쪽이미지"
           width={493}
           height={417}
         />
         <Image
-          src="/image/landing/feedbackimgright.png"
+          src="/image/landing/feedbackLeImg.png"
           alt="맞춤형피드백 오른쪽이미지"
           width={675}
           height={415}

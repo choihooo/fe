@@ -26,7 +26,7 @@ function ContributorSection() {
 
             <div className="mt-11 w-[130px] h-[130px] bg-blue-100 rounded-full relative overflow-hidden">
               <Image
-                src="/image/landing/hyunsoopic.png"
+                src="/image/landing/HSpic.png"
                 alt="현수사진"
                 width={105}
                 height={121}
@@ -52,7 +52,7 @@ function ContributorSection() {
 
             <div className="mt-11 w-[130px] h-[130px] bg-blue-100 rounded-full relative overflow-hidden">
               <Image
-                src="/image/landing/hyunsoopic.png"
+                src="/image/landing/HSpic.png"
                 alt="현수사진"
                 width={105}
                 height={121}
@@ -80,7 +80,7 @@ function ContributorSection() {
 
             <div className="mt-11 w-[130px] h-[130px] bg-blue-100 rounded-full relative overflow-hidden">
               <Image
-                src="/image/landing/minseopic.png"
+                src="/image/landing/MSpic.png"
                 alt="민서사진"
                 width={105}
                 height={121}
@@ -137,7 +137,7 @@ function ContributorSection() {
 
             <div className="flex items-center justify-center">
               <Image
-                src="/image/landing/jinheepic.png"
+                src="/image/landing/JHpic.png"
                 alt="진희님사진"
                 width={372}
                 height={318}
