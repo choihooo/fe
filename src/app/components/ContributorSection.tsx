@@ -68,7 +68,7 @@ function ContributorSection() {
         제작했습니다.
       </div>
 
-      <div className="mt-20 flex items-center gap-[30px]">
+      <div className="mt-20 flex items-center gap-[30px] w-[1200px]">
         {contributors.map((c, i) => (
           <div
             key={i}
@@ -100,7 +100,7 @@ function ContributorSection() {
         ))}
       </div>
 
-      <div className="mt-[124px] w-full">
+      <div className="mt-[124px] w-[1200px]">
         <div className="flex items-start justify-between">
           <div className="text-black font-semibold text-[36px]">
             <span className="text-blue-main">현업자의 시선을 반영해</span>{" "}
