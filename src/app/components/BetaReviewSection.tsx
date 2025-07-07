@@ -9,21 +9,24 @@ const reviewData = [
     title: "KoSAC 파이널리스트 수상",
     content:
       "출품 이후 최고의논문작가시가 공모전의 마무리라는 점을 알려주었습니다",
-    user: "양지대학교 | 이연주",
+    university: "양지대학교",
+    name: "이연주",
     rating: 5,
   },
   {
     title: "KoSAC 파이널리스트 수상",
     content:
       "출품 이후 최고의논문작가시가 공모전의 마무리라는 점을 알려주었습니다",
-    user: "양지대학교 | 이연주",
+    university: "양지대학교",
+    name: "이연주",
     rating: 3,
   },
   {
     title: "KoSAC 파이널리스트 수상",
     content:
       "출품 이후 회고하는과정까지가 공모전의 마무리라는 점을 알게되었습니다출품 이후 회고하는과정까지가 공모전의 마무리라는 점을 알게되었습니다",
-    user: "양지대학교 | 이연주",
+    university: "양지대학교",
+    name: "이연주",
     rating: 3,
   },
 ];
@@ -121,7 +124,7 @@ function BetaReviewSection() {
                         : "font-B03-M text-gray-300 text-end"
                     } `}
                   >
-                    {review.user}
+                    {review.university} | {review.name}
                   </div>
                 </div>
               );
