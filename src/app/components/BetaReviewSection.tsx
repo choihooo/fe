@@ -72,8 +72,6 @@ function BetaReviewSection() {
           >
             {reviewData.map((review, idx) => {
               const isActive = idx === currentIndex;
-              const starColor = isActive ? "#BBD1FF" : "#6D9BFF";
-              const userColor = isActive ? "text-blue-50" : "text-gray-500";
 
               return (
                 <div
