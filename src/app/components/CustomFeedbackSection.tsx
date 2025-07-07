@@ -22,7 +22,7 @@ function CustomFeedbackSection() {
           height={417}
         />
         <Image
-          src="/image/landing/feedbackLeImg.png"
+          src="/image/landing/FeedBackLeImg.png"
           alt="맞춤형피드백 오른쪽이미지"
           width={675}
           height={415}
