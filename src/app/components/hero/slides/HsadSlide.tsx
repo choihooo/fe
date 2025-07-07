@@ -14,11 +14,11 @@ function HsadSlide() {
         }}
       />
       <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
-        <img src="/image/logo/hsad.png" />
+        <img src="/image/logo/hsad.png" alt="hsad이미지" />
         <h1 className="text-white text-center font-default text-[50px] font-bold mt-[45.8px] mb-[30px] leading-[1.3]">
           제38회 HSAD
           <br />
-          Young Creator's Competition
+          Young Creator&apos;s Competition
         </h1>
         <div className="text-center font-B04-SB text-gray-500 mb-[74px]">
           2025년 HSAD 영 크리에이터스 컴퍼티션

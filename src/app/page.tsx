@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Header from "@/components/common/Header";
 import Banner from "./components/Banner";
 import ExpertFeedbackSection from "./components/ExpertFeedbackSection";
@@ -13,83 +13,40 @@ import HeroSection from "./components/hero/HeroSection";
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const sectionsRef = useRef<HTMLDivElement>(null);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const canScrollDownRef = useRef(false);
-  const canScrollUpRef = useRef(false);
-  const scrollLockRef = useRef(false);
 
-  const getHeaderTheme = () => (activeIndex === 0 ? "dark" : "light");
-
-  const lockScrollTemporarily = () => {
-    scrollLockRef.current = true;
-    setTimeout(() => {
-      scrollLockRef.current = false;
-    }, 800);
-  };
-
-  const handleWheel = useCallback(
-    (e: WheelEvent) => {
-      if (scrollLockRef.current) return;
-
-      const direction = e.deltaY > 0 ? 1 : -1;
-      const secondSection = sectionRefs.current[1];
-
-      if (!secondSection) return;
-
-      if (activeIndex === 0 && direction === 1) {
-        e.preventDefault();
-
-        if (!canScrollDownRef.current) {
-          canScrollDownRef.current = true;
-          return;
-        }
-
-        secondSection.scrollIntoView({ behavior: "smooth" });
-        lockScrollTemporarily();
-
-        setTimeout(() => {
-          setActiveIndex(1);
-        }, 600);
-
-        canScrollDownRef.current = false;
-        return;
-      }
-
-      if (activeIndex === 1 && direction === -1) {
-        const scrollTop = secondSection.scrollTop;
-
-        if (scrollTop <= 0) {
-          e.preventDefault();
-
-          if (!canScrollUpRef.current) {
-            canScrollUpRef.current = true;
-            return;
-          }
-
-          sectionRefs.current[0]?.scrollIntoView({ behavior: "smooth" });
-          lockScrollTemporarily();
-          setActiveIndex(0);
-          canScrollUpRef.current = false;
-          return;
-        }
-      }
-
-      if (direction === 1) canScrollUpRef.current = false;
-      if (direction === -1) canScrollDownRef.current = false;
-    },
-    [activeIndex]
-  );
+  const triggerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const container = sectionsRef.current;
-    if (!container) return;
-    container.addEventListener("wheel", handleWheel, { passive: false });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0) {
+            const index = triggerRefs.current.findIndex(
+              (ref) => ref === entry.target
+            );
+            if (index !== -1) {
+              setActiveIndex(index);
+              console.log("activeIndex set to", index);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
 
-    return () => {
-      container.removeEventListener("wheel", handleWheel);
-    };
-  }, [handleWheel]);
+    triggerRefs.current.forEach((ref, idx) => {
+      if (ref) {
+        observer.observe(ref);
+        console.log("Observing triggerRef", idx, ref);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const getHeaderTheme = () => (activeIndex === 0 ? "dark" : "light");
 
   return (
     <>
@@ -97,19 +54,24 @@ export default function Home() {
         <Header theme={getHeaderTheme()} />
       </div>
 
-      <div ref={sectionsRef} className="h-screen overflow-y-auto">
-        <HeroSection
-          refEl={(el: HTMLDivElement | null) => {
-            sectionRefs.current[0] = el;
-          }}
-        />
+      <div className="h-screen w-full overflow-y-auto snap-y snap-mandatory relative">
+        <div className="h-screen snap-start">
+          <div
+            ref={(el) => {
+              triggerRefs.current[0] = el;
+            }}
+            className="absolute top-0 h-screen w-full -z-10"
+          />
+          <HeroSection />
+        </div>
 
-        <div
-          ref={(el: HTMLDivElement | null) => {
-            sectionRefs.current[1] = el;
-          }}
-          className="min-h-[2000px] max-h-screen overflow-y-auto bg-white text-black"
-        >
+        <div className="min-h-screen bg-white text-black snap-start relative">
+          <div
+            ref={(el) => {
+              triggerRefs.current[1] = el;
+            }}
+            className="absolute top-[500px] h-[1px] w-full"
+          />
           <Banner />
           <ExpertFeedbackSection />
           <TrendAnalysisSection />
