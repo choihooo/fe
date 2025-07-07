@@ -26,7 +26,7 @@ const contributors = [
         탈락 이후의 선택
       </>
     ),
-    imageSrc: "/image/landing/HSpic.png",
+    imageSrc: "/image/landing/JSpic.png",
     imageAlt: "준식사진",
     description: (
       <>
@@ -88,11 +88,13 @@ function ContributorSection() {
                   alt={c.imageAlt}
                   width={105}
                   height={121}
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2"
+                  className={`absolute left-1/2 -translate-x-1/2 ${
+                    c.name === "우준식" ? "bottom-[-11px]" : "bottom-0"
+                  }`}
                 />
               </div>
 
-              <div className="mt-10 text-gray-300 font-B02-M text-center">
+              <div className="mt-10 text-gray-300 font-B02-M text-start">
                 {c.description}
               </div>
             </div>
