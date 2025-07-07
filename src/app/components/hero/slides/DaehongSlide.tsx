@@ -14,7 +14,7 @@ function DaehongSlide() {
         }}
       />
       <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
-        <img src="/image/logo/daehong.png" />
+        <img src="/image/logo/daehong.png" alt="대홍이미지" />
         <h1 className="text-white text-center font-default text-[50px] font-bold mt-[48px] mb-[30px] leading-[1.3]">
           제42회 DAEHONG
           <br />
