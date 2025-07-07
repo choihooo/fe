@@ -60,7 +60,7 @@ const contributors = [
 function ContributorSection() {
   return (
     <div className="flex justify-center items-center flex-col bg-gray-100 py-[150px] px-[120px]">
-      <div className="text-black font-bold text-[50px]/[70px]">
+      <div className="text-black font-bold font-default text-[50px]/[70px]">
         수상한 녀석들을 소개합니다
       </div>
       <div className="text-gray-600 font-T02-SB mt-6">
@@ -102,7 +102,7 @@ function ContributorSection() {
 
       <div className="mt-[124px] w-[1200px]">
         <div className="flex items-start justify-between">
-          <div className="text-black font-semibold text-[36px]">
+          <div className="text-black font-semibold font-default text-[36px]">
             <span className="text-blue-main">현업자의 시선을 반영해</span>{" "}
             <br />
             실전에서 통하는 리포트를 <br />
@@ -117,7 +117,7 @@ function ContributorSection() {
                 </p>
               </div>
 
-              <div className="mt-[19px] text-black font-bold text-[40px]">
+              <div className="mt-[19px] text-black font-default font-bold text-[40px]">
                 김진희
               </div>
 
