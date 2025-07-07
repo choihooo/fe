@@ -9,6 +9,7 @@ import CustomFeedbackSection from "./components/CustomFeedbackSection";
 import ContributorSection from "./components/ContributorSection";
 import BetaReviewSection from "./components/BetaReviewSection";
 import Footer from "./components/Footer";
+import HeroSection from "./components/hero/HeroSection";
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -97,17 +98,14 @@ export default function Home() {
       </div>
 
       <div ref={sectionsRef} className="h-screen overflow-y-auto">
-        <div
-          ref={(el) => {
+        <HeroSection
+          refEl={(el: HTMLDivElement | null) => {
             sectionRefs.current[0] = el;
           }}
-          className="h-screen w-full flex items-center justify-center bg-black text-white pt-[80px]"
-        >
-          <h1 className="text-4xl font-bold">🔥 풀페이지 Hero Section</h1>
-        </div>
+        />
 
         <div
-          ref={(el) => {
+          ref={(el: HTMLDivElement | null) => {
             sectionRefs.current[1] = el;
           }}
           className="min-h-[2000px] max-h-screen overflow-y-auto bg-white text-black"
