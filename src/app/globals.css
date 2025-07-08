@@ -7,6 +7,10 @@
   font-weight: 100 900;
 }
 
+* {
+  font-family: "Pretendard";
+}
+
 @theme inline {
   /* key color */
   --color-blue-50: #e9f0ff;
