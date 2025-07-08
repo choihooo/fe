@@ -9,7 +9,7 @@ const NaverIcon = () => {
       viewBox="0 0 16 16"
       fill="none"
     >
-      <g clip-path="url(#clip0_402_1168)">
+      <g clipPath="url(#clip0_402_1168)">
         <path
           d="M10.8491 8.56267L4.91687 0H0V16H5.15088V7.436L11.0831 16H16V0H10.8491V8.56267Z"
           fill="white"
