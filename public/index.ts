@@ -7,3 +7,5 @@ export { default as TopRightArrow } from "./icons/TopRightArrow";
 export { default as KaKao } from "./icons/KaKaoIcon";
 export { default as Google } from "./icons/GoogleIcon";
 export { default as Naver } from "./icons/NaverIcon";
+export { default as Comment } from "./icons/CommentIcon";
+export { default as CloseIcon } from "./icons/CloseIcon";
