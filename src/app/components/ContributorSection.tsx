@@ -26,7 +26,7 @@ const contributors = [
         탈락 이후의 선택
       </>
     ),
-    imageSrc: "/image/landing/HSpic.png",
+    imageSrc: "/image/landing/JSpic.png",
     imageAlt: "준식사진",
     description: (
       <>
@@ -60,7 +60,7 @@ const contributors = [
 function ContributorSection() {
   return (
     <div className="flex justify-center items-center flex-col bg-gray-100 py-[150px] px-[120px]">
-      <div className="text-black font-bold text-[50px]/[70px]">
+      <div className="text-black font-bold font-default text-[50px]/[70px]">
         수상한 녀석들을 소개합니다
       </div>
       <div className="text-gray-600 font-T02-SB mt-6">
@@ -88,11 +88,13 @@ function ContributorSection() {
                   alt={c.imageAlt}
                   width={105}
                   height={121}
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2"
+                  className={`absolute left-1/2 -translate-x-1/2 ${
+                    c.name === "우준식" ? "bottom-[-11px]" : "bottom-0"
+                  }`}
                 />
               </div>
 
-              <div className="mt-10 text-gray-300 font-B02-M text-center">
+              <div className="mt-10 text-gray-300 font-B02-M text-start">
                 {c.description}
               </div>
             </div>
@@ -102,7 +104,7 @@ function ContributorSection() {
 
       <div className="mt-[124px] w-[1200px]">
         <div className="flex items-start justify-between">
-          <div className="text-black font-semibold text-[36px]">
+          <div className="text-black font-semibold font-default text-[36px]">
             <span className="text-blue-main">현업자의 시선을 반영해</span>{" "}
             <br />
             실전에서 통하는 리포트를 <br />
@@ -117,7 +119,7 @@ function ContributorSection() {
                 </p>
               </div>
 
-              <div className="mt-[19px] text-black font-bold text-[40px]">
+              <div className="mt-[19px] text-black font-default font-bold text-[40px]">
                 김진희
               </div>
 
