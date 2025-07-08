@@ -1,6 +1,5 @@
 import React from "react";
-import CommentIcon from "../../../../public/icons/CommentIcon";
-import { CloseIcon } from "../../../../public";
+import { CloseIcon, CommentIcon } from "../../../../public";
 
 const ToolTip = ({ text }: { text: string }) => {
   return (
