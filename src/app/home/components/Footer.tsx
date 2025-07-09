@@ -1,4 +1,4 @@
-import { Insta, TopRightArrow } from "../../../public";
+import { Insta, TopRightArrow } from "../../../../public";
 
 function Footer() {
   return (

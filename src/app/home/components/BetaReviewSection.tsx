@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { LeftArrow, NoFillStar, RightArrow, Star } from "../../../public";
+import { LeftArrow, RightArrow, Star } from "../../../../public";
+import StarNoFIll from "../../../../public/icons/StarNoFIll";
 
 const reviewData = [
   {

@@ -26,10 +26,10 @@ function Header({ theme }: HeaderProps) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const isHome = pathname === "/";
+  const isHome = pathname === "/home";
   const appliedTheme = theme ?? (isHome ? "dark" : "light");
 
-  const background = isHome ? "bg-transparent" : "bg-white";
+  const bgClass = appliedTheme === "dark" ? "bg-transparent" : "bg-white";
 
   const getItemClassName = (itemId: string) => {
     const isActive =
@@ -45,7 +45,10 @@ function Header({ theme }: HeaderProps) {
 
   return (
     <header
-      className={cn("w-full flex justify-between px-4 py-3 sm:px-[106px] sm:py-5", background)}
+      className={cn(
+        "w-full flex justify-between px-4 py-3 sm:px-[106px] sm:py-5",
+        bgClass
+      )}
     >
       <div className="flex items-center">
         <div className="py-[6px] sm:py-[11px]">
@@ -96,7 +99,7 @@ function Header({ theme }: HeaderProps) {
       {menuOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 flex flex-col">
           <div className="flex justify-between items-center px-4 py-3 bg-white">
-            <Logo theme={theme} />
+            <Logo theme="light" />
             <button
               className="w-8 h-8 flex items-center justify-center"
               aria-label="메뉴 닫기"
