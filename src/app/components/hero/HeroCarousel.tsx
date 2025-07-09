@@ -23,7 +23,7 @@ export default function HeroCarousel({ sections }: HeroCarouselProps) {
   };
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative h-screen min-h-[400px] w-full overflow-hidden">
       {sections.map((section, idx) => (
         <motion.div
           key={section.id}
@@ -42,14 +42,22 @@ export default function HeroCarousel({ sections }: HeroCarouselProps) {
       ))}
 
       {sections.length > 1 && (
-        <div className="absolute top-1/2 -translate-y-1/2 z-20 flex flex-col gap-3 right-[120px]">
+        <div
+          className={
+            `z-20 flex gap-3 ` +
+            `sm:absolute sm:top-1/2 sm:-translate-y-1/2 sm:flex-col sm:right-[120px] ` +
+            `absolute bottom-8 left-1/2 -translate-x-1/2 flex-row sm:bottom-auto sm:left-auto sm:translate-x-0`
+          }
+        >
           {sections.map((s, idx) => (
             <motion.button
               key={s.id}
               onClick={() => handleIndicatorClick(idx)}
-              className={`w-[7px] h-[7px] rounded-full transition-all ${
-                activeIndex === idx ? "bg-white" : "bg-gray-600"
-              }`}
+              className={
+                `transition-all rounded-full ` +
+                `w-[7px] h-[7px] ` +
+                (activeIndex === idx ? "bg-white" : "bg-gray-600")
+              }
             />
           ))}
         </div>

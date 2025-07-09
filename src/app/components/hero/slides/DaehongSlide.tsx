@@ -3,7 +3,7 @@ import CTA from "@/components/common/CTA";
 function DaehongSlide() {
   return (
     <div
-      className="w-full h-screen flex flex-col items-center justify-center bg-no-repeat bg-cover bg-center relative"
+      className="w-full min-h-[400px] h-screen flex flex-col items-center justify-center bg-no-repeat bg-cover bg-center relative"
       style={{ backgroundImage: "url(/image/background/daehong-bg.png)" }}
     >
       <div
@@ -14,13 +14,13 @@ function DaehongSlide() {
         }}
       />
       <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
-        <img src="/image/logo/daehong.png" alt="대홍이미지" />
-        <h1 className="text-white text-center font-default text-[50px] font-bold mt-[48px] mb-[30px] leading-[1.3]">
+        <img src="/image/logo/daehong.png" alt="대홍이미지" className="max-w-[180px] sm:max-w-none" />
+        <h1 className="text-white text-center font-default text-[32px] sm:text-[50px] font-bold mt-8 sm:mt-[48px] mb-5 sm:mb-[30px] leading-[1.3]">
           제42회 DAEHONG
           <br />
           CREATIVE AWARDS
         </h1>
-        <div className="text-center font-B04-SB text-gray-500 mb-[74px]">
+        <div className="text-center font-B04-SB text-gray-500 mb-10 sm:mb-[74px] text-base sm:text-lg">
           2025년 대홍기획 크리에이티브 어워즈
         </div>
         <CTA>리포트 신청하기</CTA>
