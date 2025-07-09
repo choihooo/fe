@@ -7,7 +7,7 @@ function CustomFeedbackSection() {
         {" "}
         맞춤형 피드백
       </div>
-      <div className="mt-11 text-gray-950 font-bold text-[50px]/[70px]">
+      <div className="mt-11 text-gray-950 font-bold font-default text-[50px]/[70px]">
         내 출품작에 딱 맞춘 AI 피드백 제공
       </div>
       <div className="text-gray-600 font-T02-SB mt-[21px]">

@@ -1,8 +1,5 @@
 import { useState } from "react";
-import LeftArrow from "../assets/icons/LeftArrow";
-import RightArrow from "../assets/icons/RightArrow";
-import Star from "../assets/icons/Star";
-import StarNoFIll from "../assets/icons/StarNoFIll";
+import { LeftArrow, NoFillStar, RightArrow, Star } from "../../../public";
 
 const reviewData = [
   {
@@ -46,7 +43,7 @@ function BetaReviewSection() {
     <div className="py-[120px] pl-[122px] pr-[118px] flex flex-col w-full items-start justify-center gap-[36px]">
       <div className="w-full bg-blue-50 rounded-[30px] pt-[65px] pb-[40px] overflow-hidden">
         <div className="w-full flex items-end justify-between px-[58px]">
-          <div className="text-black text-[36px] leading-[50px] font-semibold">
+          <div className="text-black text-[36px] font-default font-semibold">
             KoSAC 공모전 <br />
             출품자를 대상으로 <br />
             베타 테스트를 진행했습니다
@@ -95,7 +92,7 @@ function BetaReviewSection() {
                             fill={isActive ? "#BBD1FF" : "#FAFAFA"}
                           />
                         ) : (
-                          <StarNoFIll
+                          <NoFillStar
                             key={i}
                             fill={isActive ? "#6D9BFF" : "#ECECEE"}
                           />

@@ -21,15 +21,20 @@ const NAV_ITEMS: NavItem[] = [
   { id: "report", label: "내 리포트", href: "/report" },
 ];
 
-function Header({ theme = "dark" }: HeaderProps) {
+function Header({ theme }: HeaderProps) {
   const pathname = usePathname();
+
+  const isHome = pathname === "/";
+  const appliedTheme = theme ?? (isHome ? "dark" : "light");
+
+  const background = isHome ? "bg-transparent" : "bg-white";
 
   const getItemClassName = (itemId: string) => {
     const isActive =
       pathname === NAV_ITEMS.find((item) => item.id === itemId)?.href;
     return cn(
       "px-[15px] py-[10px] font-B02-M",
-      theme === "dark"
+      appliedTheme === "dark"
         ? "text-gray-200 hover:text-white"
         : "text-gray-500 hover:text-gray-900",
       isActive && ["font-B02-SB", "text-blue-main"]
@@ -38,12 +43,12 @@ function Header({ theme = "dark" }: HeaderProps) {
 
   return (
     <header
-      className={"w-full flex px-[106px] py-5 justify-between bg-transparent"}
+      className={cn("w-full flex px-[106px] py-5 justify-between", background)}
     >
       <div className="flex">
         <div className="py-[11px]">
           <Link href="/" className="cursor-pointer">
-            <Logo theme={theme} />
+            <Logo theme={appliedTheme} />
           </Link>
         </div>
         <nav
@@ -67,7 +72,7 @@ function Header({ theme = "dark" }: HeaderProps) {
         href="/login"
         className={cn(
           "px-[15px] py-[10px] font-B02-SB",
-          theme === "dark"
+          appliedTheme === "dark"
             ? "text-gray-200 hover:text-white"
             : "text-gray-500 hover:text-gray-900"
         )}
