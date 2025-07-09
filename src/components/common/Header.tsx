@@ -22,16 +22,21 @@ const NAV_ITEMS: NavItem[] = [
   { id: "report", label: "내 리포트", href: "/report" },
 ];
 
-function Header({ theme = "dark" }: HeaderProps) {
+function Header({ theme }: HeaderProps) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const isHome = pathname === "/";
+  const appliedTheme = theme ?? (isHome ? "dark" : "light");
+
+  const background = isHome ? "bg-transparent" : "bg-white";
 
   const getItemClassName = (itemId: string) => {
     const isActive =
       pathname === NAV_ITEMS.find((item) => item.id === itemId)?.href;
     return cn(
       "px-[15px] py-[10px] font-B02-M",
-      theme === "dark"
+      appliedTheme === "dark"
         ? "text-gray-200 hover:text-white"
         : "text-gray-500 hover:text-gray-900",
       isActive && ["font-B02-SB", "text-blue-main"]
@@ -40,15 +45,12 @@ function Header({ theme = "dark" }: HeaderProps) {
 
   return (
     <header
-      className={cn(
-        "w-full flex justify-between bg-transparent items-center",
-        "px-4 py-3 sm:px-[106px] sm:py-5"
-      )}
+      className={cn("w-full flex justify-between px-4 py-3 sm:px-[106px] sm:py-5", background)}
     >
       <div className="flex items-center">
         <div className="py-[6px] sm:py-[11px]">
           <Link href="/" className="cursor-pointer">
-            <Logo theme={theme} />
+            <Logo theme={appliedTheme} />
           </Link>
         </div>
 
@@ -72,8 +74,8 @@ function Header({ theme = "dark" }: HeaderProps) {
       <Link
         href="/login"
         className={cn(
-          "hidden sm:inline-block px-[15px] py-[10px] font-B02-SB",
-          theme === "dark"
+          "px-[15px] py-[10px] font-B02-SB hidden sm:inline-block",
+          appliedTheme === "dark"
             ? "text-gray-200 hover:text-white"
             : "text-gray-500 hover:text-gray-900"
         )}

@@ -1,8 +1,5 @@
 import { useState } from "react";
-import LeftArrow from "../assets/icons/LeftArrow";
-import RightArrow from "../assets/icons/RightArrow";
-import Star from "../assets/icons/Star";
-import StarNoFIll from "../assets/icons/StarNoFIll";
+import { LeftArrow, NoFillStar, RightArrow, Star } from "../../../public";
 
 const reviewData = [
   {
