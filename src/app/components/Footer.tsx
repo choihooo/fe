@@ -1,5 +1,4 @@
-import Insta from "../assets/icons/Insta";
-import TopRightArrow from "../assets/icons/TopRightArrow";
+import { Insta, TopRightArrow } from "../../../public";
 
 function Footer() {
   return (
