@@ -1,4 +1,4 @@
-import CTA from "@/components/common/CTA";
+import RoundButton from "@/components/common/RoundButton";
 
 function DaehongSlide() {
   return (
@@ -23,7 +23,7 @@ function DaehongSlide() {
         <div className="text-center font-B04-SB text-gray-500 mb-10 sm:mb-[74px] text-base sm:text-lg">
           2025년 대홍기획 크리에이티브 어워즈
         </div>
-        <CTA>리포트 신청하기</CTA>
+        <RoundButton>리포트 신청하기</RoundButton>
       </div>
     </div>
   );
