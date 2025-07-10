@@ -10,7 +10,7 @@ interface ButtonBaseProps
 const sizeClasses: Record<Size, string> = {
   S: "px-[22px] ",
   M: "px-[80px] ",
-  L: "px-[160px]",
+  L: "px-[156px]",
 };
 
 const ButtonBase = ({
@@ -35,6 +35,10 @@ const ButtonBase = ({
 
 export const NextButton = (props: Omit<ButtonBaseProps, "label">) => (
   <ButtonBase {...props} label="다음" />
+);
+
+export const CompleteButton = (props: Omit<ButtonBaseProps, "label">) => (
+  <ButtonBase {...props} label="완료" />
 );
 
 export default ButtonBase;
