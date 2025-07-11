@@ -10,7 +10,6 @@ import {
   역할입력,
   목적입력,
   경로입력,
-  RoleEnum,
   PurposeEnum,
   RouteEnum,
 } from "./types/schemas";
@@ -36,11 +35,11 @@ export default function SignUpFunnelPage() {
   }>({
     id: "sign-up-funnel",
     steps: {
-      약관동의: { parse: (v: any) => v },
+      약관동의: { parse: (v: unknown) => v as 약관동의타입 },
       역할입력: { parse: 역할입력_Schema.parse },
       목적입력: { parse: 목적입력_Schema.parse },
       경로입력: { parse: 경로입력_Schema.parse },
-    } as Record<StepKey, any>,
+    },
     initial: {
       step: "약관동의" as StepKey,
       context: { terms: {} },
