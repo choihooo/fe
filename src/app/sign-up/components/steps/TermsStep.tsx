@@ -44,12 +44,7 @@ export default function StepTerm({ onNext }: Props) {
   };
 
   return (
-    <StepLayout
-      stepNumber={1}
-      totalSteps={3}
-      title="이용약관"
-      width="w-[433px]"
-    >
+    <StepLayout title="이용약관" width="w-[433px]">
       <div className="w-full">
         <label className="flex items-center gap-[13px] mb-6">
           <Checkbox
@@ -78,9 +73,7 @@ export default function StepTerm({ onNext }: Props) {
               <span className="font-B02-M text-black">
                 {term.required ? "(필수)" : "(선택)"}
               </span>
-              <span className="font-B02-R text-gray-700">
-                {term.label}
-              </span>
+              <span className="font-B02-R text-gray-700">{term.label}</span>
             </label>
             <a
               href={term.link}
