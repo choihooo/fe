@@ -1,4 +1,4 @@
-import CTA from "@/components/common/CTA";
+import RoundButton from "@/components/common/RoundButton";
 
 function HeroMainSlide() {
   return (
@@ -16,7 +16,7 @@ function HeroMainSlide() {
         </div>
       </div>
 
-      <CTA>신청하기</CTA>
+      <RoundButton>신청하기</RoundButton>
     </div>
   );
 }

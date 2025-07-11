@@ -1,4 +1,4 @@
-import CTA from "@/components/common/CTA";
+import RoundButton from "@/components/common/RoundButton";
 
 function HsadSlide() {
   return (
@@ -27,7 +27,7 @@ function HsadSlide() {
         <div className="text-center font-B04-SB text-gray-500 mb-10 sm:mb-[74px] text-base sm:text-lg">
           2025년 HSAD 영 크리에이터스 컴퍼티션
         </div>
-        <CTA>리포트 신청하기</CTA>
+        <RoundButton>리포트 신청하기</RoundButton>
       </div>
     </div>
   );
