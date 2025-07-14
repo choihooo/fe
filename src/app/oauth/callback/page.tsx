@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Loading from "@/components/common/Loading";
 
 export default function OAuthCallbackPage() {
   const router = useRouter();
@@ -12,10 +13,9 @@ export default function OAuthCallbackPage() {
     const refreshToken = searchParams.get("refreshToken");
 
     if (accessToken && refreshToken) {
-      // 토큰 저장
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      // 메인 페이지로 이동
+
       router.replace("/home");
     } else {
       alert("로그인에 실패했습니다.");
@@ -23,5 +23,10 @@ export default function OAuthCallbackPage() {
     }
   }, [router, searchParams]);
 
-  return <div>로그인 처리 중입니다...</div>;
-} 
+  return (
+    <div>
+      로그인 처리 중입니다...
+      <Loading />
+    </div>
+  );
+}
