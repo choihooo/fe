@@ -88,7 +88,7 @@ export function Checkbox({
 
   return (
     <button
-      type="button"
+      role="checkbox"
       className={className}
       aria-checked={checked}
       aria-label={ariaLabel}
