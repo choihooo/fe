@@ -68,14 +68,14 @@ function ContributorSection() {
         제작했습니다.
       </div>
 
-      <div className="mt-10 sm:mt-20 flex flex-col sm:flex-row items-center gap-6 sm:gap-[30px] w-full sm:w-[1200px]">
+      <div className="mt-10 sm:mt-20 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-[30px] w-full sm:w-[1200px]">
         {contributors.map((c, i) => (
           <div
             key={i}
             className="w-full sm:w-[380px] h-[420px] sm:h-[502px] rounded-[16px] sm:rounded-[20px] bg-white shadow-custom-light flex justify-center"
           >
-            <div className="flex flex-col mt-6 sm:mt-9 items-center sm:items-start w-full">
-              <div className="w-[54px] sm:w-[62px] h-7 sm:h-8 py-1 px-2 sm:px-[10px] rounded-[8px] bg-blue-50 flex items-center justify-center min-w-fit w-auto whitespace-nowrap text-center sm:text-left">
+            <div className="flex flex-col mt-6 sm:mt-9 items-center sm:items-center w-full">
+              <div className="w-[54px] sm:w-[62px] h-7 sm:h-8 py-1 px-2 sm:px-[10px] rounded-[8px] bg-blue-50 flex items-center justify-center min-w-fit whitespace-nowrap text-center sm:text-left">
                 <p className="text-blue-main font-B02-M text-xs sm:text-base">
                   {c.name}
                 </p>
@@ -88,15 +88,15 @@ function ContributorSection() {
                 <Image
                   src={c.imageSrc}
                   alt={c.imageAlt}
-                  width={80}
-                  height={90}
+                  width={105}
+                  height={122}
                   className={`absolute left-1/2 -translate-x-1/2 ${
                     c.name === "우준식" ? "bottom-[-11px]" : "bottom-0"
                   }`}
                 />
               </div>
 
-              <div className="mt-6 sm:mt-10 text-gray-300 font-B02-M text-center sm:text-start text-xs sm:text-base w-full">
+              <div className="mt-6 sm:mt-10 text-gray-300 font-B02-M sm:text-base">
                 {c.description}
               </div>
             </div>
