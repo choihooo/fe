@@ -2,7 +2,7 @@ import Image from "next/image";
 
 function CustomFeedbackSection() {
   return (
-    <div className="my-12 sm:my-[120px] flex justify-center items-center flex-col px-4 sm:px-0">
+    <div className="my-12 sm:my-[120px] flex justify-center items-center flex-col px-4">
       <div className="text-center text-blue-main font-T01-SB text-base sm:text-lg">
         맞춤형 피드백
       </div>
@@ -15,18 +15,20 @@ function CustomFeedbackSection() {
 
       <div className="mt-8 sm:mt-[101px] flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-[31px] w-full">
         <Image
-          src="/image/landing/FeedBackRightImg.png"
+          src="/image/landing/FeedbackLeftImg.png"
           alt="맞춤형피드백 왼쪽이미지"
-          width={220}
-          height={180}
-          className="sm:w-[493px] sm:h-[417px] w-[220px] h-[180px]"
+          width={493}
+          height={417}
+          quality={90}
+          className="w-full sm:max-w-[493px] h-auto"
         />
         <Image
-          src="/image/landing/FeedBackLeImg.png"
+          src="/image/landing/FeedbackRImg.png"
           alt="맞춤형피드백 오른쪽이미지"
-          width={220}
-          height={180}
-          className="sm:w-[675px] sm:h-[415px] w-[220px] h-[180px]"
+          width={675}
+          height={415}
+          quality={90}
+          className="w-full sm:max-w-[675px] h-auto"
         />
       </div>
     </div>
