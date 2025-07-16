@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Checkbox } from "@/components/common/Checkbox";
 import { StepLayout } from "../common/StepLayout";
 import { StepNavigation } from "../common/StepNavigation";
+import { agreeToTerms } from "@/app/_apis";
 
 const TERMS = [
   {
@@ -41,6 +42,19 @@ export default function StepTerm({ onNext }: Props) {
 
   const handleAll = (v: boolean) => {
     setChecked({ service: v, privacy: v, marketing: v });
+  };
+
+  const handleNext = async () => {
+    try {
+      await agreeToTerms({
+        isServiceAgreement: checked.service,
+        isUserInfoAgreement: checked.privacy,
+        isMarketingAgreement: checked.marketing,
+      });
+      onNext(checked);
+    } catch {
+      alert("약관 동의에 실패했습니다. 다시 시도해 주세요.");
+    }
   };
 
   return (
@@ -86,10 +100,7 @@ export default function StepTerm({ onNext }: Props) {
           </div>
         ))}
       </div>
-      <StepNavigation
-        onNext={() => onNext(checked)}
-        disabled={!requiredChecked}
-      />
+      <StepNavigation onNext={handleNext} disabled={!requiredChecked} />
     </StepLayout>
   );
 }

@@ -13,16 +13,18 @@ import {
   PurposeEnum,
   RouteEnum,
 } from "./types/schemas";
-import RoleStep from "./components/steps/RoleStep";
-import PurposeStep from "./components/steps/PurposeStep";
-import RouteStep from "./components/steps/RouteStep";
-import TermsStep from "./components/steps/TermsStep";
+import { onboardUser } from "../_apis";
+import {
+  PurposeStep,
+  RoleStep,
+  RouteStep,
+  TermsStep,
+} from "./components/steps";
 
 export default function SignUpFunnelPage() {
   const [context, setContext] = useState<Partial<경로입력>>({});
   const [purposeEtc, setPurposeEtc] = useState<string>("");
   const [routeEtc, setRouteEtc] = useState<string>("");
-  const [terms, setTerms] = useState<{ [key: string]: boolean }>({});
 
   type StepKey = "약관동의" | "역할입력" | "목적입력" | "경로입력";
   type 약관동의타입 = { terms: { [key: string]: boolean } };
@@ -50,8 +52,7 @@ export default function SignUpFunnelPage() {
     case "약관동의":
       return (
         <TermsStep
-          onNext={(checked) => {
-            setTerms(checked);
+          onNext={() => {
             funnel.history.push("역할입력" as StepKey, (prev) => ({ ...prev }));
           }}
         />
@@ -97,20 +98,21 @@ export default function SignUpFunnelPage() {
         <RouteStep
           value={context.route}
           etcValue={routeEtc}
-          onNext={(route, etc) => {
+          onNext={async (route, etc) => {
             setContext((prev) => ({ ...prev, route }));
             setRouteEtc(etc ?? "");
-            alert(
-              "제출 완료! " +
-                JSON.stringify({
-                  roles: context.roles!,
-                  purpose: context.purpose!,
-                  purposeEtc,
-                  route,
-                  routeEtc: etc,
-                  terms,
-                })
-            );
+            try {
+              await onboardUser({
+                role: context.roles!,
+                purpose: context.purpose!,
+                purposeEtc,
+                channel: route,
+                channelEtc: etc,
+              });
+              window.location.href = "/home";
+            } catch {
+              alert("온보딩에 실패했습니다. 다시 시도해 주세요.");
+            }
           }}
           onPrev={() => {
             funnel.history.back();
