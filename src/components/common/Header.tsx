@@ -203,7 +203,7 @@ function Header({ theme }: HeaderProps) {
             ) : (
               <Link
                 href="/login"
-                className="py-3 text-lg font-B02-SB"
+                className="py-3 text-lg font-B02-SB text-gray-700"
                 aria-label="로그인"
                 onClick={() => setMenuOpen(false)}
               >

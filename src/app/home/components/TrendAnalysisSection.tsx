@@ -2,8 +2,8 @@ import Image from "next/image";
 
 function TrendAnalysisSection() {
   return (
-    <div className="flex flex-col sm:flex-row px-4 sm:pl-[120px] sm:pr-0 py-12 sm:py-0 items-center w-full">
-      <div className="flex-1 pt-6 sm:pt-[162px] w-full">
+    <div className="flex flex-col sm:flex-row px-4 sm:pl-[120px] sm:pr-0 py-12 sm:py-0 items-center w-full bg-[#F5F5F5]">
+      <div className="flex-1 pt-6 w-full ">
         <div className="font-T01-SB text-blue-main text-base sm:text-lg text-center sm:text-left">
           트렌드 분석
         </div>
@@ -18,11 +18,11 @@ function TrendAnalysisSection() {
       <div className="flex-1 py-8 sm:py-[103px] w-full flex justify-center items-center">
         <Image
           src="/image/landing/TrendAnalysis.png"
-          width={220}
-          height={120}
-          style={{ objectFit: "contain" }}
+          width={852}
+          height={455}
           alt="트렌드 분석 예시"
-          className="sm:w-[851.79px] sm:h-[455px] w-[220px] h-[120px]"
+          quality={90}
+          className="w-full h-auto"
         />
       </div>
     </div>
