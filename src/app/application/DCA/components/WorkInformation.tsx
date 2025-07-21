@@ -39,7 +39,10 @@ const WorkInformation = () => {
 
   return (
     <div className="w-full px-[325px] mt-[134px]">
-      <div className=" text-gray-900 font-T02-B"> 작품 정보</div>
+      <div className=" text-gray-900 font-T02-B">
+        {" "}
+        작품 정보 <span className="text-blue-main">*</span>
+      </div>
 
       <div className="mt-[50px] flex flex-col gap-[10px]">
         <div className="text-gray-800 font-B01-M"> 작품 제목 </div>
