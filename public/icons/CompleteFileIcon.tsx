@@ -13,20 +13,20 @@ const CompleteFileIcon = () => {
       <path
         d="M4.75391 5.15039H16.6407"
         stroke="#FAFAFA"
-        stroke-width="1.2"
-        stroke-linecap="round"
+        strokeWidth="1.2"
+        strokeLinecap="round"
       />
       <path
         d="M4.75391 8.32031H16.6407"
         stroke="#FAFAFA"
-        stroke-width="1.2"
-        stroke-linecap="round"
+        strokeWidth="1.2"
+        strokeLinecap="round"
       />
       <path
         d="M4.75391 11.4902H13.0747"
         stroke="#FAFAFA"
-        stroke-width="1.2"
-        stroke-linecap="round"
+        strokeWidth="1.2"
+        strokeLinecap="round"
       />
     </svg>
   );

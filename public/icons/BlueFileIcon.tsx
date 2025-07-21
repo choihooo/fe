@@ -13,28 +13,28 @@ const BlueFileIcon = () => {
       <path
         d="M12 13H42"
         stroke="#9BBAFF"
-        stroke-width="2.6"
-        stroke-linecap="round"
+        strokeWidth="2.6"
+        strokeLinecap="round"
       />
       <path
         d="M12 21H42"
         stroke="#9BBAFF"
-        stroke-width="2.6"
-        stroke-linecap="round"
+        strokeWidth="2.6"
+        strokeLinecap="round"
       />
       <path
         d="M12 29H33"
         stroke="#9BBAFF"
-        stroke-width="2.6"
-        stroke-linecap="round"
+        strokeWidth="2.6"
+        strokeLinecap="round"
       />
       <circle cx="53" cy="56" r="11" fill="#256AFF" />
       <path
         d="M53 51V60.5M53 51L49 55.1M53 51L57 55.1"
         stroke="#FAFAFA"
-        stroke-width="1.4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
