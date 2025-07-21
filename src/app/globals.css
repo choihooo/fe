@@ -33,7 +33,7 @@
   --color-orange-point: #ff5640;
   --color-orange-600: #e84e3a;
 
-  --color-white: #fafafa;
+  --color-white: #ffffff;
   --color-black: #0e0e0e;
 
   --color-gray-100: #ececee;
@@ -217,5 +217,10 @@
   .shadow-custom-3 {
     box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.05),
       4px 0px 32px rgba(0, 0, 0, 0.05);
+  }
+
+  .hover\:shadow-3:hover {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+      4px 0px 32px 0px rgba(0, 0, 0, 0.05), 0px 4px 32px 0px rgba(0, 0, 0, 0.05);
   }
 }

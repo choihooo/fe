@@ -20,8 +20,8 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { id: "home", label: "홈", href: "/" },
-  { id: "apply", label: "신청하기", href: "/apply" },
+  { id: "home", label: "홈", href: "/home" },
+  { id: "application", label: "신청하기", href: "/application" },
   { id: "report", label: "내 리포트", href: "/report" },
 ];
 
