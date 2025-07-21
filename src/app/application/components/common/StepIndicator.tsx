@@ -15,7 +15,6 @@ export function StepIndicator({ stepNumber, totalSteps }: StepIndicatorProps) {
         const isLast = i === totalSteps - 1;
         return (
           <React.Fragment key={i}>
-            {/* Step Circle */}
             <div
               className={`flex items-center justify-center rounded-full font-C01-M transition-all select-none
                 ${
@@ -26,7 +25,7 @@ export function StepIndicator({ stepNumber, totalSteps }: StepIndicatorProps) {
             >
               {i + 1}
             </div>
-            {/* Dashed Line (except after last step) */}
+
             {!isLast && (
               <div
                 className="mx-2 flex items-center"

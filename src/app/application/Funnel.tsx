@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFunnel } from "@use-funnel/browser";
 import { ContestSelectionStep } from "./components/steps/ContestSelectionStep";
 import { Step1, Step2, Step3 } from "./components/steps";
 
 export default function ApplicationFunnel() {
+  const [mounted, setMounted] = useState(false);
   type StepKey = "contest-select" | "step1" | "step2" | "step3";
 
   const funnel = useFunnel<{
@@ -27,6 +28,11 @@ export default function ApplicationFunnel() {
     },
   });
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  if (!mounted) return null;
+  
   switch (funnel.step) {
     case "contest-select":
       return (

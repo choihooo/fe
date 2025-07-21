@@ -1,39 +1,23 @@
 import React from "react";
 import GrayButton from "@/components/common/GrayButton";
+import { NextButton } from "@/components/common/ButtonBase";
 
 type StepNavigationProps = {
   onNext: () => void;
   onPrev?: () => void;
-  disabled?: boolean;
-  nextButtonText?: string;
 };
 
-export function StepNavigation({ 
-  onNext, 
-  onPrev, 
-  disabled = false,
-  nextButtonText = "다음"
-}: StepNavigationProps) {
+export function StepNavigation({ onNext, onPrev }: StepNavigationProps) {
   return (
-    <div className="flex w-full justify-end mt-8">
+    <div className="flex w-full justify-center items-center mt-8">
       {onPrev && (
         <GrayButton
           label="이전"
-          className="w-[88px] mr-[15px]"
+          className="w-[88px] mr-[20px]"
           onClick={onPrev}
         />
       )}
-      <button
-        className={`px-6 py-2 rounded-lg font-semibold shadow ${
-          disabled 
-            ? "bg-gray-300 text-gray-500 cursor-not-allowed" 
-            : "bg-blue-500 text-white hover:bg-blue-600"
-        }`}
-        onClick={onNext}
-        disabled={disabled}
-      >
-        {nextButtonText}
-      </button>
+      <NextButton size="S" onClick={onNext} />
     </div>
   );
-} 
+}

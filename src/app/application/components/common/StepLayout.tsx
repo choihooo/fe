@@ -24,7 +24,7 @@ export function StepLayout({
         <StepIndicator stepNumber={stepNumber} totalSteps={totalSteps} />
       )}
       <div
-        className={`bg-white rounded-[20px] shadow-lg p-[36px] ${width} mx-auto flex flex-col gap-[36px] items-center`}
+        className={`bg-white rounded-[20px] shadow-2 p-[36px] ${width} mx-auto flex flex-col gap-[36px] items-center`}
       >
         {children}
         <div className="w-full">
