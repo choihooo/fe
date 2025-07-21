@@ -108,7 +108,7 @@ const TeamInformation = () => {
         </div>
       </div>
 
-      <div className="mt-11 space-y-11">
+      <div className="mt-[14px] space-y-[14px]">
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-row w-full gap-5">
             <div className="flex flex-col gap-[10px]">
@@ -160,7 +160,7 @@ const TeamInformation = () => {
         className="flex px-[22px] py-3 justify-center items-center gap-[10px] rounded-[10px] bg-gray-100 mt-[56px] cursor-pointer hover:bg-gray-200"
       >
         <PlusIcon />
-        <span className="text-gray-700 font-B02-SB"> 팀원 추가 </span>
+        <span className="text-gray-700 font-B02-SB"> 참여자 추가 </span>
       </button>
     </div>
   );
