@@ -9,3 +9,5 @@ export { default as Google } from "./icons/GoogleIcon";
 export { default as Naver } from "./icons/NaverIcon";
 export { default as CommentIcon } from "./icons/CommentIcon";
 export { default as CloseIcon } from "./icons/CloseIcon";
+export { default as DeleteIcon } from "./icons/DeleteIcon";
+export { default as PlusIcon } from "./icons/PlusIcon";
