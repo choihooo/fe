@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFunnel } from "@use-funnel/browser";
 
 import {
@@ -19,18 +19,21 @@ import {
   RoleStep,
   RouteStep,
   TermsStep,
+  NameStep,
 } from "./components/steps";
 
 export default function SignUpFunnelPage() {
   const [context, setContext] = useState<Partial<경로입력>>({});
   const [purposeEtc, setPurposeEtc] = useState<string>("");
   const [routeEtc, setRouteEtc] = useState<string>("");
+  const [isMounted, setIsMounted] = useState(false);
 
-  type StepKey = "약관동의" | "역할입력" | "목적입력" | "경로입력";
+  type StepKey = "약관동의" | "이름입력" | "역할입력" | "목적입력" | "경로입력";
   type 약관동의타입 = { terms: { [key: string]: boolean } };
 
   const funnel = useFunnel<{
     약관동의: Partial<약관동의타입 & 역할입력 & 목적입력 & 경로입력>;
+    이름입력: Partial<약관동의타입 & 역할입력 & 목적입력 & 경로입력>;
     역할입력: Partial<약관동의타입 & 역할입력 & 목적입력 & 경로입력>;
     목적입력: Partial<약관동의타입 & 역할입력 & 목적입력 & 경로입력>;
     경로입력: Partial<약관동의타입 & 역할입력 & 목적입력 & 경로입력>;
@@ -38,6 +41,7 @@ export default function SignUpFunnelPage() {
     id: "sign-up-funnel",
     steps: {
       약관동의: { parse: (v: unknown) => v as 약관동의타입 },
+      이름입력: { parse: (v: any) => v },
       역할입력: { parse: 역할입력_Schema.parse },
       목적입력: { parse: 목적입력_Schema.parse },
       경로입력: { parse: 경로입력_Schema.parse },
@@ -47,13 +51,29 @@ export default function SignUpFunnelPage() {
       context: { terms: {} },
     },
   });
-
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  if (!isMounted) return null;
   switch (funnel.step) {
     case "약관동의":
       return (
         <TermsStep
           onNext={() => {
-            funnel.history.push("역할입력" as StepKey, (prev) => ({ ...prev }));
+            funnel.history.push("이름입력" as StepKey, (prev) => ({ ...prev }));
+          }}
+        />
+      );
+    case "이름입력":
+      return (
+        <NameStep
+          value={context.name ?? ""}
+          onNext={(name: string) => {
+            setContext((prev) => ({ ...prev, name }));
+            funnel.history.push("역할입력" as StepKey, (prev) => ({
+              ...prev,
+              name,
+            }));
           }}
         />
       );
@@ -62,7 +82,7 @@ export default function SignUpFunnelPage() {
         <RoleStep
           value={context.roles ?? []}
           onNext={(roles) => {
-            setContext({ roles });
+            setContext((prev) => ({ ...prev, roles }));
             setPurposeEtc("");
             funnel.history.push("목적입력" as StepKey, (prev) => ({
               ...prev,
@@ -70,6 +90,7 @@ export default function SignUpFunnelPage() {
               purpose: PurposeEnum.Enum.CURRENT_ANALYSIS,
             }));
           }}
+          onPrev={() => funnel.history.back()}
         />
       );
     case "목적입력":
@@ -103,6 +124,7 @@ export default function SignUpFunnelPage() {
             setRouteEtc(etc ?? "");
             try {
               await onboardUser({
+                name: context.name!,
                 role: context.roles!,
                 purpose: context.purpose!,
                 purposeEtc,

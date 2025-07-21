@@ -20,6 +20,7 @@ export const PurposeEnum = z.enum([
 export const RouteEnum = z.enum(["INSTA", "SEARCH", "FRIEND", "ETC"]);
 
 export const 역할입력_Schema = z.object({
+  name: z.string().min(1, "이름을 입력해 주세요.").max(20, "이름은 20자 이하로 입력해 주세요."), // 이름 필드 추가
   roles: z.array(RoleEnum).min(1).optional(),
   purpose: PurposeEnum.optional(),
   route: RouteEnum.optional(),
