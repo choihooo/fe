@@ -32,8 +32,6 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
 
   const isDisabled = !(isDcaValid || isYccValid);
 
-  console.log(yccWorkInfoFilled, yccTeamInfoFilled, yccBriefUploaded);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);

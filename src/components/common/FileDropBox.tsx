@@ -93,7 +93,7 @@ const FileDropBox = ({
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
       >
-        <div className="flex flex-col items-center justify-center gap-3 pointer-events-none">
+        <div className="flex flex-col items-center justify-center gap-3 ">
           {isDragging ? <BlueFileIcon /> : <FileIcon />}
           <div className="mt-[27px] text-gray-500 font-B01-M text-center">
             {placeholder}
