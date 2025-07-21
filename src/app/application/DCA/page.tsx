@@ -1,6 +1,8 @@
 import React from "react";
 import WorkInformation from "./components/WorkInformation";
 import TeamInformation from "./components/TeamInformation";
+import BriefBoard from "./components/BriefBoard";
+import PlanPart from "./components/PlanPart";
 
 const page = () => {
   return (
@@ -11,6 +13,8 @@ const page = () => {
 
       <WorkInformation />
       <TeamInformation />
+      <BriefBoard />
+      <PlanPart />
     </div>
   );
 };
