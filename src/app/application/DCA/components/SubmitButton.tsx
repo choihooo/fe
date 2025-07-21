@@ -14,9 +14,11 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
     workInfoFilled,
     teamInfoFilled,
     briefUploaded,
+    briefFile,
     yccWorkInfoFilled,
     yccTeamInfoFilled,
     yccBriefUploaded,
+    yccBriefFile,
   } = useSubmitStore();
 
   const isDcaValid =
@@ -30,6 +32,8 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
 
   const isDisabled = !(isDcaValid || isYccValid);
 
+  console.log(yccWorkInfoFilled, yccTeamInfoFilled, yccBriefUploaded);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
@@ -41,11 +45,24 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
   };
 
   const handleConfirm = () => {
+    if (mode === "dca") {
+      if (!briefFile) {
+        alert("브리프보드 파일이 없습니다.");
+        return;
+      }
+    }
+
+    if (mode === "ycc") {
+      if (!yccBriefFile) {
+        alert("기획서 파일이 없습니다.");
+        return;
+      }
+    }
+
     setIsModalOpen(false);
     setIsCompleteModalOpen(true);
     console.log("제출완료");
   };
-
   const handleCompleteClose = () => {
     setIsCompleteModalOpen(false);
   };

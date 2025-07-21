@@ -35,7 +35,7 @@ const WorkInformation = () => {
     const isAllFilled =
       title.trim() && category.trim() && brand.trim() && serial.trim();
     setWorkInfoFilled(!!isAllFilled);
-  }, [title, category, brand, serial]);
+  }, [title, category, brand, serial, setWorkInfoFilled]);
 
   return (
     <div className="w-full px-[325px] mt-[134px]">

@@ -11,7 +11,7 @@ const YCCWorkInfo = () => {
 
   useEffect(() => {
     setYccWorkInfoFilled(title.trim().length > 0);
-  }, [title]);
+  }, [title, setYccWorkInfoFilled]);
 
   return (
     <div className="w-full px-[325px] mt-[134px]">

@@ -5,10 +5,10 @@ import FileDropBox from "@/components/common/FileDropBox";
 
 const BriefBoard = () => {
   const setBriefUploaded = useSubmitStore((s) => s.setBriefUploaded);
-  const [file, setFile] = useState<File | null>(null);
+  const setBriefFile = useSubmitStore((s) => s.setBriefFile);
 
   const handleFileChange = (uploadedFile: File | null) => {
-    setFile(uploadedFile);
+    setBriefFile(uploadedFile);
     setBriefUploaded(!!uploadedFile);
   };
 

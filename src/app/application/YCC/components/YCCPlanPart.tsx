@@ -4,13 +4,11 @@ import FileDropBox from "@/components/common/FileDropBox";
 import { useSubmitStore } from "@/store/useSubmitStore";
 
 const YCCPlanPart = () => {
-  const [file, setFile] = useState<File | null>(null);
-  const setYccBriefUploaded = useSubmitStore(
-    (state) => state.setYccBriefUploaded
-  );
+  const setYccBriefUploaded = useSubmitStore((s) => s.setYccBriefUploaded);
+  const setYccBriefFile = useSubmitStore((s) => s.setYccBriefFile);
 
   const handleFileChange = (uploadedFile: File | null) => {
-    setFile(uploadedFile);
+    setYccBriefFile(uploadedFile);
     setYccBriefUploaded(!!uploadedFile);
   };
 

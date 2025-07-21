@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
   BlueFileIcon,
   CompleteFileIcon,
@@ -23,8 +23,6 @@ const FileDropBox = ({
   description,
   placeholder,
   onFileChange,
-  required = false,
-  errorMessage,
 }: FileDropBoxProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);

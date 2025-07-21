@@ -41,7 +41,14 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
     } else if (mode === "ycc") {
       setYccTeamInfoFilled(isValid);
     }
-  }, [applicantName, applicantEmail, teamMembers, mode]);
+  }, [
+    applicantName,
+    applicantEmail,
+    teamMembers,
+    mode,
+    setTeamInfoFilled,
+    setYccTeamInfoFilled,
+  ]);
 
   const handleAddMember = () => {
     setTeamMembers((prev) => [...prev, { name: "", email: "" }]);

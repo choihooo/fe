@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import FileDropBox from "@/components/common/FileDropBox";
+import { useSubmitStore } from "@/store/useSubmitStore";
 
 const PlanPart = () => {
-  const [file, setFile] = useState<File | null>(null);
+  const setPlanFile = useSubmitStore((s) => s.setPlanFile);
 
   const handleFileChange = (uploadedFile: File | null) => {
-    setFile(uploadedFile);
+    setPlanFile(uploadedFile);
   };
 
   return (
