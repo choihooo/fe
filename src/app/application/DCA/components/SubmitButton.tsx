@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ButtonBase from "@/components/common/ButtonBase";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import ConfirmModal from "@/components/common/ConfirmModal";
+import ApplyComfirmModal from "@/components/common/ApplyCompleteModal";
 
 interface SubmitButtonProps {
   mode: "dca" | "ycc";
@@ -29,7 +30,8 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
 
   const isDisabled = !(isDcaValid || isYccValid);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // ConfirmModal
+  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false); // ✅ SuccessModal
 
   const handleSubmitClick = () => {
     if (!isDisabled) {
@@ -39,8 +41,12 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
 
   const handleConfirm = () => {
     setIsModalOpen(false);
+    setIsCompleteModalOpen(true);
+    console.log("제출완료");
+  };
 
-    console.log("제출 완료");
+  const handleCompleteClose = () => {
+    setIsCompleteModalOpen(false);
   };
 
   return (
@@ -62,6 +68,11 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
         description="신청 후에는 작품을 변경할 수 없습니다."
         cancelText="취소"
         confirmText="신청하기"
+      />
+
+      <ApplyComfirmModal
+        isOpen={isCompleteModalOpen}
+        onClose={handleCompleteClose}
       />
     </>
   );

@@ -15,3 +15,4 @@ export { default as FileIcon } from "./icons/FileIcon";
 export { default as DropDownIcon } from "./icons/DropDown";
 export { default as BlueFileIcon } from "./icons/BlueFileIcon";
 export { default as CompleteFileIcon } from "./icons/CompleteFileIcon";
+export { default as CheckIcon } from "./icons/CheckIcon";
