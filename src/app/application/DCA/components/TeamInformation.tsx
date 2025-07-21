@@ -9,6 +9,9 @@ interface TeamMember {
   email: string;
 }
 
+const isValidEmail = (email: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
 const TeamInformation = () => {
   const setTeamInfoFilled = useSubmitStore((s) => s.setTeamInfoFilled);
   const [applicantName, setApplicantName] = useState("");
@@ -16,6 +19,9 @@ const TeamInformation = () => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([
     { name: "", email: "" },
   ]);
+  const [emailErrors, setEmailErrors] = useState<{ [key: string]: boolean }>(
+    {}
+  );
 
   useEffect(() => {
     const isApplicantFilled = applicantName.trim() && applicantEmail.trim();
@@ -38,10 +44,25 @@ const TeamInformation = () => {
     const updated = [...teamMembers];
     updated[index][field] = value;
     setTeamMembers(updated);
+
+    if (field === "email") {
+      setEmailErrors((prev) => ({
+        ...prev,
+        [`member-${index}`]: value ? !isValidEmail(value) : false,
+      }));
+    }
   };
 
   const handleRemoveMember = (index: number) => {
     setTeamMembers((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleApplicantEmailChange = (value: string) => {
+    setApplicantEmail(value);
+    setEmailErrors((prev) => ({
+      ...prev,
+      applicant: value ? !isValidEmail(value) : false,
+    }));
   };
 
   return (
@@ -71,9 +92,18 @@ const TeamInformation = () => {
             <TextInput
               placeholder="이메일을 입력하세요"
               value={applicantEmail}
-              onChange={(e) => setApplicantEmail(e.target.value)}
+              onChange={(e) => handleApplicantEmailChange(e.target.value)}
               className="w-[486px]"
+              error={emailErrors.applicant}
             />
+
+            <div className="h-[20px]">
+              {emailErrors.applicant && (
+                <div className="text-orange-point font-C01-R">
+                  올바른 이메일 주소를 입력해주세요.
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -103,6 +133,7 @@ const TeamInformation = () => {
                     handleMemberChange(index, "email", e.target.value)
                   }
                   className="w-[486px]"
+                  error={emailErrors[`member-${index}`]}
                 />
                 <button
                   type="button"
@@ -111,6 +142,13 @@ const TeamInformation = () => {
                 >
                   <DeleteIcon />
                 </button>
+              </div>
+              <div className="h-[20px]">
+                {emailErrors[`member-${index}`] && (
+                  <div className="text-orange-point font-C01-R">
+                    올바른 이메일 주소를 입력해주세요.
+                  </div>
+                )}
               </div>
             </div>
           </div>
