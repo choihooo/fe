@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { FileIcon } from "../../../../../public";
+import { BlueFileIcon, FileIcon } from "../../../../../public";
 import { useSubmitStore } from "@/store/useSubmitStore";
 
 const BriefBoard = () => {
@@ -40,7 +40,9 @@ const BriefBoard = () => {
 
       <div
         className={`flex items-center justify-center w-full h-[314px] border-2 border-dashed rounded-[10px] cursor-pointer transition-colors ${
-          isDragOver ? "border-blue-400 bg-blue-50" : "border-gray-200 bg-white"
+          isDragOver
+            ? "border-blue-main bg-blue-50"
+            : "border-gray-200 bg-white"
         }`}
         onClick={() => inputRef.current?.click()}
         onDrop={handleDrop}
@@ -48,7 +50,8 @@ const BriefBoard = () => {
         onDragLeave={handleDragLeave}
       >
         <div className="flex flex-col items-center justify-center gap-3">
-          <FileIcon />
+          {isDragOver ? <BlueFileIcon /> : <FileIcon />}
+
           {file ? (
             <div className="mt-[27px] text-gray-600 font-B01-M">
               {file.name}
