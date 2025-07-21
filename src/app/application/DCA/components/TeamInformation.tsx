@@ -9,11 +9,17 @@ interface TeamMember {
   email: string;
 }
 
+interface TeamInformationProps {
+  mode: "dca" | "ycc";
+}
+
 const isValidEmail = (email: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-const TeamInformation = () => {
+const TeamInformation = ({ mode }: TeamInformationProps) => {
   const setTeamInfoFilled = useSubmitStore((s) => s.setTeamInfoFilled);
+  const setYccTeamInfoFilled = useSubmitStore((s) => s.setYccTeamInfoFilled);
+
   const [applicantName, setApplicantName] = useState("");
   const [applicantEmail, setApplicantEmail] = useState("");
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([
@@ -28,9 +34,14 @@ const TeamInformation = () => {
     const areMembersFilled = teamMembers.every(
       (m) => m.name.trim() && m.email.trim()
     );
+    const isValid = !!isApplicantFilled && !!areMembersFilled;
 
-    setTeamInfoFilled(!!isApplicantFilled && !!areMembersFilled);
-  }, [applicantName, applicantEmail, teamMembers]);
+    if (mode === "dca") {
+      setTeamInfoFilled(isValid);
+    } else if (mode === "ycc") {
+      setYccTeamInfoFilled(isValid);
+    }
+  }, [applicantName, applicantEmail, teamMembers, mode]);
 
   const handleAddMember = () => {
     setTeamMembers((prev) => [...prev, { name: "", email: "" }]);

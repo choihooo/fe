@@ -15,11 +15,11 @@ const page = () => {
       </div>
 
       <WorkInformation />
-      <TeamInformation />
+      <TeamInformation mode="dca" />
       <BriefBoard />
       <PlanPart />
       <VideoLink />
-      <SubmitButton />
+      <SubmitButton mode="dca" />
       <Footer />
     </div>
   );

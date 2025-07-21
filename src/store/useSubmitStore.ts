@@ -7,6 +7,14 @@ interface SubmitStoreProps {
   setWorkInfoFilled: (v: boolean) => void;
   setTeamInfoFilled: (v: boolean) => void;
   setBriefUploaded: (v: boolean) => void;
+
+  // YCC
+  yccWorkInfoFilled: boolean;
+  yccTeamInfoFilled: boolean;
+  yccBriefUploaded: boolean;
+  setYccWorkInfoFilled: (v: boolean) => void;
+  setYccTeamInfoFilled: (v: boolean) => void;
+  setYccBriefUploaded: (v: boolean) => void;
 }
 
 export const useSubmitStore = create<SubmitStoreProps>((set) => ({
@@ -16,4 +24,12 @@ export const useSubmitStore = create<SubmitStoreProps>((set) => ({
   setWorkInfoFilled: (v) => set({ workInfoFilled: v }),
   setTeamInfoFilled: (v) => set({ teamInfoFilled: v }),
   setBriefUploaded: (v) => set({ briefUploaded: v }),
+
+  // YCC
+  yccWorkInfoFilled: false,
+  yccTeamInfoFilled: false,
+  yccBriefUploaded: false,
+  setYccWorkInfoFilled: (v) => set({ yccWorkInfoFilled: v }),
+  setYccTeamInfoFilled: (v) => set({ yccTeamInfoFilled: v }),
+  setYccBriefUploaded: (v) => set({ yccBriefUploaded: v }),
 }));
