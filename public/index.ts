@@ -12,3 +12,4 @@ export { default as CloseIcon } from "./icons/CloseIcon";
 export { default as DeleteIcon } from "./icons/DeleteIcon";
 export { default as PlusIcon } from "./icons/PlusIcon";
 export { default as FileIcon } from "./icons/FileIcon";
+export { default as DropDownIcon } from "./icons/DropDown";

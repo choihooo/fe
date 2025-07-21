@@ -2,6 +2,27 @@
 import TextInput from "@/components/common/TextInput";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import React, { useEffect, useState } from "react";
+import DropDownInput from "@/components/common/DropDownInput";
+
+const CATEGORY_OPTIONS = [
+  "Visual",
+  "Flim",
+  "Digital Contents",
+  "Experience",
+  "Outdoor Activation",
+];
+
+const BRAND_OPTIONS = [
+  "빼빼로",
+  "탐스",
+  "크러시",
+  "에어리즘",
+  "롯데월드",
+  "롯데자이언츠",
+  "롯데리아",
+  "넥센타이어",
+  "SBI 저축은행 사이다뱅크",
+];
 
 const WorkInformation = () => {
   const [title, setTitle] = useState("");
@@ -33,21 +54,21 @@ const WorkInformation = () => {
       <div className="flex flex-row gap-[30px] mt-11 w-full">
         <div className="flex flex-col gap-[10px] w-full">
           <div className="text-gray-800 font-B01-M"> 카테고리 </div>
-          <TextInput
-            placeholder="출품 카테고리를 선택하세요."
+          <DropDownInput
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full"
+            onChange={setCategory}
+            placeholder="출품 카테고리를 선택하세요."
+            options={CATEGORY_OPTIONS}
           />
         </div>
 
         <div className="flex flex-col gap-[10px] w-full">
           <div className="text-gray-800 font-B01-M"> 브랜드 </div>
-          <TextInput
-            placeholder="출품 브랜드를 선택하세요."
+          <DropDownInput
             value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-            className="w-full"
+            onChange={setBrand}
+            placeholder="출품 브랜드를 선택하세요."
+            options={BRAND_OPTIONS}
           />
         </div>
       </div>
