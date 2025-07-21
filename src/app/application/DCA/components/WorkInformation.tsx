@@ -1,0 +1,61 @@
+"use client";
+import TextInput from "@/components/common/TextInput";
+import React, { useState } from "react";
+
+const WorkInformation = () => {
+  const [title, setTitle] = useState("");
+  return (
+    <div className="w-full px-[325px] mt-[134px]">
+      <div className=" text-gray-900 font-T02-B"> 작품 정보</div>
+
+      <div className="mt-[50px] flex flex-col gap-[10px]">
+        <div className="text-gray-800 font-B01-M"> 작품 제목 </div>
+        <TextInput
+          placeholder="작품의 제목을 입력하세요."
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full"
+        />
+      </div>
+
+      <div className="flex flex-row gap-[30px] mt-11 w-full">
+        <div className="flex flex-col gap-[10px] w-full">
+          <div className="text-gray-800 font-B01-M"> 카테고리 </div>
+          <TextInput
+            placeholder="출품 카테고리를 선택하세요."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full"
+          />
+        </div>
+
+        <div className="flex flex-col gap-[10px] w-full">
+          <div className="text-gray-800 font-B01-M"> 브랜드 </div>
+          <TextInput
+            placeholder="출품 브랜드를 선택하세요."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full"
+          />
+        </div>
+      </div>
+
+      <div className="mt-11 flex flex-col gap-[10px] w-full">
+        <div className="text-gray-800 font-B01-M"> 작품 접수번호 </div>
+        <div className="relative w-full">
+          <span className="absolute left-[18px] top-1/2 -translate-y-1/2 text-gray-900">
+            P-
+          </span>
+          <TextInput
+            placeholder="작품의 접수번호를 입력하세요."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="pl-[40px]  w-full"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default WorkInformation;
