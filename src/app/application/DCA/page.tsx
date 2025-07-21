@@ -3,6 +3,9 @@ import WorkInformation from "./components/WorkInformation";
 import TeamInformation from "./components/TeamInformation";
 import BriefBoard from "./components/BriefBoard";
 import PlanPart from "./components/PlanPart";
+import VideoLink from "./components/VideoLink";
+import SubmitButton from "./components/SubmitButton";
+import Footer from "@/app/home/components/Footer";
 
 const page = () => {
   return (
@@ -15,6 +18,9 @@ const page = () => {
       <TeamInformation />
       <BriefBoard />
       <PlanPart />
+      <VideoLink />
+      <SubmitButton />
+      <Footer />
     </div>
   );
 };

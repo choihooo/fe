@@ -15,7 +15,7 @@ const PlanPart = () => {
           <div className="mt-[27px] text-gray-500 font-B01-M">
             마우스로 파일을 끌어서 넣을 수 있어요
           </div>
-          <div className="mt-[5px] text-gray-300 font-C01-M">
+          <div className="text-gray-300 font-C01-M">
             10mb 이내의 PPT, PDF 파일
           </div>
         </div>

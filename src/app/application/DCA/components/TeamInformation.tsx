@@ -1,7 +1,7 @@
 "use client";
-import GrayButton from "@/components/common/GrayButton";
 import TextInput from "@/components/common/TextInput";
-import React, { useState } from "react";
+import { useSubmitStore } from "@/store/useSubmitStore";
+import React, { useEffect, useState } from "react";
 import { DeleteIcon, PlusIcon } from "../../../../../public";
 
 interface TeamMember {
@@ -10,12 +10,21 @@ interface TeamMember {
 }
 
 const TeamInformation = () => {
+  const setTeamInfoFilled = useSubmitStore((s) => s.setTeamInfoFilled);
   const [applicantName, setApplicantName] = useState("");
   const [applicantEmail, setApplicantEmail] = useState("");
-
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([
     { name: "", email: "" },
   ]);
+
+  useEffect(() => {
+    const isApplicantFilled = applicantName.trim() && applicantEmail.trim();
+    const areMembersFilled = teamMembers.every(
+      (m) => m.name.trim() && m.email.trim()
+    );
+
+    setTeamInfoFilled(!!isApplicantFilled && !!areMembersFilled);
+  }, [applicantName, applicantEmail, teamMembers]);
 
   const handleAddMember = () => {
     setTeamMembers((prev) => [...prev, { name: "", email: "" }]);

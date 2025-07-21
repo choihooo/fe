@@ -1,9 +1,21 @@
 "use client";
 import TextInput from "@/components/common/TextInput";
-import React, { useState } from "react";
+import { useSubmitStore } from "@/store/useSubmitStore";
+import React, { useEffect, useState } from "react";
 
 const WorkInformation = () => {
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [brand, setBrand] = useState("");
+  const [serial, setSerial] = useState("");
+  const setWorkInfoFilled = useSubmitStore((s) => s.setWorkInfoFilled);
+
+  useEffect(() => {
+    const isAllFilled =
+      title.trim() && category.trim() && brand.trim() && serial.trim();
+    setWorkInfoFilled(!!isAllFilled);
+  }, [title, category, brand, serial]);
+
   return (
     <div className="w-full px-[325px] mt-[134px]">
       <div className=" text-gray-900 font-T02-B"> 작품 정보</div>
@@ -23,8 +35,8 @@ const WorkInformation = () => {
           <div className="text-gray-800 font-B01-M"> 카테고리 </div>
           <TextInput
             placeholder="출품 카테고리를 선택하세요."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
             className="w-full"
           />
         </div>
@@ -33,8 +45,8 @@ const WorkInformation = () => {
           <div className="text-gray-800 font-B01-M"> 브랜드 </div>
           <TextInput
             placeholder="출품 브랜드를 선택하세요."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
             className="w-full"
           />
         </div>
@@ -48,9 +60,9 @@ const WorkInformation = () => {
           </span>
           <TextInput
             placeholder="작품의 접수번호를 입력하세요."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="pl-[40px]  w-full"
+            value={serial}
+            onChange={(e) => setSerial(e.target.value)}
+            className="pl-[40px] w-full"
           />
         </div>
       </div>

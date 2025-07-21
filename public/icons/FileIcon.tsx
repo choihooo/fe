@@ -34,7 +34,7 @@ const FileIcon = () => {
         stroke="#FAFAFA"
         strokeWidth="1.4"
         strokeLinecap="round"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
