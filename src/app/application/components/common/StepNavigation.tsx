@@ -17,7 +17,7 @@ export function StepNavigation({ onNext, onPrev }: StepNavigationProps) {
           onClick={onPrev}
         />
       )}
-      <NextButton size="S" onClick={onNext} />
+      <NextButton className="w-[100px]" size="S" onClick={onNext} />
     </div>
   );
 }
