@@ -1,8 +1,7 @@
 import React from "react";
 import DivisionLine from "./DivisionLine";
 import { SettingsLinkItem } from "./SettingItem";
-import DarkIconChevronRight from "../../../../public/icons/DarkIconChevronRight";
-import UserProfile from "./UserProfile";
+import UserProfileContainer from "./UserProfileContainer";
 import LogoutIcon from "../../../../public/icons/LogoutIcon";
 import GrayIconChevronRight from "../../../../public/icons/GrayIconChevronRight";
 import CornerIcon from "../../../../public/icons/CornerIcon";
@@ -10,7 +9,7 @@ import CornerIcon from "../../../../public/icons/CornerIcon";
 function UserProfilePanel() {
   return (
     <div className="bg-white px-[42px] py-[54px] w-[571px] rounded-[20px]">
-      <UserProfile />
+      <UserProfileContainer />
       <DivisionLine marginTop={28} marginBottom={24} />
       <SettingsLinkItem
         label={<div className="font-B01-M text-gray-950 pl-1">문의사항</div>}

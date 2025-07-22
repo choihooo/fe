@@ -25,3 +25,16 @@ export interface AgreementResponse {
   message: string;
   result: string;
 }
+
+export interface UserProfile {
+  name: string;
+  email: string;
+  profileImage: string;
+}
+
+export interface UserMeResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: UserProfile;
+}

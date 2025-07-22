@@ -4,6 +4,7 @@ import {
   AgreementResponse,
   OnboardingRequest,
   OnboardingResponse,
+  UserMeResponse,
 } from "./schemas";
 
 /**
@@ -29,5 +30,13 @@ export async function onboardUser(
     "/v1/user/onboarding",
     body
   );
+  return res.data;
+}
+
+/**
+ * 사용자 마이페이지 조회 API
+ */
+export async function getUserMe(): Promise<UserMeResponse> {
+  const res = await axiosInstance.get<UserMeResponse>("/v1/user/me");
   return res.data;
 }
