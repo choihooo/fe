@@ -10,17 +10,17 @@ export default function ApplicationFunnel() {
   type StepKey = "contest-select" | "step1" | "step2" | "step3";
 
   const funnel = useFunnel<{
-    "contest-select": {};
-    step1: {};
-    step2: {};
-    step3: {};
+    "contest-select": Record<string, never>;
+    step1: Record<string, never>;
+    step2: Record<string, never>;
+    step3: Record<string, never>;
   }>({
     id: "application-funnel-mixed",
     steps: {
-      "contest-select": { parse: (v: unknown) => v as {} },
-      step1: { parse: (v: unknown) => v as {} },
-      step2: { parse: (v: unknown) => v as {} },
-      step3: { parse: (v: unknown) => v as {} },
+      "contest-select": { parse: (v: unknown) => v as Record<string, never> },
+      step1: { parse: (v: unknown) => v as Record<string, never> },
+      step2: { parse: (v: unknown) => v as Record<string, never> },
+      step3: { parse: (v: unknown) => v as Record<string, never> },
     },
     initial: {
       step: "contest-select" as StepKey,
@@ -32,7 +32,7 @@ export default function ApplicationFunnel() {
     setMounted(true);
   }, []);
   if (!mounted) return null;
-  
+
   switch (funnel.step) {
     case "contest-select":
       return (
