@@ -22,9 +22,7 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
 
   const [applicantName, setApplicantName] = useState("");
   const [applicantEmail, setApplicantEmail] = useState("");
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([
-    { name: "", email: "" },
-  ]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [emailErrors, setEmailErrors] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -51,7 +49,9 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
   ]);
 
   const handleAddMember = () => {
-    setTeamMembers((prev) => [...prev, { name: "", email: "" }]);
+    if (teamMembers.length < 3) {
+      setTeamMembers((prev) => [...prev, { name: "", email: "" }]);
+    }
   };
 
   const handleMemberChange = (
@@ -173,13 +173,15 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
         ))}
       </div>
 
-      <button
-        onClick={handleAddMember}
-        className="flex px-[22px] py-3 justify-center items-center gap-[10px] rounded-[10px] bg-gray-100 mt-[56px] cursor-pointer hover:bg-gray-200"
-      >
-        <PlusIcon />
-        <span className="text-gray-700 font-B02-SB"> 참여자 추가 </span>
-      </button>
+      {teamMembers.length < 3 && (
+        <button
+          onClick={handleAddMember}
+          className="flex px-[22px] py-3 justify-center items-center gap-[10px] rounded-[10px] bg-gray-100 mt-[56px] cursor-pointer hover:bg-gray-200"
+        >
+          <PlusIcon />
+          <span className="text-gray-700 font-B02-SB"> 참여자 추가 </span>
+        </button>
+      )}
     </div>
   );
 };
