@@ -27,9 +27,6 @@ export default function StepRoute({ value, etcValue, onNext, onPrev }: Props) {
       etcValue={etcValue}
       onNext={onNext}
       onPrev={onPrev}
-      isLastStep={true}
-      stepNumber={3}
-      totalSteps={3}
       title={
         <>
           서비스를 알게 된 경로는
