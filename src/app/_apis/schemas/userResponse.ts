@@ -1,4 +1,5 @@
 export interface OnboardingRequest {
+  name: string; 
   role: string[];
   purpose: string;
   purposeEtc?: string;

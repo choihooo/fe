@@ -16,20 +16,19 @@ const ROLES = [
 type Props = {
   value: (typeof RoleEnum.Enum)[keyof typeof RoleEnum.Enum][];
   onNext: (roles: (typeof RoleEnum.Enum)[keyof typeof RoleEnum.Enum][]) => void;
+  onPrev?: () => void;
 };
 
-export default function StepRole({ value, onNext }: Props) {
+export default function StepRole({ value, onNext, onPrev }: Props) {
   const [selected, setSelected] =
     useState<(typeof RoleEnum.Enum)[keyof typeof RoleEnum.Enum][]>(value);
   const toggle = (role: (typeof RoleEnum.Enum)[keyof typeof RoleEnum.Enum]) =>
     setSelected((prev) =>
       prev.includes(role) ? prev.filter((r) => r !== role) : [...prev, role]
     );
-  
+
   return (
     <StepLayout
-      stepNumber={1}
-      totalSteps={3}
       title={
         <>
           공모전 팀 내에서
@@ -51,6 +50,7 @@ export default function StepRole({ value, onNext }: Props) {
       </div>
       <StepNavigation
         onNext={() => onNext(selected)}
+        onPrev={onPrev}
         disabled={selected.length === 0}
       />
     </StepLayout>

@@ -18,8 +18,7 @@ type RadioStepProps<T extends string> = {
   onPrev?: () => void;
   isLastStep?: boolean;
   placeholder?: string;
-  stepNumber: number;
-  totalSteps: number;
+
   title: React.ReactNode;
 };
 
@@ -31,8 +30,7 @@ export function RadioSelectionStep<T extends string>({
   onPrev,
   isLastStep = false,
   placeholder = "내용을 입력해 주세요.",
-  stepNumber,
-  totalSteps,
+
   title,
 }: RadioStepProps<T>) {
   const [selected, setSelected] = useState<T | undefined>(value);
@@ -51,11 +49,7 @@ export function RadioSelectionStep<T extends string>({
     (!options.find((opt) => opt.key === selected)?.isEtc || etc.trim());
 
   return (
-    <StepLayout
-      stepNumber={stepNumber}
-      totalSteps={totalSteps}
-      title={title}
-    >
+    <StepLayout title={title}>
       <div className="flex flex-col gap-[30px] w-full mb-4">
         {options.map((option) => {
           const isSelected = selected === option.key;

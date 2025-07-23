@@ -13,7 +13,7 @@ export function ContestSelectionStep({
   selectedContest,
   onNext,
 }: ContestSelectionStepProps) {
-  const [_, setSelected] = useState<"daehong" | "hsad" | undefined>(
+  const [, setSelected] = useState<"daehong" | "hsad" | undefined>(
     selectedContest
   );
 

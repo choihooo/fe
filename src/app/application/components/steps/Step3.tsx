@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import { StepLayout } from "../common/StepLayout";
 import { StepNavigation } from "../common/StepNavigation";
 import AP04 from "../../lotties/AP04";
@@ -10,6 +12,8 @@ type Step3Props = {
 };
 
 export function Step3({ onPrev, stepNumber = 3, totalSteps = 3 }: Step3Props) {
+  const router = useRouter();
+
   return (
     <div>
       <StepLayout
@@ -28,7 +32,11 @@ export function Step3({ onPrev, stepNumber = 3, totalSteps = 3 }: Step3Props) {
           <AP04 />
         </div>
       </StepLayout>
-      <StepNavigation onNext={() => {}} onPrev={onPrev} />
+
+      <StepNavigation
+        onPrev={onPrev}
+        onNext={() => router.push("/application/DCA")}
+      />
     </div>
   );
 }

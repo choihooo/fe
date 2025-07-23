@@ -56,7 +56,10 @@ function Header({ theme }: HeaderProps) {
 
   const getItemClassName = (itemId: string) => {
     const isActive =
-      pathname === NAV_ITEMS.find((item) => item.id === itemId)?.href;
+      itemId === "application"
+        ? pathname.startsWith("/application")
+        : pathname === NAV_ITEMS.find((item) => item.id === itemId)?.href;
+
     return cn(
       "px-[15px] py-[10px] font-B02-M",
       appliedTheme === "dark"

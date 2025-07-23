@@ -33,8 +33,6 @@ export default function StepPurpose({
       etcValue={etcValue}
       onNext={onNext}
       onPrev={onPrev}
-      stepNumber={2}
-      totalSteps={3}
       title={
         <>
           수상한 녀석들을
