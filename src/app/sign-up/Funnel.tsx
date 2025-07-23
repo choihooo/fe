@@ -112,6 +112,11 @@ export default function SignUpFunnelPage() {
               window.location.href = "/home";
             } catch {
               alert("온보딩에 실패했습니다. 다시 시도해 주세요.");
+              localStorage.removeItem("profileImage");
+              localStorage.removeItem("accessToken");
+              localStorage.removeItem("refreshToken");
+              localStorage.removeItem("userId");
+              window.location.href = "/login";
             }
           }}
           onPrev={() => {

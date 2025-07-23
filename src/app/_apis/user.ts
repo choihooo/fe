@@ -1,4 +1,4 @@
-import axiosInstance from "./axiosInstance";
+import { authAxiosInstance } from "./axiosInstance";
 import {
   AgreementRequest,
   AgreementResponse,
@@ -13,7 +13,7 @@ import {
 export async function agreeToTerms(
   body: AgreementRequest
 ): Promise<AgreementResponse> {
-  const res = await axiosInstance.post<AgreementResponse>(
+  const res = await authAxiosInstance.post<AgreementResponse>(
     "/v1/user/agreement",
     body
   );
@@ -26,7 +26,7 @@ export async function agreeToTerms(
 export async function onboardUser(
   body: OnboardingRequest
 ): Promise<OnboardingResponse> {
-  const res = await axiosInstance.post<OnboardingResponse>(
+  const res = await authAxiosInstance.post<OnboardingResponse>(
     "/v1/user/onboarding",
     body
   );
@@ -37,6 +37,6 @@ export async function onboardUser(
  * 사용자 마이페이지 조회 API
  */
 export async function getUserMe(): Promise<UserMeResponse> {
-  const res = await axiosInstance.get<UserMeResponse>("/v1/user/me");
+  const res = await authAxiosInstance.get<UserMeResponse>("/v1/user/me");
   return res.data;
 }

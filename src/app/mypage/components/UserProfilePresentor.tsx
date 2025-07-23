@@ -25,7 +25,13 @@ function UserProfilePresentor({
     >
       <div className="flex">
         <div>
-          <Image src={imageSrc} width={58} height={58} alt="프로필 사진" />
+          <Image
+            src={imageSrc}
+            width={58}
+            height={58}
+            alt="프로필 사진"
+            className="rounded-full"
+          />
         </div>
         <div className="my-[3px] ml-[18px] text-start">
           <div className="font-T04-SB text-gray-900">{name}</div>

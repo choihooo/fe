@@ -1,4 +1,4 @@
-import axiosInstance, { publicAxiosInstance } from "./axiosInstance";
+import { authAxiosInstance, publicAxiosInstance } from "./axiosInstance";
 import { ExchangeResponse, ExchangeResult, LogoutResponse } from "./schemas";
 
 export async function exchangeCodeForToken(
@@ -22,6 +22,6 @@ export async function exchangeCodeForToken(
  * 로그아웃 API 호출
  */
 export async function logout(): Promise<LogoutResponse> {
-  const res = await axiosInstance.post<LogoutResponse>("/v1/auth/logout");
+  const res = await authAxiosInstance.post<LogoutResponse>("/v1/auth/logout");
   return res.data;
 }

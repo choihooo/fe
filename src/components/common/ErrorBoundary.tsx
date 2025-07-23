@@ -35,6 +35,10 @@ class ErrorBoundary extends Component<Props, State> {
     return process.env.NODE_ENV === "development";
   }
 
+  handleRetry = () => {
+    this.setState({ hasError: false, error: undefined });
+  };
+
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
@@ -57,6 +61,12 @@ class ErrorBoundary extends Component<Props, State> {
                     : "인터넷 연결을 확인해주세요"
                   }
                 </div>
+                <button
+                  onClick={this.handleRetry}
+                  className="mt-2 px-4 py-2 bg-blue-main text-white rounded-lg text-sm hover:bg-blue-600 transition-colors"
+                >
+                  다시 시도
+                </button>
               </div>
             </div>
           </div>
@@ -71,6 +81,12 @@ class ErrorBoundary extends Component<Props, State> {
             <div className="my-[3px] ml-[18px] text-start">
               <div className="font-T04-SB text-gray-900">오류가 발생했습니다</div>
               <div className="font-B02-R text-gray-300">잠시 후 다시 시도해주세요</div>
+              <button
+                onClick={this.handleRetry}
+                className="mt-2 px-4 py-2 bg-blue-main text-white rounded-lg text-sm hover:bg-blue-600 transition-colors"
+              >
+                다시 시도
+              </button>
             </div>
           </div>
         </div>

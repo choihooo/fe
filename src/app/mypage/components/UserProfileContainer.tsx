@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserMe } from "@/hooks/queries/useUser";
 import UserProfilePresentor from "./UserProfilePresentor";
@@ -15,10 +15,20 @@ interface UserProfileContainerProps {
 function UserProfileData({ className }: { className: string }) {
   const router = useRouter();
   const { data: userData } = useUserMe();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleProfileClick = () => {
     router.push("/mypage/edit");
   };
+
+  // 클라이언트에서 마운트되기 전까지는 스켈레톤 표시
+  if (!mounted) {
+    return <UserProfileSkeleton className={className} />;
+  }
 
   // 데이터가 있을 때
   if (userData?.result) {
@@ -53,7 +63,9 @@ function UserProfileError() {
         <div className="w-[58px] h-[58px] bg-gray-200 rounded-full" />
         <div className="my-[3px] ml-[18px] text-start">
           <div className="font-T04-SB text-gray-900">서버 연결 오류</div>
-          <div className="font-B02-R text-gray-300">잠시 후 다시 시도해주세요</div>
+          <div className="font-B02-R text-gray-300">
+            잠시 후 다시 시도해주세요
+          </div>
         </div>
       </div>
     </div>
