@@ -25,7 +25,7 @@ const BriefBoard = () => {
       <FileDropBox
         accept=".jpg,.jpeg"
         maxSizeMB={10}
-        placeholder="마우스로 파일을 끌어서 넣을 수 있어요"
+        placeholder="마우스로 파일을 끌어오거나, 클릭해 업로드하세요"
         description="최대 3508x4960 픽셀, 10MB 이하의 JPG 파일"
         required
         onFileChange={handleFileChange}
