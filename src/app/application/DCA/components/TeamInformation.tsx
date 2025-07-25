@@ -19,6 +19,7 @@ const isValidEmail = (email: string) =>
 const TeamInformation = ({ mode }: TeamInformationProps) => {
   const setTeamInfoFilled = useSubmitStore((s) => s.setTeamInfoFilled);
   const setYccTeamInfoFilled = useSubmitStore((s) => s.setYccTeamInfoFilled);
+  const setField = useSubmitStore((s) => s.setField);
 
   const [applicantName, setApplicantName] = useState("");
   const [applicantEmail, setApplicantEmail] = useState("");
@@ -28,25 +29,30 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
   );
 
   useEffect(() => {
-    const isApplicantFilled = applicantName.trim() && applicantEmail.trim();
-    const areMembersFilled = teamMembers.every(
-      (m) => m.name.trim() && m.email.trim()
+    const allMembers: TeamMember[] = [
+      {
+        name: applicantName,
+        email: applicantEmail,
+      },
+      ...teamMembers,
+    ];
+    setField("teamMembers", allMembers);
+  }, [applicantName, applicantEmail, teamMembers]);
+
+  useEffect(() => {
+    const isApplicantValid =
+      applicantName.trim() && isValidEmail(applicantEmail.trim());
+    const areMembersValid = teamMembers.every(
+      (m) => m.name.trim() && isValidEmail(m.email.trim())
     );
-    const isValid = !!isApplicantFilled && !!areMembersFilled;
+    const isValid = !!isApplicantValid && !!areMembersValid;
 
     if (mode === "dca") {
       setTeamInfoFilled(isValid);
-    } else if (mode === "ycc") {
+    } else {
       setYccTeamInfoFilled(isValid);
     }
-  }, [
-    applicantName,
-    applicantEmail,
-    teamMembers,
-    mode,
-    setTeamInfoFilled,
-    setYccTeamInfoFilled,
-  ]);
+  }, [applicantName, applicantEmail, teamMembers, mode]);
 
   const handleAddMember = () => {
     if (teamMembers.length < 3) {
@@ -114,7 +120,6 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
               className="w-[486px]"
               error={emailErrors.applicant}
             />
-
             <div className="h-[20px]">
               {emailErrors.applicant && (
                 <div className="text-orange-point font-C01-R">
@@ -126,6 +131,7 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
         </div>
       </div>
 
+      {/* 추가 팀원 */}
       <div className="mt-[14px] space-y-[14px]">
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-row w-full gap-5">

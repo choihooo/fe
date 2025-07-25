@@ -4,6 +4,7 @@ import ButtonBase from "@/components/common/ButtonBase";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import ApplyComfirmModal from "@/components/common/ApplyCompleteModal";
+import { DCAapply } from "@/app/_apis/apply";
 
 interface SubmitButtonProps {
   mode: "dca" | "ycc";
@@ -14,11 +15,19 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
     workInfoFilled,
     teamInfoFilled,
     briefUploaded,
-    briefFile,
+    briefBoardFile,
     yccWorkInfoFilled,
     yccTeamInfoFilled,
     yccBriefUploaded,
     yccBriefFile,
+
+    title,
+    number,
+    category,
+    brand,
+    teamMembers,
+    additionalFile,
+    youtubeUrl,
   } = useSubmitStore();
 
   const isDcaValid =
@@ -42,11 +51,53 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
     }
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (mode === "dca") {
-      if (!briefFile) {
+      if (!briefBoardFile) {
         alert("브리프보드 파일이 없습니다.");
         return;
+      }
+
+      try {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("number", number);
+        formData.append("category", category);
+        formData.append("brand", brand);
+
+        if (category === "Film" && youtubeUrl) {
+          formData.append("youtubeUrl", youtubeUrl);
+        }
+
+        if (additionalFile) {
+          formData.append("additionalFile", additionalFile);
+        }
+
+        formData.append("briefBoardFile", briefBoardFile);
+        formData.append(
+          "teamMembers",
+          new Blob([JSON.stringify(teamMembers)], {
+            type: "application/json",
+          })
+        );
+        // formData.append("teamMembers", JSON.stringify(teamMembers));
+
+        console.log(
+          "최종 제출 FormData",
+          Array.from(formData.entries()).map(([k, v]) =>
+            v instanceof File
+              ? `${k}: File(${v.name}, ${v.size} bytes)`
+              : `${k}: ${v}`
+          )
+        );
+
+        await DCAapply(formData);
+        setIsModalOpen(false);
+        setIsCompleteModalOpen(true);
+        console.log("제출완료");
+      } catch (err) {
+        console.error("제출 실패", err);
+        alert("제출 중 오류가 발생했습니다.");
       }
     }
 
@@ -55,12 +106,11 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
         alert("기획서 파일이 없습니다.");
         return;
       }
-    }
 
-    setIsModalOpen(false);
-    setIsCompleteModalOpen(true);
-    console.log("제출완료");
+      alert("YCC 제출 기능은 아직 구현되지 않았습니다.");
+    }
   };
+
   const handleCompleteClose = () => {
     setIsCompleteModalOpen(false);
   };

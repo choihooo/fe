@@ -4,10 +4,10 @@ import FileDropBox from "@/components/common/FileDropBox";
 import { useSubmitStore } from "@/store/useSubmitStore";
 
 const PlanPart = () => {
-  const setPlanFile = useSubmitStore((s) => s.setPlanFile);
+  const setadditionalFile = useSubmitStore((s) => s.setadditionalFile);
 
   const handleFileChange = (uploadedFile: File | null) => {
-    setPlanFile(uploadedFile);
+    setadditionalFile(uploadedFile);
   };
 
   return (

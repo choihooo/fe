@@ -5,11 +5,15 @@ import FileDropBox from "@/components/common/FileDropBox";
 
 const BriefBoard = () => {
   const setBriefUploaded = useSubmitStore((s) => s.setBriefUploaded);
-  const setBriefFile = useSubmitStore((s) => s.setBriefFile);
+  const setBriefBoardFile = useSubmitStore((s) => s.setBriefBoardFile);
 
   const handleFileChange = (uploadedFile: File | null) => {
-    setBriefFile(uploadedFile);
+    console.log("선택된 파일:", uploadedFile);
     setBriefUploaded(!!uploadedFile);
+    setBriefBoardFile(uploadedFile);
+    setTimeout(() => {
+      console.log("현재 zustand 상태:", useSubmitStore.getState());
+    }, 100);
   };
 
   return (

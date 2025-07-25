@@ -1,47 +1,75 @@
 import { create } from "zustand";
 
+interface TeamMember {
+  name: string;
+  email: string;
+}
+
 interface SubmitStoreProps {
   workInfoFilled: boolean;
   teamInfoFilled: boolean;
   briefUploaded: boolean;
-  setWorkInfoFilled: (v: boolean) => void;
-  setTeamInfoFilled: (v: boolean) => void;
-  setBriefUploaded: (v: boolean) => void;
-  briefFile: File | null;
-  setBriefFile: (file: File | null) => void;
-  planFile: File | null;
-  setPlanFile: (file: File | null) => void;
 
-  // YCC
+  briefBoardFile: File | null;
+  additionalFile: File | null;
+
   yccWorkInfoFilled: boolean;
   yccTeamInfoFilled: boolean;
   yccBriefUploaded: boolean;
+  yccBriefFile: File | null;
+
+  setWorkInfoFilled: (v: boolean) => void;
+  setTeamInfoFilled: (v: boolean) => void;
+  setBriefUploaded: (v: boolean) => void;
+  setBriefBoardFile: (file: File | null) => void;
+  setadditionalFile: (file: File | null) => void;
+
   setYccWorkInfoFilled: (v: boolean) => void;
   setYccTeamInfoFilled: (v: boolean) => void;
   setYccBriefUploaded: (v: boolean) => void;
-  yccBriefFile: File | null;
   setYccBriefFile: (file: File | null) => void;
+
+  title: string;
+  number: string;
+  category: string;
+  brand: string;
+  youtubeUrl: string;
+  teamMembers: TeamMember[];
+
+  setField: <T extends keyof SubmitStoreProps>(
+    key: T,
+    value: SubmitStoreProps[T]
+  ) => void;
 }
 
 export const useSubmitStore = create<SubmitStoreProps>((set) => ({
   workInfoFilled: false,
   teamInfoFilled: false,
   briefUploaded: false,
-  briefFile: null,
-  setWorkInfoFilled: (v) => set({ workInfoFilled: v }),
-  setTeamInfoFilled: (v) => set({ teamInfoFilled: v }),
-  setBriefUploaded: (v) => set({ briefUploaded: v }),
-  setBriefFile: (file) => set({ briefFile: file }),
-  planFile: null,
-  setPlanFile: (file) => set({ planFile: file }),
-
-  // YCC
+  briefBoardFile: null,
+  additionalFile: null,
   yccWorkInfoFilled: false,
   yccTeamInfoFilled: false,
   yccBriefUploaded: false,
+  yccBriefFile: null,
+
+  setWorkInfoFilled: (v) => set({ workInfoFilled: v }),
+  setTeamInfoFilled: (v) => set({ teamInfoFilled: v }),
+  setBriefUploaded: (v) => set({ briefUploaded: v }),
+  setBriefBoardFile: (file) => set({ briefBoardFile: file }),
+  setadditionalFile: (file) => set({ additionalFile: file }),
+
   setYccWorkInfoFilled: (v) => set({ yccWorkInfoFilled: v }),
   setYccTeamInfoFilled: (v) => set({ yccTeamInfoFilled: v }),
   setYccBriefUploaded: (v) => set({ yccBriefUploaded: v }),
-  yccBriefFile: null,
   setYccBriefFile: (file) => set({ yccBriefFile: file }),
+
+  title: "",
+  number: "",
+  category: "",
+  brand: "",
+  youtubeUrl: "",
+  teamMembers: [],
+
+  setField: (key, value) => set((state) => ({ ...state, [key]: value })),
 }));
