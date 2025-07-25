@@ -30,14 +30,16 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
 
   useEffect(() => {
     const allMembers: TeamMember[] = [
-      {
-        name: applicantName,
-        email: applicantEmail,
-      },
+      { name: applicantName, email: applicantEmail },
       ...teamMembers,
     ];
-    setField("teamMembers", allMembers);
-  }, [applicantName, applicantEmail, teamMembers]);
+
+    if (mode === "dca") {
+      setField("teamMembers", allMembers);
+    } else {
+      setField("members", allMembers);
+    }
+  }, [applicantName, applicantEmail, teamMembers, mode]);
 
   useEffect(() => {
     const isApplicantValid =
@@ -131,7 +133,6 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
         </div>
       </div>
 
-      {/* 추가 팀원 */}
       <div className="mt-[14px] space-y-[14px]">
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-row w-full gap-5">

@@ -5,13 +5,16 @@ import React, { useEffect, useState } from "react";
 
 const YCCWorkInfo = () => {
   const [title, setTitle] = useState("");
+
   const setYccWorkInfoFilled = useSubmitStore(
     (state) => state.setYccWorkInfoFilled
   );
+  const setField = useSubmitStore((state) => state.setField);
 
   useEffect(() => {
-    setYccWorkInfoFilled(title.trim().length > 0);
-  }, [title, setYccWorkInfoFilled]);
+    setYccWorkInfoFilled(title.length > 0);
+    setField("title", title);
+  }, [title]);
 
   return (
     <div className="w-full px-[325px] mt-[134px]">

@@ -15,3 +15,16 @@ export interface DCAapplyResponse {
   message: string;
   result: string;
 }
+
+export interface YCCapplyRequest {
+  title: string;
+  members: { name: string; email: string }[];
+  planFile: string;
+}
+
+export interface YCCapplyResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: string;
+}

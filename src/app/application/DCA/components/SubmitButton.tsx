@@ -4,7 +4,7 @@ import ButtonBase from "@/components/common/ButtonBase";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import ApplyComfirmModal from "@/components/common/ApplyCompleteModal";
-import { DCAapply } from "@/app/_apis/apply";
+import { DCAapply, YCCApply } from "@/app/_apis/apply";
 
 interface SubmitButtonProps {
   mode: "dca" | "ycc";
@@ -28,6 +28,7 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
     teamMembers,
     additionalFile,
     youtubeUrl,
+    members,
   } = useSubmitStore();
 
   const isDcaValid =
@@ -94,13 +95,37 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
       }
     }
 
+    //ycc
     if (mode === "ycc") {
       if (!yccBriefFile) {
         alert("기획서 파일이 없습니다.");
         return;
       }
 
-      alert("YCC 제출 기능은 아직 구현되지 않았습니다.");
+      try {
+        const formData = new FormData();
+        const yccPayload = {
+          title,
+          members,
+        };
+
+        formData.append(
+          "request",
+          new Blob([JSON.stringify(yccPayload)], {
+            type: "application/json",
+          })
+        );
+
+        formData.append("planFile", yccBriefFile);
+
+        await YCCApply(formData);
+        setIsModalOpen(false);
+        setIsCompleteModalOpen(true);
+        console.log("제출성공");
+      } catch (err) {
+        console.error("YCC 제출 실패", err);
+        alert("YCC 제출 중 오류가 발생했습니다.");
+      }
     }
   };
 

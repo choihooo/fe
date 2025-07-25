@@ -7,9 +7,9 @@ const YCCPlanPart = () => {
   const setYccBriefUploaded = useSubmitStore((s) => s.setYccBriefUploaded);
   const setYccBriefFile = useSubmitStore((s) => s.setYccBriefFile);
 
-  const handleFileChange = (uploadedFile: File | null) => {
-    setYccBriefFile(uploadedFile);
-    setYccBriefUploaded(!!uploadedFile);
+  const handleFileChange = (planFile: File | null) => {
+    setYccBriefFile(planFile);
+    setYccBriefUploaded(!!planFile);
   };
 
   return (

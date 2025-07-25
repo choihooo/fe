@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface TeamMember {
+export interface TeamMember {
   name: string;
   email: string;
 }
@@ -18,6 +18,15 @@ interface SubmitStoreProps {
   yccBriefUploaded: boolean;
   yccBriefFile: File | null;
 
+  title: string;
+  number: string;
+  category: string;
+  brand: string;
+  youtubeUrl: string;
+
+  teamMembers: TeamMember[];
+  members: TeamMember[];
+
   setWorkInfoFilled: (v: boolean) => void;
   setTeamInfoFilled: (v: boolean) => void;
   setBriefUploaded: (v: boolean) => void;
@@ -28,13 +37,6 @@ interface SubmitStoreProps {
   setYccTeamInfoFilled: (v: boolean) => void;
   setYccBriefUploaded: (v: boolean) => void;
   setYccBriefFile: (file: File | null) => void;
-
-  title: string;
-  number: string;
-  category: string;
-  brand: string;
-  youtubeUrl: string;
-  teamMembers: TeamMember[];
 
   setField: <T extends keyof SubmitStoreProps>(
     key: T,
@@ -53,6 +55,15 @@ export const useSubmitStore = create<SubmitStoreProps>((set) => ({
   yccBriefUploaded: false,
   yccBriefFile: null,
 
+  title: "",
+  number: "",
+  category: "",
+  brand: "",
+  youtubeUrl: "",
+
+  teamMembers: [],
+  members: [],
+
   setWorkInfoFilled: (v) => set({ workInfoFilled: v }),
   setTeamInfoFilled: (v) => set({ teamInfoFilled: v }),
   setBriefUploaded: (v) => set({ briefUploaded: v }),
@@ -63,13 +74,6 @@ export const useSubmitStore = create<SubmitStoreProps>((set) => ({
   setYccTeamInfoFilled: (v) => set({ yccTeamInfoFilled: v }),
   setYccBriefUploaded: (v) => set({ yccBriefUploaded: v }),
   setYccBriefFile: (file) => set({ yccBriefFile: file }),
-
-  title: "",
-  number: "",
-  category: "",
-  brand: "",
-  youtubeUrl: "",
-  teamMembers: [],
 
   setField: (key, value) => set((state) => ({ ...state, [key]: value })),
 }));
