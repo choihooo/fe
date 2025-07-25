@@ -60,41 +60,34 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
 
       try {
         const formData = new FormData();
-        formData.append("title", title);
-        formData.append("number", number);
-        formData.append("category", category);
-        formData.append("brand", brand);
+        const userData: Record<string, any> = {
+          title,
+          number,
+          category,
+          brand,
+          teamMembers,
+        };
 
         if (category === "Film" && youtubeUrl) {
-          formData.append("youtubeUrl", youtubeUrl);
+          userData.youtubeUrl = youtubeUrl;
         }
+
+        formData.append(
+          "request",
+          new Blob([JSON.stringify(userData)], {
+            type: "application/json",
+          })
+        );
 
         if (additionalFile) {
           formData.append("additionalFile", additionalFile);
         }
 
         formData.append("briefBoardFile", briefBoardFile);
-        formData.append(
-          "teamMembers",
-          new Blob([JSON.stringify(teamMembers)], {
-            type: "application/json",
-          })
-        );
-        // formData.append("teamMembers", JSON.stringify(teamMembers));
-
-        console.log(
-          "최종 제출 FormData",
-          Array.from(formData.entries()).map(([k, v]) =>
-            v instanceof File
-              ? `${k}: File(${v.name}, ${v.size} bytes)`
-              : `${k}: ${v}`
-          )
-        );
 
         await DCAapply(formData);
         setIsModalOpen(false);
         setIsCompleteModalOpen(true);
-        console.log("제출완료");
       } catch (err) {
         console.error("제출 실패", err);
         alert("제출 중 오류가 발생했습니다.");
@@ -113,6 +106,7 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
 
   const handleCompleteClose = () => {
     setIsCompleteModalOpen(false);
+    window.location.reload();
   };
 
   const handleCancel = () => {
@@ -148,7 +142,10 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
 
       <ConfirmModal
         isOpen={isCancelModalOpen}
-        onClose={() => setIsCancelModalOpen(false)}
+        onClose={() => {
+          setIsCancelModalOpen(false);
+          window.location.reload();
+        }}
         onConfirm={() => setIsCancelModalOpen(false)}
         title="신청을 취소하시겠습니까?"
         description="현재 입력한 정보는 삭제됩니다."
