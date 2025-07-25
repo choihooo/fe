@@ -30,7 +30,9 @@ export function Step1({
           </>
         }
       >
-        <AP02 />
+        <div className="rounded-[20px] overflow-hidden">
+          <AP02 />
+        </div>
       </StepLayout>
       <StepNavigation onNext={onNext} onPrev={onPrev} />
     </div>

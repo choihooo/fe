@@ -22,9 +22,15 @@ export function Step2({
         stepNumber={stepNumber}
         totalSteps={totalSteps}
         title="리포트 완성 메일"
-        subtitle={<div className="pb-[27px]">리포트를 제작한 후, 완료되었다는 메일을 보내드립니다.</div>}
+        subtitle={
+          <div className="pb-[27px]">
+            리포트를 제작한 후, 완료되었다는 메일을 보내드립니다.
+          </div>
+        }
       >
-        <AP03 />
+        <div className="rounded-[20px] overflow-hidden">
+          <AP03 />
+        </div>
       </StepLayout>
       <StepNavigation onNext={onNext} onPrev={onPrev} />
     </div>
