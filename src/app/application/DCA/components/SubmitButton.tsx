@@ -5,6 +5,7 @@ import { useSubmitStore } from "@/store/useSubmitStore";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import ApplyComfirmModal from "@/components/common/ApplyCompleteModal";
 import { DCAapply, YCCApply } from "@/app/_apis/apply";
+import { DCAapplyRequest } from "@/app/_apis/schemas";
 
 interface SubmitButtonProps {
   mode: "dca" | "ycc";
@@ -61,7 +62,7 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
 
       try {
         const formData = new FormData();
-        const userData: Record<string, any> = {
+        const userData: Partial<DCAapplyRequest> = {
           title,
           number,
           category,

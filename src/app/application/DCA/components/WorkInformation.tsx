@@ -41,19 +41,19 @@ const WorkInformation = () => {
 
   useEffect(() => {
     setField("title", title);
-  }, [title]);
+  }, [title, setField]);
 
   useEffect(() => {
     setField("category", category);
-  }, [category]);
+  }, [category, setField]);
 
   useEffect(() => {
     setField("brand", brand);
-  }, [brand]);
+  }, [brand, setField]);
 
   useEffect(() => {
     setField("number", `P-${number}`);
-  }, [number]);
+  }, [number, setField]);
 
   return (
     <div className="w-full px-[325px] mt-[134px]">

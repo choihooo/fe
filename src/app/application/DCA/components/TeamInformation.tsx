@@ -39,7 +39,7 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
     } else {
       setField("members", allMembers);
     }
-  }, [applicantName, applicantEmail, teamMembers, mode]);
+  }, [applicantName, applicantEmail, teamMembers, mode, setField]);
 
   useEffect(() => {
     const isApplicantValid =
@@ -54,7 +54,14 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
     } else {
       setYccTeamInfoFilled(isValid);
     }
-  }, [applicantName, applicantEmail, teamMembers, mode]);
+  }, [
+    applicantName,
+    applicantEmail,
+    teamMembers,
+    mode,
+    setTeamInfoFilled,
+    setYccTeamInfoFilled,
+  ]);
 
   const handleAddMember = () => {
     if (teamMembers.length < 3) {

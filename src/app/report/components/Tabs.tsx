@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import ReportCard, { ReportCardProps } from "./ReportCards";
-import MyReportIcon from "../../../../public/icons/MyReportIcon";
 
 const Tabs = () => {
   const tabs = ["전체", "DCA", "YCC"];
