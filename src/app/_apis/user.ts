@@ -5,6 +5,11 @@ import {
   OnboardingRequest,
   OnboardingResponse,
   UserMeResponse,
+  UpdateProfileRequest,
+  UpdateProfileResponse,
+  WithdrawalRequest,
+  WithdrawalResponse,
+  WithdrawalReason,
 } from "./schemas";
 
 /**
@@ -40,3 +45,31 @@ export async function getUserMe(): Promise<UserMeResponse> {
   const res = await authAxiosInstance.get<UserMeResponse>("/v1/user/me");
   return res.data;
 }
+
+/**
+ * 사용자 프로필 업데이트 API
+ */
+export async function updateUserProfile(
+  body: UpdateProfileRequest
+): Promise<UpdateProfileResponse> {
+  const res = await authAxiosInstance.patch<UpdateProfileResponse>(
+    "/v1/user/me",
+    body
+  );
+  return res.data;
+}
+
+/**
+ * 사용자 탈퇴 API
+ */
+export async function withdrawUser(
+  body: WithdrawalRequest
+): Promise<WithdrawalResponse> {
+  const res = await authAxiosInstance.delete<WithdrawalResponse>(
+    "/v1/user/me/withdrawal",
+    { data: body }
+  );
+  return res.data;
+}
+
+export { WithdrawalReason };

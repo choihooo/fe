@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import DivisionLine from "./DivisionLine";
 import { SettingsLinkItem } from "./SettingItem";
 import UserProfileContainer from "./UserProfileContainer";
@@ -37,12 +38,14 @@ function UserProfilePanel() {
         label={<div className="font-B01-M text-gray-950 pl-1">로그아웃</div>}
         rightContent={<LogoutIcon />}
       />
-      <SettingsLinkItem
-        label={
-          <div className="font-B01-M text-gray-500 pl-1">서비스 탈퇴하기</div>
-        }
-        rightContent={<GrayIconChevronRight />}
-      />
+      <Link href="/mypage/withdraw" className="cursor-pointer">
+        <SettingsLinkItem
+          label={
+            <div className="font-B01-M text-gray-500 pl-1">서비스 탈퇴하기</div>
+          }
+          rightContent={<GrayIconChevronRight />}
+        />
+      </Link>
     </div>
   );
 }

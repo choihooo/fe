@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     domains: [
       "img1.kakaocdn.net",
       "t1.kakaocdn.net",
+      "k.kakaocdn.net",
 
       "lh3.googleusercontent.com",
 

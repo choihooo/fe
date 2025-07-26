@@ -4,29 +4,61 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserMe } from "@/hooks/queries/useUser";
 import UserProfilePresentor from "./UserProfilePresentor";
-import ErrorBoundary from "@/components/common/ErrorBoundary";
 import UserProfileSkeleton from "@/components/common/UserProfileSkeleton";
 
 interface UserProfileContainerProps {
   className?: string;
 }
 
+// 에러 타입 정의
+interface ApiError {
+  code?: string;
+  response?: {
+    status?: number;
+  };
+}
+
 // 실제 데이터를 가져오는 컴포넌트
 function UserProfileData({ className }: { className: string }) {
   const router = useRouter();
-  const { data: userData } = useUserMe();
+  const { data: userData, error, isLoading } = useUserMe();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    // 에러가 발생했을 때 토큰 확인 및 리디렉션
+    if (error) {
+      console.log("❌ UserProfileData 에러 발생:", error);
+
+      // 네트워크 에러이거나 401 에러인 경우 토큰 확인
+      const apiError = error as ApiError;
+      if (
+        apiError.code === "ERR_NETWORK" ||
+        apiError.response?.status === 401
+      ) {
+        if (typeof window !== "undefined") {
+          const accessToken = localStorage.getItem("accessToken");
+          const refreshToken = localStorage.getItem("refreshToken");
+
+          if (!accessToken || !refreshToken) {
+            console.log("🔐 토큰이 없어서 로그인 페이지로 리디렉션");
+            localStorage.clear();
+            window.location.replace("/login");
+          }
+        }
+      }
+    }
+  }, [error]);
+
   const handleProfileClick = () => {
     router.push("/mypage/edit");
   };
 
   // 클라이언트에서 마운트되기 전까지는 스켈레톤 표시
-  if (!mounted) {
+  if (!mounted || isLoading) {
     return <UserProfileSkeleton className={className} />;
   }
 
@@ -55,30 +87,11 @@ function UserProfileData({ className }: { className: string }) {
   );
 }
 
-// 에러 발생 시 표시할 컴포넌트
-function UserProfileError() {
-  return (
-    <div className="mx-2 flex justify-between w-[471px]">
-      <div className="flex">
-        <div className="w-[58px] h-[58px] bg-gray-200 rounded-full" />
-        <div className="my-[3px] ml-[18px] text-start">
-          <div className="font-T04-SB text-gray-900">서버 연결 오류</div>
-          <div className="font-B02-R text-gray-300">
-            잠시 후 다시 시도해주세요
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function UserProfileContainer({ className = "" }: UserProfileContainerProps) {
   return (
-    <ErrorBoundary fallback={<UserProfileError />}>
-      <Suspense fallback={<UserProfileSkeleton className={className} />}>
-        <UserProfileData className={className} />
-      </Suspense>
-    </ErrorBoundary>
+    <Suspense fallback={<UserProfileSkeleton className={className} />}>
+      <UserProfileData className={className} />
+    </Suspense>
   );
 }
 

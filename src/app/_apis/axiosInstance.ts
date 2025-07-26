@@ -4,18 +4,15 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const CONTENT_TYPE_JSON = "application/json";
 const LOGIN_PATH = "/login";
 
-// 🔒 인터셉터에서 재요청 방지용
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   _retry?: boolean;
 }
 
-// 🔄 재시도 큐 구조
 type FailedQueueItem = {
   resolve: (token: string) => void;
   reject: (error: unknown) => void;
 };
 
-// ✅ 공개용 Axios 인스턴스
 export const publicAxiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
@@ -24,7 +21,6 @@ export const publicAxiosInstance = axios.create({
   },
 });
 
-// ✅ 인증용 Axios 인스턴스
 export const authAxiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
@@ -33,11 +29,9 @@ export const authAxiosInstance = axios.create({
   },
 });
 
-// 상태 변수
 let isRefreshing = false;
 let failedQueue: FailedQueueItem[] = [];
 
-// 🔁 재시도 큐 처리
 const processQueue = (error: unknown, token?: string) => {
   failedQueue.forEach(({ resolve, reject }) => {
     if (error) reject(error);
@@ -46,15 +40,17 @@ const processQueue = (error: unknown, token?: string) => {
   failedQueue = [];
 };
 
-// 🚪 로그아웃 처리 및 리디렉션
 const handleLogoutAndRedirect = () => {
   if (typeof window !== "undefined") {
+    console.log("🔐 토큰 만료로 인한 로그아웃 처리 시작");
     localStorage.clear();
-    window.location.href = LOGIN_PATH;
+    console.log("🧹 localStorage 클리어 완료");
+
+    window.location.replace(LOGIN_PATH);
+    console.log("🔄 로그인 페이지로 리디렉션 시도");
   }
 };
 
-// ✅ 인증 요청 전 토큰 삽입
 authAxiosInstance.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
@@ -69,7 +65,6 @@ authAxiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// ✅ 인증 응답 후 토큰 만료시 자동 리프레시 처리
 authAxiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -118,6 +113,7 @@ authAxiosInstance.interceptors.response.use(
 
         return authAxiosInstance(originalRequest);
       } catch (refreshError) {
+        console.log("❌ 토큰 리프레시 실패:", refreshError);
         processQueue(refreshError);
         handleLogoutAndRedirect();
         return Promise.reject(refreshError);

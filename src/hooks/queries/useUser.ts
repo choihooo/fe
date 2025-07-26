@@ -1,10 +1,10 @@
 import {
   useMutation,
   useQueryClient,
-  useSuspenseQuery,
+  useQuery,
 } from "@tanstack/react-query";
-import { agreeToTerms, onboardUser, getUserMe } from "@/app/_apis/user";
-import { AgreementRequest, OnboardingRequest } from "@/app/_apis/schemas";
+import { agreeToTerms, onboardUser, getUserMe, updateUserProfile } from "@/app/_apis/user";
+import { AgreementRequest, OnboardingRequest, UpdateProfileRequest } from "@/app/_apis/schemas";
 import { authKeys } from "./useAuth";
 
 export const userKeys = {
@@ -40,7 +40,7 @@ export function useOnboardUser() {
 
   return useMutation({
     mutationFn: (data: OnboardingRequest) => onboardUser(data),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: userKeys.onboarding() });
       queryClient.invalidateQueries({ queryKey: authKeys.user() });
     },
@@ -54,10 +54,29 @@ export function useOnboardUser() {
  * 사용자 마이페이지 조회 쿼리 훅
  */
 export function useUserMe() {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: userKeys.me(),
     queryFn: getUserMe,
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
+    retry: false, // 재시도 비활성화
+  });
+}
+
+/**
+ * 사용자 프로필 업데이트 뮤테이션 훅
+ */
+export function useUpdateUserProfile() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: UpdateProfileRequest) => updateUserProfile(data),
+    onSuccess: () => {
+      // 프로필 업데이트 후 사용자 정보 쿼리 무효화
+      queryClient.invalidateQueries({ queryKey: userKeys.me() });
+    },
+    onError: (error) => {
+      console.error("프로필 업데이트 실패:", error);
+    },
   });
 }
