@@ -72,9 +72,12 @@ function Header({ theme }: HeaderProps) {
   const handleLogout = async () => {
     try {
       await logout();
-    } catch {
-      alert("로그아웃을 재시도 해주세요");
+    } catch (error) {
+      console.error("로그아웃 API 호출 실패:", error);
+      // API 호출이 실패해도 클라이언트 측 로그아웃은 진행
     }
+    
+    // 클라이언트 측 로그아웃 처리 (API 성공/실패와 관계없이)
     localStorage.removeItem("profileImage");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");

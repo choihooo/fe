@@ -41,10 +41,7 @@ export default function SignUpFunnelPage() {
     id: "sign-up-funnel",
     steps: {
       약관동의: { parse: (v: unknown) => v as 약관동의타입 },
-      이름입력: {
-        parse: (v: unknown) =>
-          v as Partial<약관동의타입 & 역할입력 & 목적입력 & 경로입력>,
-      },
+      이름입력: { parse: (v: unknown) => v as Partial<약관동의타입 & 역할입력 & 목적입력 & 경로입력> },
       역할입력: { parse: 역할입력_Schema.parse },
       목적입력: { parse: 목적입력_Schema.parse },
       경로입력: { parse: 경로입력_Schema.parse },
@@ -137,6 +134,11 @@ export default function SignUpFunnelPage() {
               window.location.href = "/home";
             } catch {
               alert("온보딩에 실패했습니다. 다시 시도해 주세요.");
+              localStorage.removeItem("profileImage");
+              localStorage.removeItem("accessToken");
+              localStorage.removeItem("refreshToken");
+              localStorage.removeItem("userId");
+              window.location.href = "/login";
             }
           }}
           onPrev={() => {
