@@ -6,7 +6,7 @@ import DropDownInput from "@/components/common/DropDownInput";
 
 const CATEGORY_OPTIONS = [
   "Visual",
-  "Flim",
+  "Film",
   "Digital Contents",
   "Experience",
   "Outdoor Activation",
@@ -28,19 +28,36 @@ const WorkInformation = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
-  const [serial, setSerial] = useState("");
+  const [number, setNumber] = useState("");
+
   const setWorkInfoFilled = useSubmitStore((s) => s.setWorkInfoFilled);
+  const setField = useSubmitStore((s) => s.setField);
 
   useEffect(() => {
     const isAllFilled =
-      title.trim() && category.trim() && brand.trim() && serial.trim();
+      title.trim() && category.trim() && brand.trim() && number.trim();
     setWorkInfoFilled(!!isAllFilled);
-  }, [title, category, brand, serial, setWorkInfoFilled]);
+  }, [title, category, brand, number, setWorkInfoFilled]);
+
+  useEffect(() => {
+    setField("title", title);
+  }, [title, setField]);
+
+  useEffect(() => {
+    setField("category", category);
+  }, [category, setField]);
+
+  useEffect(() => {
+    setField("brand", brand);
+  }, [brand, setField]);
+
+  useEffect(() => {
+    setField("number", `P-${number}`);
+  }, [number, setField]);
 
   return (
     <div className="w-full px-[325px] mt-[134px]">
       <div className=" text-gray-900 font-T02-B">
-        {" "}
         작품 정보 <span className="text-blue-main">*</span>
       </div>
 
@@ -84,8 +101,8 @@ const WorkInformation = () => {
           </span>
           <TextInput
             placeholder="작품의 접수번호를 입력하세요."
-            value={serial}
-            onChange={(e) => setSerial(e.target.value)}
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
             className="pl-[40px] w-full"
           />
         </div>
