@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://soosanghan.site/$1",
+      "permanent": true
+    }
+  ]
+}
