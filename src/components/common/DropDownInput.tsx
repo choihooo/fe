@@ -34,7 +34,9 @@ const DropDownInput = ({
   return (
     <div className="relative w-full" ref={dropdownRef}>
       <div
-        className="flex items-center justify-between border border-gray-200 rounded-[10px] py-3 px-[18px] h-[48px] cursor-pointer"
+        className={`flex items-center w-full justify-between rounded-[10px] py-3 px-[18px] h-[48px] cursor-pointer border ${
+          open ? "border-blue-main" : "border-gray-200"
+        }`}
         onClick={() => setOpen(!open)}
       >
         <span className={value ? "text-gray-900" : "text-gray-300"}>
@@ -46,7 +48,7 @@ const DropDownInput = ({
       </div>
 
       {open && (
-        <div className="absolute z-10 mt-[10px] w-[380px] border border-gray-200 bg-white rounded-[10px] overflow-auto h-[240px]">
+        <div className="absolute w-full z-10 mt-[10px] border border-gray-200 bg-white rounded-[10px] overflow-auto h-[240px]">
           {options.map((option) => (
             <div
               key={option}

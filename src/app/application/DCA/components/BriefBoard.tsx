@@ -5,11 +5,15 @@ import FileDropBox from "@/components/common/FileDropBox";
 
 const BriefBoard = () => {
   const setBriefUploaded = useSubmitStore((s) => s.setBriefUploaded);
-  const setBriefFile = useSubmitStore((s) => s.setBriefFile);
+  const setBriefBoardFile = useSubmitStore((s) => s.setBriefBoardFile);
 
   const handleFileChange = (uploadedFile: File | null) => {
-    setBriefFile(uploadedFile);
+    console.log("선택된 파일:", uploadedFile);
     setBriefUploaded(!!uploadedFile);
+    setBriefBoardFile(uploadedFile);
+    setTimeout(() => {
+      console.log("현재 zustand 상태:", useSubmitStore.getState());
+    }, 100);
   };
 
   return (
@@ -21,7 +25,7 @@ const BriefBoard = () => {
       <FileDropBox
         accept=".jpg,.jpeg"
         maxSizeMB={10}
-        placeholder="마우스로 파일을 끌어서 넣을 수 있어요"
+        placeholder="마우스로 파일을 끌어오거나, 클릭해 업로드하세요"
         description="최대 3508x4960 픽셀, 10MB 이하의 JPG 파일"
         required
         onFileChange={handleFileChange}

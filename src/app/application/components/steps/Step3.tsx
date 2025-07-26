@@ -28,7 +28,7 @@ export function Step3({ onPrev, stepNumber = 3, totalSteps = 3 }: Step3Props) {
           </>
         }
       >
-        <div>
+        <div className="rounded-[20px] overflow-hidden">
           <AP04 />
         </div>
       </StepLayout>
