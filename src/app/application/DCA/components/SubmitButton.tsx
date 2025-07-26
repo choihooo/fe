@@ -4,6 +4,8 @@ import ButtonBase from "@/components/common/ButtonBase";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import ApplyComfirmModal from "@/components/common/ApplyCompleteModal";
+import { DCAapply, YCCApply } from "@/app/_apis/apply";
+import { DCAapplyRequest } from "@/app/_apis/schemas";
 
 interface SubmitButtonProps {
   mode: "dca" | "ycc";
@@ -14,11 +16,20 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
     workInfoFilled,
     teamInfoFilled,
     briefUploaded,
-    briefFile,
+    briefBoardFile,
     yccWorkInfoFilled,
     yccTeamInfoFilled,
     yccBriefUploaded,
     yccBriefFile,
+
+    title,
+    number,
+    category,
+    brand,
+    teamMembers,
+    additionalFile,
+    youtubeUrl,
+    members,
   } = useSubmitStore();
 
   const isDcaValid =
@@ -42,27 +53,86 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
     }
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (mode === "dca") {
-      if (!briefFile) {
+      if (!briefBoardFile) {
         alert("브리프보드 파일이 없습니다.");
         return;
       }
+
+      try {
+        const formData = new FormData();
+        const userData: Partial<DCAapplyRequest> = {
+          title,
+          number,
+          category,
+          brand,
+          teamMembers,
+        };
+
+        if (category === "Film" && youtubeUrl) {
+          userData.youtubeUrl = youtubeUrl;
+        }
+
+        formData.append(
+          "request",
+          new Blob([JSON.stringify(userData)], {
+            type: "application/json",
+          })
+        );
+
+        if (additionalFile) {
+          formData.append("additionalFile", additionalFile);
+        }
+
+        formData.append("briefBoardFile", briefBoardFile);
+
+        await DCAapply(formData);
+        setIsModalOpen(false);
+        setIsCompleteModalOpen(true);
+      } catch (err) {
+        console.error("제출 실패", err);
+        alert("제출 중 오류가 발생했습니다.");
+      }
     }
 
+    //ycc
     if (mode === "ycc") {
       if (!yccBriefFile) {
         alert("기획서 파일이 없습니다.");
         return;
       }
-    }
 
-    setIsModalOpen(false);
-    setIsCompleteModalOpen(true);
-    console.log("제출완료");
+      try {
+        const formData = new FormData();
+        const yccPayload = {
+          title,
+          members,
+        };
+
+        formData.append(
+          "request",
+          new Blob([JSON.stringify(yccPayload)], {
+            type: "application/json",
+          })
+        );
+
+        formData.append("planFile", yccBriefFile);
+
+        await YCCApply(formData);
+        setIsModalOpen(false);
+        setIsCompleteModalOpen(true);
+        console.log("제출성공");
+      } catch (err) {
+        console.error("YCC 제출 실패", err);
+        alert("YCC 제출 중 오류가 발생했습니다.");
+      }
+    }
   };
+
   const handleCompleteClose = () => {
     setIsCompleteModalOpen(false);
+    window.location.reload();
   };
 
   const handleCancel = () => {
@@ -98,7 +168,10 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
 
       <ConfirmModal
         isOpen={isCancelModalOpen}
-        onClose={() => setIsCancelModalOpen(false)}
+        onClose={() => {
+          setIsCancelModalOpen(false);
+          window.location.reload();
+        }}
         onConfirm={() => setIsCancelModalOpen(false)}
         title="신청을 취소하시겠습니까?"
         description="현재 입력한 정보는 삭제됩니다."

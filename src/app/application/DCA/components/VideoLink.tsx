@@ -1,21 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import TextInput from "@/components/common/TextInput";
+import { useSubmitStore } from "@/store/useSubmitStore";
 
 const VideoLink = () => {
-  const [url, setUrl] = useState("");
+  const youtubeUrl = useSubmitStore((s) => s.youtubeUrl);
+  const setField = useSubmitStore((s) => s.setField);
 
   return (
     <div className="w-full px-[325px] mt-[130px]">
       <div className="text-gray-900 font-T02-B mb-6">
-        영상 링크 제출{" "}
-        <span className="text-gray-500 font-T02-SB"> (선택)</span>
+        영상 링크 제출 <span className="text-gray-500 font-T02-SB">(선택)</span>
       </div>
 
       <TextInput
         placeholder="URL을 입력하세요."
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
+        value={youtubeUrl}
+        onChange={(e) => setField("youtubeUrl", e.target.value)}
         className="w-full h-[48px]"
       />
     </div>
