@@ -2,7 +2,7 @@
 import TextInput from "@/components/common/TextInput";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import React, { useEffect, useState } from "react";
-import { DeleteIcon, PlusIcon } from "../../../../../public";
+import { DeleteIcon, HoverDelete, PlusIcon } from "../../../../../public";
 
 interface TeamMember {
   name: string;
@@ -17,6 +17,8 @@ const isValidEmail = (email: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 const TeamInformation = ({ mode }: TeamInformationProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const setTeamInfoFilled = useSubmitStore((s) => s.setTeamInfoFilled);
   const setYccTeamInfoFilled = useSubmitStore((s) => s.setYccTeamInfoFilled);
   const setField = useSubmitStore((s) => s.setField);
@@ -171,8 +173,10 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
                   type="button"
                   onClick={() => handleRemoveMember(index)}
                   className="cursor-pointer"
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
                 >
-                  <DeleteIcon />
+                  {isHovered ? <HoverDelete /> : <DeleteIcon />}
                 </button>
               </div>
               <div className="h-[20px]">
