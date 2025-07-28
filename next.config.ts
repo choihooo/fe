@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
       "lh3.googleusercontent.com",
 
       "ssl.pstatic.net",
+      "phinf.pstatic.net",
     ],
   },
 };
