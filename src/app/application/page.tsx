@@ -9,7 +9,7 @@ export default function Application() {
     <AuthGuard>
       <div className="min-h-screen bg-gray-50">
         <Header />
-        <div className="flex justify-center items-center min-h-[calc(100vh-80px)] mt-[44px]">
+        <div className="flex justify-center items-center min-h-[calc(100vh-80px)]">
           <ApplicationFunnel />
         </div>
       </div>

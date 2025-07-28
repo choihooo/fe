@@ -9,8 +9,8 @@ const page = () => {
     <AuthGuard>
       <div className="bg-gray-100 w-full min-h-screen">
         <Header />
-        <div className="px-[120px] flex flex-col">
-          <div className="pt-[156px] flex flex-row gap-5 items-center">
+        <div className="px-[120px] flex flex-col pt-20">
+          <div className="flex flex-row gap-5 items-center">
             <MyReportIcon />
             <div className="text-black font-T01-SB text-center">내 리포트</div>
           </div>

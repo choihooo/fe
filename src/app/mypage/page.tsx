@@ -5,7 +5,7 @@ function page() {
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
-      <div className="flex items-center justify-center pt-20">
+      <div className="flex items-center justify-center min-h-[calc(100vh-80px)]">
         <UserProfilePanel />
       </div>
     </div>
