@@ -86,7 +86,7 @@ function Header({ theme }: HeaderProps) {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("userId");
 
-    window.location.href = "/login";
+    window.location.href = "/home";
   };
 
   return (
