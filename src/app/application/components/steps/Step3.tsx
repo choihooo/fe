@@ -9,9 +9,10 @@ type Step3Props = {
   onPrev: () => void;
   stepNumber?: number;
   totalSteps?: number;
+  contest: "daehong" | "hsad";
 };
 
-export function Step3({ onPrev, stepNumber = 3, totalSteps = 3 }: Step3Props) {
+export function Step3({ onPrev, stepNumber = 3, totalSteps = 3, contest }: Step3Props) {
   const router = useRouter();
 
   return (
@@ -35,7 +36,13 @@ export function Step3({ onPrev, stepNumber = 3, totalSteps = 3 }: Step3Props) {
 
       <StepNavigation
         onPrev={onPrev}
-        onNext={() => router.push("/application/DCA")}
+        onNext={() => {
+          if (contest === "daehong") {
+            router.push("/application/DCA");
+          } else {
+            router.push("/application/YCC");
+          }
+        }}
       />
     </div>
   );

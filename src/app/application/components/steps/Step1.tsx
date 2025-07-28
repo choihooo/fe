@@ -5,9 +5,10 @@ import AP02 from "../../lotties/AP02";
 
 type Step1Props = {
   onNext: () => void;
-  onPrev?: () => void;
+  onPrev: () => void;
   stepNumber?: number;
   totalSteps?: number;
+  contest: "daehong" | "hsad";
 };
 
 export function Step1({

@@ -1,8 +1,8 @@
-import { publicAxiosInstance } from "./axiosInstance";
+import { authAxiosInstance } from "./axiosInstance";
 import { DCAapplyResponse, YCCapplyResponse } from "./schemas";
 
 export async function DCAapply(form: FormData): Promise<DCAapplyResponse> {
-  const res = await publicAxiosInstance.post<DCAapplyResponse>(
+  const res = await authAxiosInstance.post<DCAapplyResponse>(
     "/v1/works/dca",
     form,
     {
@@ -16,7 +16,7 @@ export async function DCAapply(form: FormData): Promise<DCAapplyResponse> {
 }
 
 export async function YCCApply(form: FormData): Promise<YCCapplyResponse> {
-  const res = await publicAxiosInstance.post<YCCapplyResponse>(
+  const res = await authAxiosInstance.post<YCCapplyResponse>(
     "/v1/works/ycc",
     form,
     {
