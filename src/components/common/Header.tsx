@@ -5,7 +5,7 @@ import Link from "next/link";
 import Logo from "./Logo";
 import { cn } from "@/utils/cn";
 import { useState, useRef, useEffect } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/queries/useAuth";
 import ProfileDropdown from "./ProfileDropdown";
 import { logout } from "@/app/_apis/auth";
 
