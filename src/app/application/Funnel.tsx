@@ -7,23 +7,22 @@ import { Step1, Step2, Step3 } from "./components/steps";
 
 export default function ApplicationFunnel() {
   const [mounted, setMounted] = useState(false);
-  type StepKey = "contest-select" | "step1" | "step2" | "step3";
 
   const funnel = useFunnel<{
     "contest-select": Record<string, never>;
-    step1: Record<string, never>;
-    step2: Record<string, never>;
-    step3: Record<string, never>;
+    step1: { contest: "daehong" | "hsad" };
+    step2: { contest: "daehong" | "hsad" };
+    step3: { contest: "daehong" | "hsad" };
   }>({
     id: "application-funnel-mixed",
     steps: {
       "contest-select": { parse: (v: unknown) => v as Record<string, never> },
-      step1: { parse: (v: unknown) => v as Record<string, never> },
-      step2: { parse: (v: unknown) => v as Record<string, never> },
-      step3: { parse: (v: unknown) => v as Record<string, never> },
+      step1: { parse: (v: unknown) => v as { contest: "daehong" | "hsad" } },
+      step2: { parse: (v: unknown) => v as { contest: "daehong" | "hsad" } },
+      step3: { parse: (v: unknown) => v as { contest: "daehong" | "hsad" } },
     },
     initial: {
-      step: "contest-select" as StepKey,
+      step: "contest-select",
       context: {},
     },
   });
@@ -37,25 +36,33 @@ export default function ApplicationFunnel() {
     case "contest-select":
       return (
         <ContestSelectionStep
-          onNext={() => funnel.history.push("step1" as StepKey, (prev) => prev)}
+          onNext={(contest) => {
+            funnel.history.push("step1", { contest });
+          }}
         />
       );
     case "step1":
       return (
         <Step1
-          onNext={() => funnel.history.push("step2" as StepKey, (prev) => prev)}
+          onNext={() =>
+            funnel.history.push("step2", { contest: funnel.context.contest })
+          }
           onPrev={() => funnel.history.back()}
           stepNumber={1}
           totalSteps={3}
+          contest={funnel.context.contest}
         />
       );
     case "step2":
       return (
         <Step2
-          onNext={() => funnel.history.push("step3" as StepKey, (prev) => prev)}
+          onNext={() =>
+            funnel.history.push("step3", { contest: funnel.context.contest })
+          }
           onPrev={() => funnel.history.back()}
           stepNumber={2}
           totalSteps={3}
+          contest={funnel.context.contest}
         />
       );
     case "step3":
@@ -64,6 +71,7 @@ export default function ApplicationFunnel() {
           onPrev={() => funnel.history.back()}
           stepNumber={3}
           totalSteps={3}
+          contest={funnel.context.contest}
         />
       );
     default:
