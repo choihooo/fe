@@ -5,7 +5,7 @@ import Link from "next/link";
 import Logo from "./Logo";
 import { cn } from "@/utils/cn";
 import { useState, useRef, useEffect } from "react";
-import { useAuth } from "@/hooks/queries/useAuth";
+import { useAuthQuery } from "@/hooks/queries/useAuth";
 import ProfileDropdown from "./ProfileDropdown";
 import { logout } from "@/app/_apis/auth";
 
@@ -28,9 +28,12 @@ const NAV_ITEMS: NavItem[] = [
 function Header({ theme }: HeaderProps) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isLoggedIn, profile } = useAuth();
+  const { data: authData, isLoading } = useAuthQuery();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const isLoggedIn = authData?.isLoggedIn || false;
+  const profile = authData?.profile || null;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -117,34 +120,40 @@ function Header({ theme }: HeaderProps) {
           ))}
         </nav>
       </div>
-      {isLoggedIn ? (
-        <div className="relative group hidden sm:inline-block mr-[14px]">
-          <img
-            src={profile?.profileImage || "/default-profile.png"}
-            alt="프로필"
-            className="w-[38px] h-[38px] rounded-full object-cover cursor-pointer"
-            onClick={() => setDropdownOpen((v) => !v)}
-          />
-          {dropdownOpen && (
-            <ProfileDropdown
-              dropdownRef={dropdownRef as React.RefObject<HTMLDivElement>}
-              onLogout={handleLogout}
-            />
+      
+      {/* 로그인 상태에 따른 조건부 렌더링 */}
+      {!isLoading && (
+        <>
+          {isLoggedIn ? (
+            <div className="relative group hidden sm:inline-block mr-[14px]">
+              <img
+                src={profile?.profileImage || "/default-profile.png"}
+                alt="프로필"
+                className="w-[38px] h-[38px] rounded-full object-cover cursor-pointer"
+                onClick={() => setDropdownOpen((v) => !v)}
+              />
+              {dropdownOpen && (
+                <ProfileDropdown
+                  dropdownRef={dropdownRef as React.RefObject<HTMLDivElement>}
+                  onLogout={handleLogout}
+                />
+              )}
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className={cn(
+                "px-[15px] py-[10px] font-B02-SB hidden sm:inline-block",
+                appliedTheme === "dark"
+                  ? "text-gray-200 hover:text-white"
+                  : "text-gray-500 hover:text-gray-900"
+              )}
+              aria-label="로그인"
+            >
+              로그인
+            </Link>
           )}
-        </div>
-      ) : (
-        <Link
-          href="/login"
-          className={cn(
-            "px-[15px] py-[10px] font-B02-SB hidden sm:inline-block",
-            appliedTheme === "dark"
-              ? "text-gray-200 hover:text-white"
-              : "text-gray-500 hover:text-gray-900"
-          )}
-          aria-label="로그인"
-        >
-          로그인
-        </Link>
+        </>
       )}
       {/* 모바일 메뉴 버튼 */}
       <button
@@ -191,30 +200,34 @@ function Header({ theme }: HeaderProps) {
                 {item.label}
               </Link>
             ))}
-            {isLoggedIn ? (
-              <div className="py-3 relative">
-                <img
-                  src={profile?.profileImage || "/default-profile.png"}
-                  alt="프로필"
-                  className="w-9 h-9 rounded-full object-cover border border-gray-300 cursor-pointer"
-                  onClick={() => setDropdownOpen((v) => !v)}
-                />
-                {dropdownOpen && (
-                  <ProfileDropdown
-                    dropdownRef={dropdownRef as React.RefObject<HTMLDivElement>}
-                    onLogout={handleLogout}
-                  />
+            {!isLoading && (
+              <>
+                {isLoggedIn ? (
+                  <div className="py-3 relative">
+                    <img
+                      src={profile?.profileImage || "/default-profile.png"}
+                      alt="프로필"
+                      className="w-9 h-9 rounded-full object-cover border border-gray-300 cursor-pointer"
+                      onClick={() => setDropdownOpen((v) => !v)}
+                    />
+                    {dropdownOpen && (
+                      <ProfileDropdown
+                        dropdownRef={dropdownRef as React.RefObject<HTMLDivElement>}
+                        onLogout={handleLogout}
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="py-3 text-lg font-B02-SB text-gray-700"
+                    aria-label="로그인"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    로그인
+                  </Link>
                 )}
-              </div>
-            ) : (
-              <Link
-                href="/login"
-                className="py-3 text-lg font-B02-SB text-gray-700"
-                aria-label="로그인"
-                onClick={() => setMenuOpen(false)}
-              >
-                로그인
-              </Link>
+              </>
             )}
           </nav>
         </div>

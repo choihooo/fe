@@ -55,20 +55,47 @@ export function useAuth() {
   } | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const accessToken = localStorage.getItem("accessToken");
-    const name = localStorage.getItem("name");
-    const profileImage = localStorage.getItem("profileImage");
+    const checkAuth = () => {
+      if (typeof window === "undefined") return;
+      const accessToken = localStorage.getItem("accessToken");
+      const name = localStorage.getItem("name");
+      const profileImage = localStorage.getItem("profileImage");
 
-    setIsLoggedIn(!!accessToken);
-    if (accessToken) {
-      setProfile({
-        name: name || "사용자",
-        profileImage: profileImage || "/default-profile.png",
-      });
-    } else {
-      setProfile(null);
-    }
+      setIsLoggedIn(!!accessToken);
+      if (accessToken) {
+        setProfile({
+          name: name || "사용자",
+          profileImage: profileImage || "/default-profile.png",
+        });
+      } else {
+        setProfile(null);
+      }
+    };
+
+    // 초기 체크
+    checkAuth();
+
+    // localStorage 변경 감지
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "accessToken" || e.key === "name" || e.key === "profileImage") {
+        checkAuth();
+      }
+    };
+
+    // 다른 탭에서의 변경 감지
+    window.addEventListener("storage", handleStorageChange);
+
+    // 현재 탭에서의 변경 감지 (custom event)
+    const handleCustomStorageChange = () => {
+      checkAuth();
+    };
+
+    window.addEventListener("localStorageChange", handleCustomStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("localStorageChange", handleCustomStorageChange);
+    };
   }, []);
 
   return { isLoggedIn, profile };

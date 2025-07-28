@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import Header from "@/components/common/Header";
 import ButtonBase from "@/components/common/ButtonBase";
 import GrayButton from "@/components/common/GrayButton";
@@ -14,6 +15,7 @@ import WithdarwConfirmModal from "./components/WithdarwConfirmModal";
 
 export default function WithdrawPage() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [selectedReasons, setSelectedReasons] = useState<WithdrawalReason[]>(
     []
   );
@@ -70,8 +72,27 @@ export default function WithdrawPage() {
       await withdrawUser(requestBody);
 
       alert("서비스 탈퇴가 완료되었습니다.");
+      
+      // 완전한 데이터 정리
       localStorage.clear();
-      router.push("/");
+      sessionStorage.clear();
+      
+      // React Query 캐시 정리
+      queryClient.clear();
+      
+      // 브라우저 캐시 정리 (이미지 캐시 포함)
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        await Promise.all(
+          cacheNames.map(cacheName => caches.delete(cacheName))
+        );
+      }
+      
+      // useAuth 훅에 localStorage 변경 알림
+      window.dispatchEvent(new Event('localStorageChange'));
+      
+      // 페이지 새로고침으로 완전한 상태 초기화
+      window.location.href = "/";
     } catch (error) {
       console.error("탈퇴 실패:", error);
       alert("탈퇴 처리 중 오류가 발생했습니다.");
