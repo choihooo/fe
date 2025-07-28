@@ -6,6 +6,7 @@ import UserProfileContainer from "./UserProfileContainer";
 import LogoutIcon from "../../../../public/icons/LogoutIcon";
 import GrayIconChevronRight from "../../../../public/icons/GrayIconChevronRight";
 import CornerIcon from "../../../../public/icons/CornerIcon";
+import { logout } from "@/app/_apis/auth";
 
 function UserProfilePanel() {
   const handleInquiry = () => {
@@ -17,7 +18,25 @@ function UserProfilePanel() {
   };
 
   const handleTermsOfService = () => {
-    window.open("https://soosanghantermsofuse.notion.site/?source=copy_link", "_blank");
+    window.open(
+      "https://soosanghantermsofuse.notion.site/?source=copy_link",
+      "_blank"
+    );
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error("로그아웃 API 호출 실패:", error);
+    }
+
+    localStorage.removeItem("profileImage");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("userId");
+
+    window.location.href = "/home";
   };
 
   return (
@@ -52,6 +71,7 @@ function UserProfilePanel() {
       <SettingsLinkItem
         label={<div className="font-B01-M text-gray-950 pl-1">로그아웃</div>}
         rightContent={<LogoutIcon />}
+        onClick={handleLogout}
       />
       <Link href="/mypage/withdraw" className="cursor-pointer">
         <SettingsLinkItem

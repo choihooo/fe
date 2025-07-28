@@ -1,3 +1,5 @@
+"use client";
+
 import UserProfilePanel from "./components/UserProfilePanel";
 import Header from "@/components/common/Header";
 
