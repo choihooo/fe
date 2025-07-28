@@ -15,7 +15,7 @@ function Footer() {
       </div>
 
       <a
-        href="https://forms.gle/CRLShaTW7ECVggKXA"
+        href="https://forms.gle/cSKrGxDtF3aYAnv56"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-6 sm:mt-[52px] flex flex-row items-center cursor-pointer hover:text-gray-900 text-gray-600 font-B01-M text-sm sm:text-base"
@@ -27,7 +27,7 @@ function Footer() {
       <div className="mt-2 sm:mt-[10px] flex flex-col sm:flex-row w-full justify-between gap-4 sm:gap-0">
         <div className="text-gray-800 flex flex-col sm:flex-row font-B01-M gap-2 sm:gap-7 cursor-pointer text-xs sm:text-base">
           <a
-            href="https://valley-tenor-1ca.notion.site/223f3199866980549056cc5ff8a4d6c0?source=copy_link"
+            href="https://soosanghanprivacy.notion.site/?pvs=143"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline"
@@ -35,7 +35,7 @@ function Footer() {
             개인정보 처리방침
           </a>
           <a
-            href=" https://valley-tenor-1ca.notion.site/223f31998669801d99cdddfe1b4c4046?source=copy_link"
+            href="https://soosanghantermsofuse.notion.site/?source=copy_link"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline"
