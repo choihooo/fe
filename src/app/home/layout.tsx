@@ -59,5 +59,5 @@ export default function HomeLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className={` antialiased`}>{children}</div>;
+  return <div>{children}</div>;
 }

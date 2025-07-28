@@ -51,11 +51,11 @@ export default function Home() {
 
   return (
     <>
-      <div className="absolute top-0 left-0 w-full z-50">
+      <div className="absolute top-0 left-0 w-screen z-50">
         <Header theme={getHeaderTheme()} />
       </div>
 
-      <div className="h-screen w-full overflow-y-auto snap-y snap-mandatory relative">
+      <div className="h-screen w-screen overflow-y-auto snap-y snap-mandatory relative overflow-x-hidden">
         <div className="h-screen snap-start">
           <div
             ref={(el) => {

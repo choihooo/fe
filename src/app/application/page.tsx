@@ -1,13 +1,18 @@
 "use client";
 
 import ApplicationFunnel from "./Funnel";
+import { AuthGuard } from "@/components/common/AuthGuard";
+import Header from "@/components/common/Header";
 
 export default function Application() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="flex justify-center items-center min-h-[calc(100vh-80px)] mt-[44px]">
-        <ApplicationFunnel />
+    <AuthGuard>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex justify-center items-center min-h-[calc(100vh-80px)] mt-[44px]">
+          <ApplicationFunnel />
+        </div>
       </div>
-    </div>
+    </AuthGuard>
   );
 }
