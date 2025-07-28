@@ -17,11 +17,13 @@ function ExpertFeedbackSection() {
       </div>
       <div className="flex-1 py-8 sm:py-[95px] w-full flex justify-center items-center">
         <Image
-          src="/image/landing/ExpertFeedback.png"
+          src="/image/landing/1.png"
           width={834}
           height={612}
           alt="피드백 예시"
-          className="w-full h-auto"
+          className="h-auto"
+          priority
+          quality={100}
         />
       </div>
     </div>
