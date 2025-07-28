@@ -5,8 +5,8 @@ const contributors = [
     name: "이현수",
     message: (
       <>
-        공모전 출품 환경을 <br />
-        개선하고 싶었습니다
+        공모전 출품 경험을 <br />
+        개선하는 문제해결능력
       </>
     ),
     imageSrc: "/image/landing/HSpic.png",
@@ -22,8 +22,8 @@ const contributors = [
     name: "우준식",
     message: (
       <>
-        가장 중요한 것은 <br />
-        탈락 이후의 선택
+        분석과 피드백을 통한 <br />
+        첨예한 기획
       </>
     ),
     imageSrc: "/image/landing/JSpic.png",
@@ -40,8 +40,9 @@ const contributors = [
     name: "신민서",
     message: (
       <>
-        수상 뒤에는 철저한 <br />
-        분석이 따라야 합니다
+        수많은 공모전 경험으로
+        <br />
+        얻은 반짝이는 노하우
       </>
     ),
     imageSrc: "/image/landing/MSpic.png",
@@ -80,7 +81,7 @@ function ContributorSection() {
                   {c.name}
                 </p>
               </div>
-              <p className="mt-3 sm:mt-5 text-black font-T02-B text-center sm:text-left text-base sm:text-lg">
+              <p className="mt-3 sm:mt-5 text-black font-T02-B text-center sm:text-center text-base sm:text-lg">
                 {c.message}
               </p>
 
