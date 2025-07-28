@@ -47,7 +47,7 @@ const ReportCard = ({
             <div className="text-gray-700 font-B01-R">{participants}</div>
           </div>
 
-          <button className="flex flex-row gap-[5px] mt-[37px] items-center justify-center px-[22px] py-3 rounded-[10px] bg-blue-main cursor-pointer">
+          <button className="flex flex-row gap-[9.5px] mt-[37px] items-center justify-center px-[22px] py-3 rounded-[10px] bg-blue-main cursor-pointer">
             <WhiteReportIcon />
             <div className="text-white font-B02-SB">리포트 보기</div>
           </button>
