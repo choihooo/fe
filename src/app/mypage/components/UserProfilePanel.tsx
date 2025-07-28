@@ -8,6 +8,18 @@ import GrayIconChevronRight from "../../../../public/icons/GrayIconChevronRight"
 import CornerIcon from "../../../../public/icons/CornerIcon";
 
 function UserProfilePanel() {
+  const handleInquiry = () => {
+    window.open("https://forms.gle/cSKrGxDtF3aYAnv56", "_blank");
+  };
+
+  const handlePrivacyPolicy = () => {
+    window.open("https://soosanghanprivacy.notion.site/?pvs=143", "_blank");
+  };
+
+  const handleTermsOfService = () => {
+    window.open("https://soosanghantermsofuse.notion.site/?source=copy_link", "_blank");
+  };
+
   return (
     <div className="bg-white px-[42px] py-[54px] w-[571px] rounded-[20px]">
       <UserProfileContainer />
@@ -15,18 +27,21 @@ function UserProfilePanel() {
       <SettingsLinkItem
         label={<div className="font-B01-M text-gray-950 pl-1">문의사항</div>}
         rightContent={<CornerIcon />}
+        onClick={handleInquiry}
       />
       <SettingsLinkItem
         label={
           <div className="font-B01-M text-gray-950 pl-1">개인정보 처리방침</div>
         }
         rightContent={<CornerIcon />}
+        onClick={handlePrivacyPolicy}
       />
       <SettingsLinkItem
         label={
           <div className="font-B01-M text-gray-950 pl-1">서비스 이용약관</div>
         }
         rightContent={<CornerIcon />}
+        onClick={handleTermsOfService}
       />
       <SettingsLinkItem
         label={<div className="font-B01-M text-gray-950 pl-1">버전 정보</div>}

@@ -9,13 +9,13 @@ const TERMS = [
     key: "service",
     label: "서비스 이용약관",
     required: true,
-    link: "https://soosanghanprivacy.notion.site",
+    link: "https://soosanghantermsofuse.notion.site/?source=copy_link",
   },
   {
     key: "privacy",
     label: "개인정보 처리방침",
     required: true,
-    link: "https://soosanghantermsofuse.notion.site",
+    link: "https://soosanghanprivacy.notion.site/?pvs=143",
   },
   {
     key: "marketing",
