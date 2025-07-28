@@ -7,6 +7,7 @@ import { agreeToTerms, onboardUser, getUserMe, updateUserProfile } from "@/app/_
 import { AgreementRequest, OnboardingRequest, UpdateProfileRequest } from "@/app/_apis/schemas";
 import { authKeys } from "./useAuth";
 
+
 export const userKeys = {
   all: ["user"] as const,
   agreement: () => [...userKeys.all, "agreement"] as const,
