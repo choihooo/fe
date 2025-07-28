@@ -15,6 +15,15 @@ function CustomFeedbackSection() {
 
       <div className="mt-8 sm:mt-[101px] flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-[31px] w-full">
         <Image
+          src="/image/landing/3.png"
+          alt="맞춤형피드백 왼쪽이미지"
+          width={493}
+          height={417}
+          quality={100}
+          priority
+          className="h-auto"
+        />
+        {/* <Image
           src="/image/landing/FeedbackLeftImg.png"
           alt="맞춤형피드백 왼쪽이미지"
           width={493}
@@ -29,7 +38,7 @@ function CustomFeedbackSection() {
           height={415}
           quality={90}
           className="w-full sm:max-w-[675px] h-auto"
-        />
+        /> */}
       </div>
     </div>
   );

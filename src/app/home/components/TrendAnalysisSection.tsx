@@ -17,12 +17,13 @@ function TrendAnalysisSection() {
       </div>
       <div className="flex-1 py-8 sm:py-[103px] w-full flex justify-center items-center">
         <Image
-          src="/image/landing/TrendAnalysis.png"
+          src="/image/landing/2.png"
           width={852}
           height={455}
           alt="트렌드 분석 예시"
-          quality={90}
-          className="w-full h-auto"
+          className="h-auto"
+          priority
+          quality={100}
         />
       </div>
     </div>
