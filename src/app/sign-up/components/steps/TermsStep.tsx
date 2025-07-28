@@ -35,6 +35,7 @@ export default function StepTerm({ onNext }: Props) {
     privacy: false,
     marketing: false,
   });
+
   const allChecked = TERMS.every((t) => checked[t.key]);
   const requiredChecked = TERMS.filter((t) => t.required).every(
     (t) => checked[t.key]
@@ -89,14 +90,17 @@ export default function StepTerm({ onNext }: Props) {
               </span>
               <span className="font-B02-R text-gray-700">{term.label}</span>
             </label>
-            <a
-              href={term.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-B03-M text-gray-400 underline ml-4 hover:text-gray-500"
-            >
-              보기
-            </a>
+
+            {term.key !== "marketing" && (
+              <a
+                href={term.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-B03-M text-gray-400 underline ml-4 hover:text-gray-500"
+              >
+                보기
+              </a>
+            )}
           </div>
         ))}
       </div>

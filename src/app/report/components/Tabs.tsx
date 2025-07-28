@@ -1,27 +1,47 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReportCard, { ReportCardProps } from "./ReportCards";
+import { GetReport } from "@/app/_apis/report";
+import { ReportRequest } from "@/app/_apis/schemas/reportResponse";
+import { NoReportIcon } from "../../../../public";
+import Loading from "@/components/common/Loading";
 
 const Tabs = () => {
   const tabs = ["전체", "DCA", "YCC"];
   const [activeTab, setActiveTab] = useState("전체");
+  const [cards, setCards] = useState<ReportCardProps[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const cards: ReportCardProps[] = [
-    {
-      type: "DCA",
-      status: "완료",
-      title: "너에게서 나를 보다",
-      org: "유니세프",
-      participants: "이현수, 신민서, 우준식, 김수연",
-    },
-    {
-      type: "YCC",
-      status: "제작중",
-      title: "너에게서 나를 보다",
-      org: "유니세프",
-      participants: "이현수, 신민서, 우준식, 유은서",
-    },
-  ];
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const data = await GetReport(0);
+        const dataList: ReportRequest[] = data.result.responseList;
+
+        const statusMap: Record<string, "완료" | "제작중"> = {
+          COMPLETED: "완료",
+          IN_PROGRESS: "제작중",
+        };
+
+        const Cards: ReportCardProps[] = dataList.map((item) => ({
+          type: item.contestName,
+          title: item.title,
+          category: item.category,
+          org: item.brand,
+          participants: item.workMembers.join(", "),
+          status: statusMap[item.reportStatus] ?? "제작중",
+        }));
+
+        setCards(Cards);
+      } catch (err) {
+        console.error("리포트 불러오기 실패", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReports();
+  }, []);
 
   const filteredCards =
     activeTab === "전체"
@@ -47,9 +67,20 @@ const Tabs = () => {
       </div>
 
       <div className="mt-10 w-full">
-        {filteredCards.map((card, idx) => (
-          <ReportCard key={idx} {...card} />
-        ))}
+        {loading ? (
+          <div className="flex items-center justify-center mt-[175px]">
+            <Loading />
+          </div>
+        ) : filteredCards.length === 0 ? (
+          <div className="flex flex-col items-center justify-center mt-[175px]">
+            <NoReportIcon />
+            <div className=" text-gray-300 font-B01-M mt-[10px]">
+              아직 신청한 리포트가 없어요
+            </div>
+          </div>
+        ) : (
+          filteredCards.map((card, idx) => <ReportCard key={idx} {...card} />)
+        )}
       </div>
     </>
   );

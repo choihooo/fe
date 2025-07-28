@@ -16,7 +16,7 @@ const page = () => {
           </div>
 
           <div className="mt-3 text-gray-600 font-B01-M">
-            제출한 작품과 트렌드 리포트 현황을 확인하세요
+            분석을 신청한 작품과 수상 리포트 현황을 확인하세요
           </div>
 
           <Tabs />
