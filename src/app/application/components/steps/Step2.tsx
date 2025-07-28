@@ -8,6 +8,7 @@ type Step2Props = {
   onPrev: () => void;
   stepNumber?: number;
   totalSteps?: number;
+  contest: "daehong" | "hsad";
 };
 
 export function Step2({
