@@ -16,15 +16,17 @@ function ExpertFeedbackSection() {
         </div>
       </div>
       <div className="flex-1 py-8 sm:py-[95px] w-full flex justify-center items-center">
-        <Image
-          src="/image/landing/1.png"
-          width={834}
-          height={612}
-          alt="피드백 예시"
-          className="h-auto"
-          priority
-          quality={100}
-        />
+        <div className="translate-x-[30px] sm:translate-x-[30px]">
+          <Image
+            src="/image/landing/1.png"
+            width={834}
+            height={612}
+            alt="피드백 예시"
+            className="h-auto"
+            priority
+            quality={100}
+          />
+        </div>
       </div>
     </div>
   );
