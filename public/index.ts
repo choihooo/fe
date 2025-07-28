@@ -19,3 +19,4 @@ export { default as CheckIcon } from "./icons/CheckIcon";
 export { default as ReportIcon } from "./icons/MyReportIcon";
 export { default as CheckBoxIcon } from "./icons/CheckBox";
 export { default as WhiteReportIcon } from "./icons/WhiteReport";
+export { default as HoverDelete } from "./icons/HoverDeleteIcon";

@@ -12,9 +12,10 @@ const page = () => {
           <div className="text-black font-T01-SB text-center">내 리포트</div>
         </div>
 
-        <div className="mt-8 text-gray-600 font-B01-M">
-          제출한 작품과 트렌드 리포트 현황을 확인하세요
-        </div>
+      <div className="mt-3 text-gray-600 font-B01-M">
+        제출한 작품과 트렌드 리포트 현황을 확인하세요
+      </div>
+
 
         <Tabs />
       </div>
