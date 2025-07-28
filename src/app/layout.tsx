@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { QueryProvider } from "@/components/providers/QueryProvider";
+import AnalyticsTools from "@/components/common/AnalyticsTools";
 
 export const metadata: Metadata = {
   title: "수상한 녀석들",
@@ -65,9 +66,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryProvider>
-          {children}
-        </QueryProvider>
+        <AnalyticsTools />
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
