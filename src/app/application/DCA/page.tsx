@@ -16,7 +16,7 @@ const page = () => {
           출품작을 업로드하고 <br /> 수상 리포트를 받아보세요
         </div>
         <Image
-          src="/image/application/graphic.png"
+          src="/image/application/graphicImg.png"
           alt="그래픽이미지"
           width={704}
           height={128}
