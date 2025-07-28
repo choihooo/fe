@@ -1,6 +1,13 @@
+"use client";
 import RoundButton from "@/components/common/RoundButton";
+import { useRouter } from "next/navigation";
 
 function HsadSlide() {
+  const router = useRouter();
+
+  const handleapplicationClick = () => {
+    router.push("/application");
+  };
   return (
     <div
       className="w-full min-h-[400px] h-screen flex flex-col items-center justify-center bg-no-repeat bg-cover bg-center relative"
@@ -27,7 +34,9 @@ function HsadSlide() {
         <div className="text-center font-T04-SB text-gray-500 mb-10 sm:mb-[74px] text-base sm:text-lg">
           2025년 HSAD 영 크리에이터스 컴퍼티션
         </div>
-        <RoundButton>리포트 신청하기</RoundButton>
+        <RoundButton onClick={handleapplicationClick}>
+          리포트 신청하기
+        </RoundButton>
       </div>
     </div>
   );
