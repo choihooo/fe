@@ -8,8 +8,8 @@ const BriefBoard = () => {
   const setBriefBoardFile = useSubmitStore((s) => s.setBriefBoardFile);
 
   const handleFileChange = (uploadedFile: File | null) => {
-    setBriefUploaded(!!uploadedFile);
     setBriefBoardFile(uploadedFile);
+    setBriefUploaded(!!uploadedFile);
   };
 
   return (
@@ -23,7 +23,6 @@ const BriefBoard = () => {
         maxSizeMB={10}
         placeholder="마우스로 파일을 끌어오거나, 클릭해 업로드하세요"
         description="최대 3508x4960 픽셀, 10MB 이하의 JPG 파일"
-        required
         onFileChange={handleFileChange}
       />
     </div>
