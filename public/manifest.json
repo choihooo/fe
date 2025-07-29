@@ -1,7 +1,7 @@
 {
   "name": "수상한 녀석들",
   "short_name": "수상한 녀석들",
-  "description": "수상한 녀석들 플랫폼",
+  "description": "공모전 출품작 분석 AI 서비스",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -20,4 +20,4 @@
       "purpose": "any maskable"
     }
   ]
-} 
+}

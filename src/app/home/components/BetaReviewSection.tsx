@@ -15,7 +15,7 @@ const reviewData = [
     title: "KoSAC 파이널리스트 수상",
     content:
       "출품 이후 회고하는 과정이 공모전의 완성이라는 점을 깨달았습니다. 수상도 기뻤지만, 무엇보다 어떤 점이 부족했는지를 구체적으로 알 수 있어 다음 도전에 큰 도움이 되었습니다.",
-    university: "양지대학교",
+    university: "명지대학교",
     name: "이연주",
     rating: 5,
   },
