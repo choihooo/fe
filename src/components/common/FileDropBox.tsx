@@ -15,6 +15,8 @@ interface FileDropBoxProps {
   onFileChange: (file: File | null) => void;
   required?: boolean;
   errorMessage?: string;
+  maxWidth?: number;
+  maxHeight?: number;
 }
 
 const FileDropBox = ({
@@ -23,6 +25,8 @@ const FileDropBox = ({
   description,
   placeholder,
   onFileChange,
+  maxWidth,
+  maxHeight,
 }: FileDropBoxProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -53,10 +57,6 @@ const FileDropBox = ({
     const uploadedType = uploaded.type.toLowerCase();
     const uploadedExt = uploaded.name.split(".").pop()?.toLowerCase();
 
-    // const isValidType = allowedTypes.some((type) => {
-    //   const cleaned = type.replace(".", "");
-    //   return uploadedType.includes(cleaned) || uploadedExt === cleaned;
-    // });
     const isValidType = allowedTypes.some((type) => {
       const cleaned = type.replace(".", "");
       return uploadedExt === cleaned || uploadedType.endsWith(`/${cleaned}`);
@@ -71,9 +71,33 @@ const FileDropBox = ({
           ", "
         )} 파일만 업로드할 수 있어요`
       );
-      setFile(null);
-      onFileChange(null);
-      if (inputRef.current) inputRef.current.value = "";
+      resetFile();
+      return;
+    }
+
+    if (uploaded.type.startsWith("image/") && (maxWidth || maxHeight)) {
+      const img = new Image();
+      img.onload = () => {
+        const tooBig =
+          (maxWidth && img.width > maxWidth) ||
+          (maxHeight && img.height > maxHeight);
+
+        if (tooBig) {
+          setError(
+            `이미지 크기는 최대 ${maxWidth}x${maxHeight} 픽셀 이하만 가능해요`
+          );
+          resetFile();
+        } else {
+          setError(null);
+          setFile(uploaded);
+          onFileChange(uploaded);
+        }
+      };
+      img.onerror = () => {
+        setError("이미지 파일을 불러올 수 없습니다.");
+        resetFile();
+      };
+      img.src = URL.createObjectURL(uploaded);
     } else {
       setError(null);
       setFile(uploaded);
@@ -81,10 +105,14 @@ const FileDropBox = ({
     }
   };
 
-  const handleDelete = () => {
+  const resetFile = () => {
     setFile(null);
     onFileChange(null);
     if (inputRef.current) inputRef.current.value = "";
+  };
+
+  const handleDelete = () => {
+    resetFile();
   };
 
   return (
