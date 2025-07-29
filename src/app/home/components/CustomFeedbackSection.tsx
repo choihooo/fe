@@ -17,11 +17,11 @@ function CustomFeedbackSection() {
         <Image
           src="/image/landing/3.png"
           alt="맞춤형피드백 왼쪽이미지"
-          width={493}
+          width={1197}
           height={417}
           quality={100}
           priority
-          className="h-auto"
+          className="sm:w-[1197px] sm:h-[417px] w-[280px] h-auto"
         />
         {/* <Image
           src="/image/landing/FeedbackLeftImg.png"
