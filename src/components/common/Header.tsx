@@ -25,6 +25,7 @@ function Header({ theme }: HeaderProps) {
   const router = useRouter();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -77,6 +78,7 @@ function Header({ theme }: HeaderProps) {
     if (isInApplicationDetailPage && isWriting && isMovingToAnotherPage) {
       setShowConfirm(true);
     } else {
+      setMenuOpen(false);
       router.push(href);
     }
   };
@@ -115,7 +117,7 @@ function Header({ theme }: HeaderProps) {
 
       <header
         className={cn(
-          "w-full flex justify-between px-4 py-3 sm:px-[106px] sm:py-5",
+          "w-full flex justify-between items-center px-4 py-3 sm:px-[106px] sm:py-5",
           bgClass
         )}
       >
@@ -176,7 +178,85 @@ function Header({ theme }: HeaderProps) {
             )}
           </>
         )}
+
+        <button
+          className="sm:hidden flex flex-col justify-center items-center w-9 h-9"
+          aria-label="모바일 메뉴 열기"
+          onClick={() => setMenuOpen(true)}
+        >
+          <span className="block w-6 h-0.5 bg-gray-800 mb-1" />
+          <span className="block w-6 h-0.5 bg-gray-800 mb-1" />
+          <span className="block w-6 h-0.5 bg-gray-800" />
+        </button>
       </header>
+
+      {menuOpen && (
+        <div className="fixed inset-0 z-50 bg-white flex flex-col">
+          <div className="flex justify-between items-center px-4 py-4 border-b border-gray-200">
+            <Logo theme="light" />
+            <button
+              className="w-8 h-8 flex items-center justify-center"
+              aria-label="메뉴 닫기"
+              onClick={() => setMenuOpen(false)}
+            >
+              ✕
+            </button>
+          </div>
+
+          <nav className="flex flex-col gap-3 px-6 py-6">
+            {NAV_ITEMS.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => handleProtectedNavigation(item.href)}
+                className={cn(
+                  "text-lg font-B02-M cursor-pointer py-2",
+                  pathname === item.href && "font-B02-SB text-blue-main"
+                )}
+              >
+                {item.label}
+              </div>
+            ))}
+
+            {!isLoading && (
+              <>
+                {isLoggedIn ? (
+                  <>
+                    <div className="flex items-center gap-3 mt-4">
+                      <img
+                        src={profile?.profileImage || "/default-profile.png"}
+                        alt="프로필"
+                        className="w-9 h-9 rounded-full object-cover border"
+                      />
+                      <span className="text-gray-800 font-B02-M">
+                        {profile?.name}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setMenuOpen(false);
+                      }}
+                      className="mt-4 text-left text-gray-500 hover:text-red-500 font-B02-M"
+                    >
+                      로그아웃
+                    </button>
+                  </>
+                ) : (
+                  <div
+                    className="text-gray-800 font-B02-M mt-4 cursor-pointer"
+                    onClick={() => {
+                      handleProtectedNavigation("/login");
+                      setMenuOpen(false);
+                    }}
+                  >
+                    로그인
+                  </div>
+                )}
+              </>
+            )}
+          </nav>
+        </div>
+      )}
     </>
   );
 }
