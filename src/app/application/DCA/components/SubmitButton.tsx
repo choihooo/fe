@@ -130,11 +130,6 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
     }
   };
 
-  const handleCompleteClose = () => {
-    setIsCompleteModalOpen(false);
-    window.location.reload();
-  };
-
   const handleCancel = () => {
     setIsModalOpen(false);
     setIsCancelModalOpen(true);
@@ -161,10 +156,7 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
         confirmText="신청하기"
       />
 
-      <ApplyComfirmModal
-        isOpen={isCompleteModalOpen}
-        onClose={handleCompleteClose}
-      />
+      <ApplyComfirmModal isOpen={isCompleteModalOpen} />
 
       <ConfirmModal
         isOpen={isCancelModalOpen}
