@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "수상한 녀석들",
-  description: "수상한 녀석들 플랫폼",
+  description: "공모전 출품작 분석 AI 서비스",
   icons: {
     icon: [
       {
