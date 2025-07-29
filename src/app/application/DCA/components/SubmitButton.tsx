@@ -46,7 +46,7 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // ✅ 중복 방지용 상태
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitClick = () => {
     if (!isDisabled) {

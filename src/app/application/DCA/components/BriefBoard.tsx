@@ -8,12 +8,8 @@ const BriefBoard = () => {
   const setBriefBoardFile = useSubmitStore((s) => s.setBriefBoardFile);
 
   const handleFileChange = (uploadedFile: File | null) => {
-    console.log("선택된 파일:", uploadedFile);
     setBriefUploaded(!!uploadedFile);
     setBriefBoardFile(uploadedFile);
-    setTimeout(() => {
-      console.log("현재 zustand 상태:", useSubmitStore.getState());
-    }, 100);
   };
 
   return (
