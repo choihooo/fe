@@ -8,25 +8,33 @@ import { LoginModal } from "./LoginModal";
 interface AuthGuardProps {
   children: React.ReactNode;
   fallback?: React.ReactNode;
+  onLoginSuccess?: () => void;
 }
 
-export function AuthGuard({ children, fallback }: AuthGuardProps) {
+export function AuthGuard({
+  children,
+  fallback,
+  onLoginSuccess,
+}: AuthGuardProps) {
   const { isLoggedIn } = useAuth();
+  const [wasLoggedIn, setWasLoggedIn] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (!isLoggedIn) {
       setShowLoginModal(true);
+      setWasLoggedIn(false);
+    } else if (!wasLoggedIn) {
+      onLoginSuccess?.();
+      setWasLoggedIn(true);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, onLoginSuccess, wasLoggedIn]);
 
   const handleCloseModal = () => {
     setShowLoginModal(false);
-    router.push("/");
   };
 
-  // 로그인되지 않은 경우 fallback 또는 로딩 표시
   if (!isLoggedIn) {
     return (
       <>
@@ -38,14 +46,10 @@ export function AuthGuard({ children, fallback }: AuthGuardProps) {
             </div>
           </div>
         )}
-        <LoginModal 
-          isOpen={showLoginModal} 
-          onClose={handleCloseModal} 
-        />
+        <LoginModal isOpen={showLoginModal} onClose={handleCloseModal} />
       </>
     );
   }
 
-  // 로그인된 경우 children 렌더링
   return <>{children}</>;
 }
