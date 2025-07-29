@@ -32,6 +32,7 @@ const WorkInformation = () => {
 
   const setWorkInfoFilled = useSubmitStore((s) => s.setWorkInfoFilled);
   const setField = useSubmitStore((s) => s.setField);
+  const setIsWriting = useSubmitStore((s) => s.setIsWriting);
 
   useEffect(() => {
     const isAllFilled =
@@ -66,7 +67,10 @@ const WorkInformation = () => {
         <TextInput
           placeholder="작품의 제목을 입력하세요."
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            setTitle(e.target.value);
+            setIsWriting(true);
+          }}
           className="w-full"
         />
       </div>
@@ -76,7 +80,10 @@ const WorkInformation = () => {
           <div className="text-gray-800 font-B01-M"> 카테고리 </div>
           <DropDownInput
             value={category}
-            onChange={setCategory}
+            onChange={(val) => {
+              setCategory(val);
+              setIsWriting(true);
+            }}
             placeholder="출품 카테고리를 선택하세요."
             options={CATEGORY_OPTIONS}
           />
@@ -86,7 +93,10 @@ const WorkInformation = () => {
           <div className="text-gray-800 font-B01-M"> 브랜드 </div>
           <DropDownInput
             value={brand}
-            onChange={setBrand}
+            onChange={(val) => {
+              setBrand(val);
+              setIsWriting(true);
+            }}
             placeholder="출품 브랜드를 선택하세요."
             options={BRAND_OPTIONS}
           />
@@ -102,7 +112,10 @@ const WorkInformation = () => {
           <TextInput
             placeholder="작품의 접수번호를 입력하세요."
             value={number}
-            onChange={(e) => setNumber(e.target.value)}
+            onChange={(e) => {
+              setNumber(e.target.value);
+              setIsWriting(true);
+            }}
             className="pl-[40px] w-full"
           />
         </div>

@@ -33,7 +33,7 @@ function Header({ theme }: HeaderProps) {
   const isLoggedIn = authData?.isLoggedIn || false;
   const profile = authData?.profile || null;
 
-  const { isWriting } = useSubmitStore();
+  const { isWriting, setIsWriting } = useSubmitStore();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -69,12 +69,13 @@ function Header({ theme }: HeaderProps) {
   };
 
   const handleProtectedNavigation = (href: string) => {
-    const isInApplicationPage =
+    const isInApplicationDetailPage =
       pathname.startsWith("/application/DCA") ||
       pathname.startsWith("/application/YCC");
-    const isMoving = pathname !== href;
 
-    if (isInApplicationPage && isWriting && isMoving) {
+    const isMovingToAnotherPage = pathname !== href;
+
+    if (isInApplicationDetailPage && isWriting && isMovingToAnotherPage) {
       setNextPath(href);
       setShowConfirm(true);
     } else {
@@ -83,6 +84,7 @@ function Header({ theme }: HeaderProps) {
   };
 
   const handleConfirmLeave = () => {
+    setIsWriting(false);
     setShowConfirm(false);
   };
 
