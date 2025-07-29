@@ -21,24 +21,8 @@ function CustomFeedbackSection() {
           height={417}
           quality={100}
           priority
-          className="sm:w-[1197px] sm:h-[417px] w-[280px] h-auto"
+          className="sm:w-[1197px] sm:h-[417px] w-[358px] h-auto"
         />
-        {/* <Image
-          src="/image/landing/FeedbackLeftImg.png"
-          alt="맞춤형피드백 왼쪽이미지"
-          width={493}
-          height={417}
-          quality={90}
-          className="w-full sm:max-w-[493px] h-auto"
-        />
-        <Image
-          src="/image/landing/FeedbackRImg.png"
-          alt="맞춤형피드백 오른쪽이미지"
-          width={675}
-          height={415}
-          quality={90}
-          className="w-full sm:max-w-[675px] h-auto"
-        /> */}
       </div>
     </div>
   );

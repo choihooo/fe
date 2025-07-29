@@ -21,7 +21,7 @@ function TrendAnalysisSection() {
           width={852}
           height={455}
           alt="트렌드 분석 예시"
-          className="sm:w-[852px] sm:h-[455px] w-[280px] h-auto"
+          className="sm:w-[852px] sm:h-[455px] w-[358px] h-auto"
           priority
           quality={100}
         />

@@ -21,7 +21,7 @@ function ExpertFeedbackSection() {
           width={834}
           height={612}
           alt="피드백 예시"
-          className="sm:w-[834px] sm:h-[612px] w-[280px] h-auto"
+          className="sm:w-[834px] sm:h-[612px] w-[358px] h-auto"
           priority
           quality={100}
         />
