@@ -3,6 +3,7 @@ import TextInput from "@/components/common/TextInput";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import React, { useEffect, useState } from "react";
 import { DeleteIcon, HoverDelete, PlusIcon } from "../../../../../public";
+import { useUserMe } from "@/hooks/queries/useUser";
 
 interface TeamMember {
   name: string;
@@ -19,6 +20,8 @@ const isValidEmail = (email: string) =>
 const TeamInformation = ({ mode }: TeamInformationProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const { data: userData } = useUserMe();
+
   const setTeamInfoFilled = useSubmitStore((s) => s.setTeamInfoFilled);
   const setYccTeamInfoFilled = useSubmitStore((s) => s.setYccTeamInfoFilled);
   const setField = useSubmitStore((s) => s.setField);
@@ -30,6 +33,13 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
   const [emailErrors, setEmailErrors] = useState<{ [key: string]: boolean }>(
     {}
   );
+
+  useEffect(() => {
+    if (userData?.result) {
+      if (!applicantName) setApplicantName(userData.result.name || "");
+      if (!applicantEmail) setApplicantEmail(userData.result.email || "");
+    }
+  }, [userData, applicantName, applicantEmail]);
 
   useEffect(() => {
     const allMembers: TeamMember[] = [
