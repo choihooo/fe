@@ -3,6 +3,7 @@ import TextInput from "@/components/common/TextInput";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import React, { useEffect, useState } from "react";
 import { DeleteIcon, HoverDelete, PlusIcon } from "../../../../../public";
+import { useUserMe } from "@/hooks/queries/useUser";
 
 interface TeamMember {
   name: string;
@@ -19,9 +20,12 @@ const isValidEmail = (email: string) =>
 const TeamInformation = ({ mode }: TeamInformationProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const { data: userData } = useUserMe();
+
   const setTeamInfoFilled = useSubmitStore((s) => s.setTeamInfoFilled);
   const setYccTeamInfoFilled = useSubmitStore((s) => s.setYccTeamInfoFilled);
   const setField = useSubmitStore((s) => s.setField);
+  const setIsWriting = useSubmitStore((s) => s.setIsWriting);
 
   const [applicantName, setApplicantName] = useState("");
   const [applicantEmail, setApplicantEmail] = useState("");
@@ -29,6 +33,13 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
   const [emailErrors, setEmailErrors] = useState<{ [key: string]: boolean }>(
     {}
   );
+
+  useEffect(() => {
+    if (userData?.result) {
+      if (!applicantName) setApplicantName(userData.result.name || "");
+      if (!applicantEmail) setApplicantEmail(userData.result.email || "");
+    }
+  }, [userData, applicantName, applicantEmail]);
 
   useEffect(() => {
     const allMembers: TeamMember[] = [
@@ -68,6 +79,7 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
   const handleAddMember = () => {
     if (teamMembers.length < 3) {
       setTeamMembers((prev) => [...prev, { name: "", email: "" }]);
+      setIsWriting(true);
     }
   };
 
@@ -79,6 +91,7 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
     const updated = [...teamMembers];
     updated[index][field] = value;
     setTeamMembers(updated);
+    setIsWriting(true);
 
     if (field === "email") {
       setEmailErrors((prev) => ({
@@ -90,10 +103,12 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
 
   const handleRemoveMember = (index: number) => {
     setTeamMembers((prev) => prev.filter((_, i) => i !== index));
+    setIsWriting(true);
   };
 
   const handleApplicantEmailChange = (value: string) => {
     setApplicantEmail(value);
+    setIsWriting(true);
     setEmailErrors((prev) => ({
       ...prev,
       applicant: value ? !isValidEmail(value) : false,
@@ -117,7 +132,10 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
             <TextInput
               placeholder="이름을 입력하세요."
               value={applicantName}
-              onChange={(e) => setApplicantName(e.target.value)}
+              onChange={(e) => {
+                setApplicantName(e.target.value);
+                setIsWriting(true);
+              }}
               className="w-[237px]"
             />
           </div>

@@ -46,6 +46,7 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitClick = () => {
     if (!isDisabled) {
@@ -54,9 +55,13 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
   };
 
   const handleConfirm = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     if (mode === "dca") {
       if (!briefBoardFile) {
         alert("브리프보드 파일이 없습니다.");
+        setIsSubmitting(false);
         return;
       }
 
@@ -93,13 +98,15 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
       } catch (err) {
         console.error("제출 실패", err);
         alert("제출 중 오류가 발생했습니다.");
+      } finally {
+        setIsSubmitting(false);
       }
     }
 
-    //ycc
     if (mode === "ycc") {
       if (!yccBriefFile) {
         alert("기획서 파일이 없습니다.");
+        setIsSubmitting(false);
         return;
       }
 
@@ -122,10 +129,12 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
         await YCCApply(formData);
         setIsModalOpen(false);
         setIsCompleteModalOpen(true);
-        console.log("제출성공");
+        console.log("제출 성공");
       } catch (err) {
         console.error("YCC 제출 실패", err);
         alert("YCC 제출 중 오류가 발생했습니다.");
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -153,7 +162,7 @@ const SubmitButton = ({ mode }: SubmitButtonProps) => {
         title="리포트를 신청하시겠습니까?"
         description="신청 후에는 작품을 변경할 수 없습니다."
         cancelText="취소"
-        confirmText="신청하기"
+        confirmText={isSubmitting ? "신청 중.." : "신청하기"}
       />
 
       <ApplyComfirmModal isOpen={isCompleteModalOpen} />

@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 interface ProfileDropdownProps {
-  dropdownRef: React.RefObject<HTMLDivElement>;
+  dropdownRef: React.RefObject<HTMLDivElement | null>;
   onLogout: () => void;
 }
 

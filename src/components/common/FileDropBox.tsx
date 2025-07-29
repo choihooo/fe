@@ -44,13 +44,21 @@ const FileDropBox = ({
   const validateAndSetFile = (uploaded?: File) => {
     if (!uploaded) return;
 
-    const fileSizeMB = uploaded.size / (1024 * 1024);
-    const allowedTypes = accept?.split(",").map((type) => type.trim());
+    const fileSizeBytes = uploaded.size;
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
 
-    const isValidType = allowedTypes.some((type) =>
-      uploaded.type.includes(type.replace(".", ""))
-    );
-    const isValidSize = fileSizeMB <= maxSizeMB;
+    const allowedTypes = accept
+      ?.split(",")
+      .map((type) => type.trim().toLowerCase());
+    const uploadedType = uploaded.type.toLowerCase();
+    const uploadedExt = uploaded.name.split(".").pop()?.toLowerCase();
+
+    const isValidType = allowedTypes.some((type) => {
+      const cleaned = type.replace(".", "");
+      return uploadedType.includes(cleaned) || uploadedExt === cleaned;
+    });
+
+    const isValidSize = fileSizeBytes <= maxSizeBytes;
 
     if (!isValidType || !isValidSize) {
       setError(
@@ -93,7 +101,7 @@ const FileDropBox = ({
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
       >
-        <div className="flex flex-col items-center justify-center gap-3 ">
+        <div className="flex flex-col items-center justify-center gap-3">
           {isDragging ? <BlueFileIcon /> : <FileIcon />}
           <div className="mt-[27px] text-gray-500 font-B01-M text-center">
             {placeholder}

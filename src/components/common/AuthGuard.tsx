@@ -38,10 +38,7 @@ export function AuthGuard({ children, fallback }: AuthGuardProps) {
             </div>
           </div>
         )}
-        <LoginModal 
-          isOpen={showLoginModal} 
-          onClose={handleCloseModal} 
-        />
+        <LoginModal isOpen={showLoginModal} onClose={handleCloseModal} />
       </>
     );
   }

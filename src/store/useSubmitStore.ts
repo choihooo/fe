@@ -9,7 +9,6 @@ interface SubmitStoreProps {
   workInfoFilled: boolean;
   teamInfoFilled: boolean;
   briefUploaded: boolean;
-
   briefBoardFile: File | null;
   additionalFile: File | null;
 
@@ -27,6 +26,8 @@ interface SubmitStoreProps {
   teamMembers: TeamMember[];
   members: TeamMember[];
 
+  isWriting: boolean;
+
   setWorkInfoFilled: (v: boolean) => void;
   setTeamInfoFilled: (v: boolean) => void;
   setBriefUploaded: (v: boolean) => void;
@@ -37,6 +38,8 @@ interface SubmitStoreProps {
   setYccTeamInfoFilled: (v: boolean) => void;
   setYccBriefUploaded: (v: boolean) => void;
   setYccBriefFile: (file: File | null) => void;
+
+  setIsWriting: (v: boolean) => void;
 
   setField: <T extends keyof SubmitStoreProps>(
     key: T,
@@ -50,6 +53,7 @@ export const useSubmitStore = create<SubmitStoreProps>((set) => ({
   briefUploaded: false,
   briefBoardFile: null,
   additionalFile: null,
+
   yccWorkInfoFilled: false,
   yccTeamInfoFilled: false,
   yccBriefUploaded: false,
@@ -64,6 +68,8 @@ export const useSubmitStore = create<SubmitStoreProps>((set) => ({
   teamMembers: [],
   members: [],
 
+  isWriting: false,
+
   setWorkInfoFilled: (v) => set({ workInfoFilled: v }),
   setTeamInfoFilled: (v) => set({ teamInfoFilled: v }),
   setBriefUploaded: (v) => set({ briefUploaded: v }),
@@ -74,6 +80,8 @@ export const useSubmitStore = create<SubmitStoreProps>((set) => ({
   setYccTeamInfoFilled: (v) => set({ yccTeamInfoFilled: v }),
   setYccBriefUploaded: (v) => set({ yccBriefUploaded: v }),
   setYccBriefFile: (file) => set({ yccBriefFile: file }),
+
+  setIsWriting: (v) => set({ isWriting: v }),
 
   setField: (key, value) => set((state) => ({ ...state, [key]: value })),
 }));
