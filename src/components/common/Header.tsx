@@ -1,25 +1,20 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import Logo from "./Logo";
 import { cn } from "@/utils/cn";
 import { useState, useRef, useEffect } from "react";
 import { useAuthQuery } from "@/hooks/queries/useAuth";
 import ProfileDropdown from "./ProfileDropdown";
 import { logout } from "@/app/_apis/auth";
+import { useSubmitStore } from "@/store/useSubmitStore";
+import ConfirmModal from "@/components/common/ConfirmModal";
 
 interface HeaderProps {
   theme?: "dark" | "light";
 }
 
-type NavItem = {
-  id: string;
-  label: string;
-  href: string;
-};
-
-const NAV_ITEMS: NavItem[] = [
+const NAV_ITEMS = [
   { id: "home", label: "홈", href: "/home" },
   { id: "application", label: "신청하기", href: "/application" },
   { id: "report", label: "내 리포트", href: "/report" },
@@ -27,13 +22,18 @@ const NAV_ITEMS: NavItem[] = [
 
 function Header({ theme }: HeaderProps) {
   const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const { data: authData, isLoading } = useAuthQuery();
+  const router = useRouter();
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [nextPath, setNextPath] = useState("");
+  const [showConfirm, setShowConfirm] = useState(false);
 
+  const { data: authData, isLoading } = useAuthQuery();
   const isLoggedIn = authData?.isLoggedIn || false;
   const profile = authData?.profile || null;
+
+  const { isWriting } = useSubmitStore();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -44,6 +44,7 @@ function Header({ theme }: HeaderProps) {
         setDropdownOpen(false);
       }
     }
+
     if (dropdownOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
@@ -54,185 +55,129 @@ function Header({ theme }: HeaderProps) {
 
   const isHome = pathname === "/home";
   const appliedTheme = theme ?? (isHome ? "dark" : "light");
-
   const bgClass = appliedTheme === "dark" ? "bg-transparent" : "bg-white";
 
-  const getItemClassName = (itemId: string) => {
-    const isActive =
-      itemId === "application"
-        ? pathname.startsWith("/application")
-        : pathname === NAV_ITEMS.find((item) => item.id === itemId)?.href;
-
+  const getItemClassName = (href: string) => {
+    const isActive = pathname === href || pathname.startsWith(href);
     return cn(
-      "px-[15px] py-[10px] font-B02-M",
+      "px-[15px] py-[10px] font-B02-M cursor-pointer",
       appliedTheme === "dark"
         ? "text-gray-200 hover:text-white"
         : "text-gray-500 hover:text-gray-900",
-      isActive && ["font-B02-SB", "text-blue-main"]
+      isActive && "font-B02-SB text-blue-main"
     );
+  };
+
+  const handleProtectedNavigation = (href: string) => {
+    const isInApplicationPage =
+      pathname.startsWith("/application/DCA") ||
+      pathname.startsWith("/application/YCC");
+    const isMoving = pathname !== href;
+
+    if (isInApplicationPage && isWriting && isMoving) {
+      setNextPath(href);
+      setShowConfirm(true);
+    } else {
+      router.push(href);
+    }
+  };
+
+  const handleConfirmLeave = () => {
+    setShowConfirm(false);
+  };
+
+  const handleCancelLeave = () => {
+    setShowConfirm(false);
+    window.location.reload();
   };
 
   const handleLogout = async () => {
     try {
       await logout();
     } catch (error) {
-      console.error("로그아웃 API 호출 실패:", error);
-      // API 호출이 실패해도 클라이언트 측 로그아웃은 진행
+      console.error("로그아웃 실패:", error);
     }
-    
-    // 클라이언트 측 로그아웃 처리 (API 성공/실패와 관계없이)
-    localStorage.removeItem("profileImage");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("userId");
-
-    window.location.href = "/home";
+    localStorage.clear();
+    router.push("/home");
   };
 
   return (
-    <header
-      className={cn(
-        "w-full flex justify-between px-4 py-3 sm:px-[106px] sm:py-5",
-        bgClass
-      )}
-    >
-      <div className="flex items-center">
-        <div className="py-[6px] sm:py-[11px]">
-          <Link href="/" className="cursor-pointer">
-            <Logo theme={appliedTheme} />
-          </Link>
-        </div>
+    <>
+      <ConfirmModal
+        isOpen={showConfirm}
+        onClose={handleCancelLeave}
+        onConfirm={handleConfirmLeave}
+        title="신청을 취소하시겠습니까?"
+        description="현재 입력한 정보는 삭제됩니다."
+        cancelText="취소"
+        confirmText="계속 작성하기"
+      />
 
-        <nav
-          className="hidden sm:flex gap-3 sm:gap-5 sm:ml-[61px] ml-3"
-          role="navigation"
-          aria-label="메인 네비게이션"
-        >
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.id}
-              href={item.href}
-              className={getItemClassName(item.id)}
-              aria-current={pathname === item.href ? "page" : undefined}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      </div>
-      
-      {/* 로그인 상태에 따른 조건부 렌더링 */}
-      {!isLoading && (
-        <>
-          {isLoggedIn ? (
-            <div className="relative group hidden sm:inline-block mr-[14px]">
-              <img
-                src={profile?.profileImage || "/default-profile.png"}
-                alt="프로필"
-                className="w-[38px] h-[38px] rounded-full object-cover cursor-pointer"
-                onClick={() => setDropdownOpen((v) => !v)}
-              />
-              {dropdownOpen && (
-                <ProfileDropdown
-                  dropdownRef={dropdownRef as React.RefObject<HTMLDivElement>}
-                  onLogout={handleLogout}
-                />
-              )}
-            </div>
-          ) : (
-            <Link
-              href="/login"
-              className={cn(
-                "px-[15px] py-[10px] font-B02-SB hidden sm:inline-block",
-                appliedTheme === "dark"
-                  ? "text-gray-200 hover:text-white"
-                  : "text-gray-500 hover:text-gray-900"
-              )}
-              aria-label="로그인"
-            >
-              로그인
-            </Link>
-          )}
-        </>
-      )}
-      {/* 모바일 메뉴 버튼 */}
-      <button
-        className="sm:hidden flex flex-col justify-center items-center w-9 h-9 ml-2"
-        aria-label="메뉴 열기"
-        onClick={() => setMenuOpen(true)}
+      <header
+        className={cn(
+          "w-full flex justify-between px-4 py-3 sm:px-[106px] sm:py-5",
+          bgClass
+        )}
       >
-        <span className="block w-6 h-0.5 bg-gray-700 mb-1" />
-        <span className="block w-6 h-0.5 bg-gray-700 mb-1" />
-        <span className="block w-6 h-0.5 bg-gray-700" />
-      </button>
-
-      {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 flex flex-col">
-          <div className="flex justify-between items-center px-4 py-3 bg-white">
-            <Logo theme="light" />
-            <button
-              className="w-8 h-8 flex items-center justify-center"
-              aria-label="메뉴 닫기"
-              onClick={() => setMenuOpen(false)}
-            >
-              <span
-                className="block w-6 h-0.5 bg-gray-700 rotate-45 absolute"
-                style={{ marginTop: 12 }}
-              />
-              <span
-                className="block w-6 h-0.5 bg-gray-700 -rotate-45 absolute"
-                style={{ marginTop: 12 }}
-              />
-            </button>
+        <div className="flex items-center">
+          <div
+            className="py-[6px] sm:py-[11px] cursor-pointer"
+            onClick={() => handleProtectedNavigation("/")}
+          >
+            <Logo theme={appliedTheme} />
           </div>
-          <nav className="flex flex-col gap-2 px-6 py-6 bg-white flex-1">
+
+          <nav
+            className="hidden sm:flex gap-3 sm:gap-5 sm:ml-[61px] ml-3"
+            role="navigation"
+            aria-label="메인 네비게이션"
+          >
             {NAV_ITEMS.map((item) => (
-              <Link
+              <div
                 key={item.id}
-                href={item.href}
-                className={cn(
-                  "py-3 text-lg font-B02-M border-b border-gray-200",
-                  pathname === item.href && "font-B02-SB text-blue-main"
-                )}
-                aria-current={pathname === item.href ? "page" : undefined}
-                onClick={() => setMenuOpen(false)}
+                onClick={() => handleProtectedNavigation(item.href)}
+                className={getItemClassName(item.href)}
               >
                 {item.label}
-              </Link>
+              </div>
             ))}
-            {!isLoading && (
-              <>
-                {isLoggedIn ? (
-                  <div className="py-3 relative">
-                    <img
-                      src={profile?.profileImage || "/default-profile.png"}
-                      alt="프로필"
-                      className="w-9 h-9 rounded-full object-cover border border-gray-300 cursor-pointer"
-                      onClick={() => setDropdownOpen((v) => !v)}
-                    />
-                    {dropdownOpen && (
-                      <ProfileDropdown
-                        dropdownRef={dropdownRef as React.RefObject<HTMLDivElement>}
-                        onLogout={handleLogout}
-                      />
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    href="/login"
-                    className="py-3 text-lg font-B02-SB text-gray-700"
-                    aria-label="로그인"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    로그인
-                  </Link>
-                )}
-              </>
-            )}
           </nav>
         </div>
-      )}
-    </header>
+
+        {!isLoading && (
+          <>
+            {isLoggedIn ? (
+              <div className="relative hidden sm:inline-block mr-[14px]">
+                <img
+                  src={profile?.profileImage || "/default-profile.png"}
+                  alt="프로필"
+                  className="w-[38px] h-[38px] rounded-full object-cover cursor-pointer"
+                  onClick={() => setDropdownOpen((v) => !v)}
+                />
+                {dropdownOpen && (
+                  <ProfileDropdown
+                    dropdownRef={dropdownRef}
+                    onLogout={handleLogout}
+                  />
+                )}
+              </div>
+            ) : (
+              <div
+                className={cn(
+                  "px-[15px] py-[10px] font-B02-SB hidden sm:inline-block cursor-pointer",
+                  appliedTheme === "dark"
+                    ? "text-gray-200 hover:text-white"
+                    : "text-gray-500 hover:text-gray-900"
+                )}
+                onClick={() => handleProtectedNavigation("/login")}
+              >
+                로그인
+              </div>
+            )}
+          </>
+        )}
+      </header>
+    </>
   );
 }
 
