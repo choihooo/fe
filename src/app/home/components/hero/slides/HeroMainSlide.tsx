@@ -23,7 +23,6 @@ function HeroMainSlide() {
           실제 출품작을 분석해 완성한 실전형 수상 리포트를 체험해보세요.
         </div>
       </div>
-      <RoundButton onClick={handleapplicationClick}>신청하기</RoundButton>
     </div>
   );
 }
