@@ -53,9 +53,13 @@ const FileDropBox = ({
     const uploadedType = uploaded.type.toLowerCase();
     const uploadedExt = uploaded.name.split(".").pop()?.toLowerCase();
 
+    // const isValidType = allowedTypes.some((type) => {
+    //   const cleaned = type.replace(".", "");
+    //   return uploadedType.includes(cleaned) || uploadedExt === cleaned;
+    // });
     const isValidType = allowedTypes.some((type) => {
       const cleaned = type.replace(".", "");
-      return uploadedType.includes(cleaned) || uploadedExt === cleaned;
+      return uploadedExt === cleaned || uploadedType.endsWith(`/${cleaned}`);
     });
 
     const isValidSize = fileSizeBytes <= maxSizeBytes;
@@ -140,6 +144,7 @@ const FileDropBox = ({
         onChange={handleFileChange}
         className="hidden"
       />
+      <span className="hidden border-orange-point bg-blue-50" />
     </div>
   );
 };
