@@ -26,7 +26,6 @@ function Header({ theme }: HeaderProps) {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [nextPath, setNextPath] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
 
   const { data: authData, isLoading } = useAuthQuery();
@@ -76,7 +75,6 @@ function Header({ theme }: HeaderProps) {
     const isMovingToAnotherPage = pathname !== href;
 
     if (isInApplicationDetailPage && isWriting && isMovingToAnotherPage) {
-      setNextPath(href);
       setShowConfirm(true);
     } else {
       router.push(href);
