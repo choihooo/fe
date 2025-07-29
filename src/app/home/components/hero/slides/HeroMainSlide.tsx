@@ -1,14 +1,6 @@
 "use client";
-import RoundButton from "@/components/common/RoundButton";
-import { useRouter } from "next/navigation";
 
 function HeroMainSlide() {
-  const router = useRouter();
-
-  const handleapplicationClick = () => {
-    router.push("/application");
-  };
-
   return (
     <div
       className="w-full min-h-[400px] h-screen flex flex-col items-center justify-center bg-no-repeat bg-cover bg-center px-4 sm:px-0"
@@ -23,7 +15,6 @@ function HeroMainSlide() {
           실제 출품작을 분석해 완성한 실전형 수상 리포트를 체험해보세요.
         </div>
       </div>
-      <RoundButton onClick={handleapplicationClick}>신청하기</RoundButton>
     </div>
   );
 }

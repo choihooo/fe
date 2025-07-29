@@ -1,14 +1,20 @@
+"use client";
 import React from "react";
 import ButtonBase from "./ButtonBase";
 import { CheckIcon } from "../../../public";
+import { useRouter } from "next/navigation";
 
 interface ApplyComfirmModalProps {
   isOpen: boolean;
-  onClose: () => void;
 }
 
-const ApplyComfirmModal = ({ isOpen, onClose }: ApplyComfirmModalProps) => {
+const ApplyComfirmModal = ({ isOpen }: ApplyComfirmModalProps) => {
+  const rounter = useRouter();
   if (!isOpen) return null;
+
+  const handleGoReport = () => {
+    rounter.push("/report");
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -32,7 +38,7 @@ const ApplyComfirmModal = ({ isOpen, onClose }: ApplyComfirmModalProps) => {
         <ButtonBase
           label="확인"
           size="S"
-          onClick={onClose}
+          onClick={handleGoReport}
           className="mt-[30px] w-[100px]"
         />
       </div>

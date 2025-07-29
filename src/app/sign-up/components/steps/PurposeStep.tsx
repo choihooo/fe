@@ -3,7 +3,6 @@ import { PurposeEnum } from "../../types/schemas";
 import { RadioSelectionStep } from "../common/RadioSelectionStep";
 
 const PURPOSES = [
-  { key: PurposeEnum.Enum.CURRENT_ANALYSIS, label: "현업자의 수상분석" },
   { key: PurposeEnum.Enum.AI_FEEDBACK, label: "AI 기반 피드백" },
   { key: PurposeEnum.Enum.TREND, label: "출품작 트렌드 확인" },
   { key: PurposeEnum.Enum.NEXT_CONTEST, label: "다음 공모전 준비" },
