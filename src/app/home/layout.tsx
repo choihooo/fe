@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   openGraph: {
     title: "수상한 녀석들",
-    description: "수상한 녀석들 플랫폼",
+    description: "공모전 출품작 분석 AI 서비스",
     url: "https://soosanghan.site",
     siteName: "수상한 녀석들",
     images: [
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "수상한 녀석들",
-    description: "수상한 녀석들 플랫폼",
+    description: "공모전 출품작 분석 AI 서비스",
     images: ["/og-image.png"],
   },
 };
