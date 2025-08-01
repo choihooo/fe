@@ -16,6 +16,7 @@ export default function OAuthCallbackClient() {
           localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("refreshToken", data.refreshToken);
           localStorage.setItem("userId", String(data.userId));
+          localStorage.setItem("name", data.name);
           localStorage.setItem("profileImage", data.profileImage);
           localStorage.setItem("socialLogin", data.socialLogin);
           router.replace(data.isOnboarded ? "/home" : "/sign-up");
