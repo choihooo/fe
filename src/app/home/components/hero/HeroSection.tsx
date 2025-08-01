@@ -19,7 +19,7 @@ function HeroSection() {
     <section className="h-screen w-screen flex items-center justify-center relative">
       <HeroCarousel sections={heroSections} />
 
-      <div className={`absolute left-1/2 -translate-x-1/2 bottom-[64px] z-999`}>
+      <div className={`absolute left-1/2 -translate-x-1/2 bottom-[64px] z-15`}>
         <HeroArrow />
       </div>
     </section>

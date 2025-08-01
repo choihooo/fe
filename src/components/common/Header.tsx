@@ -221,7 +221,13 @@ function Header({ theme }: HeaderProps) {
               <>
                 {isLoggedIn ? (
                   <>
-                    <div className="flex items-center gap-3 mt-4">
+                    <div 
+                      className="flex items-center gap-3 mt-4 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
+                      onClick={() => {
+                        handleProtectedNavigation("/mypage");
+                        setMenuOpen(false);
+                      }}
+                    >
                       <img
                         src={profile?.profileImage || "/default-profile.png"}
                         alt="프로필"
