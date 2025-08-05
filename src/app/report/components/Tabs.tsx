@@ -28,7 +28,6 @@ const Tabs = () => {
         const Cards: ReportCardProps[] = dataList.map((item) => ({
           type: item.contestName,
           title: item.title,
-          category: item.category,
           org: item.brand,
           participants: item.workMembers.join(", "),
           status: statusMap[item.reportStatus] ?? "제작중",
@@ -90,7 +89,11 @@ const Tabs = () => {
             </div>
           </div>
         ) : (
-          filteredCards.map((card, idx) => <ReportCard key={idx} {...card} />)
+          <div className="mt-[30px] px-[20px] sm:px-0 sm:mt-0">
+            {filteredCards.map((card, idx) => (
+              <ReportCard key={idx} {...card} />
+            ))}
+          </div>
         )}
       </div>
     </>
