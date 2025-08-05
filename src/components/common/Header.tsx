@@ -9,6 +9,7 @@ import ProfileDropdown from "./ProfileDropdown";
 import { logout } from "@/app/_apis/auth";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import ConfirmModal from "@/components/common/ConfirmModal";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface HeaderProps {
   theme?: "dark" | "light";
@@ -23,6 +24,7 @@ const NAV_ITEMS = [
 function Header({ theme }: HeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const isMobile = useIsMobile();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -129,34 +131,40 @@ function Header({ theme }: HeaderProps) {
             <Logo theme={appliedTheme} />
           </div>
 
-          <nav
-            className="hidden sm:flex gap-3 sm:gap-5 sm:ml-[61px] ml-3"
-            role="navigation"
-            aria-label="메인 네비게이션"
-          >
-            {NAV_ITEMS.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => handleProtectedNavigation(item.href)}
-                className={getItemClassName(item.href)}
-              >
-                {item.label}
-              </div>
-            ))}
-          </nav>
+          {/* 데스크톱 네비게이션 - useIsMobile로 조건부 렌더링 */}
+          {!isMobile && (
+            <nav
+              className="flex gap-3 sm:gap-5 sm:ml-[61px] ml-3"
+              role="navigation"
+              aria-label="메인 네비게이션"
+            >
+              {NAV_ITEMS.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => handleProtectedNavigation(item.href)}
+                  className={getItemClassName(item.href)}
+                >
+                  {item.label}
+                </div>
+              ))}
+            </nav>
+          )}
         </div>
 
         {!isLoading && (
           <>
             {isLoggedIn ? (
-              <div className="relative hidden sm:inline-block mr-[14px]">
-                <img
-                  src={profile?.profileImage || "/default-profile.png"}
-                  alt="프로필"
-                  className="w-[38px] h-[38px] rounded-full object-cover cursor-pointer"
-                  onClick={() => setDropdownOpen((v) => !v)}
-                />
-                {dropdownOpen && (
+              <div className="relative mr-[14px]">
+                {/* 데스크톱 프로필 - useIsMobile로 조건부 렌더링 */}
+                {!isMobile && (
+                  <img
+                    src={profile?.profileImage || "/default-profile.png"}
+                    alt="프로필"
+                    className="w-[38px] h-[38px] rounded-full object-cover cursor-pointer"
+                    onClick={() => setDropdownOpen((v) => !v)}
+                  />
+                )}
+                {dropdownOpen && !isMobile && (
                   <ProfileDropdown
                     dropdownRef={dropdownRef}
                     onLogout={handleLogout}
@@ -164,33 +172,40 @@ function Header({ theme }: HeaderProps) {
                 )}
               </div>
             ) : (
-              <div
-                className={cn(
-                  "px-[15px] py-[10px] font-B02-SB hidden sm:inline-block cursor-pointer",
-                  appliedTheme === "dark"
-                    ? "text-gray-200 hover:text-white"
-                    : "text-gray-500 hover:text-gray-900"
-                )}
-                onClick={() => handleProtectedNavigation("/login")}
-              >
-                로그인
-              </div>
+              /* 데스크톱 로그인 버튼 - useIsMobile로 조건부 렌더링 */
+              !isMobile && (
+                <div
+                  className={cn(
+                    "px-[15px] py-[10px] font-B02-SB cursor-pointer",
+                    appliedTheme === "dark"
+                      ? "text-gray-200 hover:text-white"
+                      : "text-gray-500 hover:text-gray-900"
+                  )}
+                  onClick={() => handleProtectedNavigation("/login")}
+                >
+                  로그인
+                </div>
+              )
             )}
           </>
         )}
 
-        <button
-          className="sm:hidden flex flex-col justify-center items-center w-9 h-9"
-          aria-label="모바일 메뉴 열기"
-          onClick={() => setMenuOpen(true)}
-        >
-          <span className="block w-6 h-0.5 bg-gray-800 mb-1" />
-          <span className="block w-6 h-0.5 bg-gray-800 mb-1" />
-          <span className="block w-6 h-0.5 bg-gray-800" />
-        </button>
+        {/* 모바일 메뉴 버튼 - useIsMobile로 조건부 렌더링 */}
+        {isMobile && (
+          <button
+            className="flex flex-col justify-center items-center w-9 h-9"
+            aria-label="모바일 메뉴 열기"
+            onClick={() => setMenuOpen(true)}
+          >
+            <span className="block w-6 h-0.5 bg-gray-800 mb-1" />
+            <span className="block w-6 h-0.5 bg-gray-800 mb-1" />
+            <span className="block w-6 h-0.5 bg-gray-800" />
+          </button>
+        )}
       </header>
 
-      {menuOpen && (
+      {/* 모바일 메뉴 - useIsMobile로 조건부 렌더링 */}
+      {menuOpen && isMobile && (
         <div className="fixed inset-0 z-50 bg-white flex flex-col">
           <div className="flex justify-between items-center px-4 py-4 border-b border-gray-200">
             <Logo theme="light" />
@@ -221,7 +236,7 @@ function Header({ theme }: HeaderProps) {
               <>
                 {isLoggedIn ? (
                   <>
-                    <div 
+                    <div
                       className="flex items-center gap-3 mt-4 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
                       onClick={() => {
                         handleProtectedNavigation("/mypage");
