@@ -3,6 +3,7 @@ import { RadioButton } from "@/components/common/RadioButton";
 import TextInput from "@/components/common/TextInput";
 import { StepLayout } from "./StepLayout";
 import { StepNavigation } from "./StepNavigation";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 type Option = {
   key: string;
@@ -35,7 +36,7 @@ export function RadioSelectionStep<T extends string>({
 }: RadioStepProps<T>) {
   const [selected, setSelected] = useState<T | undefined>(value);
   const [etc, setEtc] = useState<string>(etcValue || "");
-
+  const isMobile = useIsMobile();
   const handleNext = () => {
     if (selected) {
       const selectedOption = options.find((opt) => opt.key === selected);
@@ -55,7 +56,7 @@ export function RadioSelectionStep<T extends string>({
           const isSelected = selected === option.key;
           return (
             <div key={option.key} className="w-full">
-              <label className="flex items-center gap-[21px] cursor-pointer w-full">
+              <label className={`flex items-center  cursor-pointer w-full ${isMobile ? "gap-[30px]" : "gap-[21px]"}`}>
                 <input
                   type="radio"
                   name="radio-option"
@@ -68,7 +69,7 @@ export function RadioSelectionStep<T extends string>({
                   state={isSelected ? "selected" : "unselected"}
                   className="text-base"
                 />
-                <span>{option.label}</span>
+                <span className={`${isMobile ? "font-B02-M" : "font-B01-M"}`}>{option.label}</span>
               </label>
               {option.isEtc && isSelected && (
                 <div className="w-full mt-2 pl-[43px]">

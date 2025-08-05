@@ -202,6 +202,19 @@
     line-height: 1.5;
   }
 
+  .font-C03-M {
+    font-family: "Pretendard";
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .font-C03-R {
+    font-family: "Pretendard";
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
   .shadow-custom-light {
     box-shadow: 0px 0px 15px 0px rgba(221, 222, 224, 0.5);
   }
