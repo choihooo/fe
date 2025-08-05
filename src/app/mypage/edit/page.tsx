@@ -7,6 +7,7 @@ import TextInput from "@/components/common/TextInput";
 import ButtonBase from "@/components/common/ButtonBase";
 import { useUserMe, useUpdateUserProfile } from "@/hooks/queries/useUser";
 import GrayButton from "@/components/common/GrayButton";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function ProfileEditPage() {
   const router = useRouter();
@@ -14,7 +15,7 @@ export default function ProfileEditPage() {
   const updateProfileMutation = useUpdateUserProfile();
   const [name, setName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const isMobile = useIsMobile();
   useEffect(() => {
     if (userData?.result?.name) {
       setName(userData.result.name);
@@ -58,14 +59,20 @@ export default function ProfileEditPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-white sm:bg-gray-100">
       <Header />
 
-      <div className="flex items-center justify-center min-h-[calc(100vh-80px)] px-4">
-        <div className="bg-white rounded-[20px] px-[48px] py-[52px] w-full max-w-md">
+      <div className="flex sm:items-center sm:justify-center min-h-[calc(100vh-80px)]">
+        <div
+          className={`bg-white rounded-[20px] ${
+            isMobile
+              ? "w-full px-[20px] py-[50px] h-[calc(100vh-180px)]"
+              : "px-[48px] py-[52px] w-full max-w-md"
+          }`}
+        >
           <h1 className="font-T01-SB text-gray-900 mb-8 ">프로필 정보</h1>
 
-          <div className="">
+          <div className="h-full">
             <div>
               <label
                 htmlFor="name"
@@ -82,11 +89,15 @@ export default function ProfileEditPage() {
               />
             </div>
 
-            <div className="flex gap-[15px] pt-[71px] justify-end">
+            <div
+              className={`flex gap-[15px] ${
+                isMobile ? "h-full items-end" : "pt-[71px]"
+              } justify-end`}
+            >
               <GrayButton
                 onClick={handlePrevious}
                 label="이전"
-                className="w-[88px] rounded-[10px]"
+                className="flex-1 "
               />
               <ButtonBase
                 label="완료"
@@ -97,6 +108,7 @@ export default function ProfileEditPage() {
                   updateProfileMutation.isPending
                 }
                 size="M"
+                className="flex-1 !px-0"
               />
             </div>
           </div>
