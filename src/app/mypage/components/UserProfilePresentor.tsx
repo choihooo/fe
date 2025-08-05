@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import DarkIconChevronRight from "../../../../public/icons/DarkIconChevronRight";
-
+import { useIsMobile } from "@/hooks/useIsMobile";
 interface UserProfileProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   name: string;
@@ -17,10 +17,11 @@ function UserProfilePresentor({
   className = "",
   ...props
 }: UserProfileProps) {
+  const isMobile = useIsMobile();
   return (
     <button
       onClick={onClick}
-      className={`mx-2 flex justify-between w-[471px] cursor-pointer ${className}`}
+      className={`mx-2 flex justify-between ${isMobile ? "w-full" : "w-[471px]"} cursor-pointer ${className}`}
       {...props}
     >
       <div className="flex">
@@ -34,11 +35,11 @@ function UserProfilePresentor({
           />
         </div>
         <div className="my-[3px] ml-[18px] text-start">
-          <div className="font-T04-SB text-gray-900">{name}</div>
-          <div className="font-B02-R text-gray-300">{email}</div>
+          <div className={`${isMobile ? "font-B01-SB" : "font-T04-SB"} text-gray-900`}>{name}</div>
+          <div className={`${isMobile ? "font-B02-R" : "font-B02-R"} text-gray-300`}>{email}</div>
         </div>
       </div>
-      <div className="my-[14px]">
+      <div className={`my-[14px] ${isMobile ? "mr-[10px]" : ""}`}>
         <DarkIconChevronRight />
       </div>
     </button>
