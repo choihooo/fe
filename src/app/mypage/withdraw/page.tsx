@@ -12,8 +12,10 @@ import TextInput from "@/components/common/TextInput";
 import DivisionLine from "../components/DivisionLine";
 import { withdrawUser, WithdrawalReason } from "@/app/_apis/user";
 import WithdarwConfirmModal from "./components/WithdarwConfirmModal";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function WithdrawPage() {
+  const isMobile = useIsMobile();
   const router = useRouter();
   const queryClient = useQueryClient();
   const [selectedReasons, setSelectedReasons] = useState<WithdrawalReason[]>(
@@ -72,25 +74,25 @@ export default function WithdrawPage() {
       await withdrawUser(requestBody);
 
       alert("서비스 탈퇴가 완료되었습니다.");
-      
+
       // 완전한 데이터 정리
       localStorage.clear();
       sessionStorage.clear();
-      
+
       // React Query 캐시 정리
       queryClient.clear();
-      
+
       // 브라우저 캐시 정리 (이미지 캐시 포함)
-      if ('caches' in window) {
+      if ("caches" in window) {
         const cacheNames = await caches.keys();
         await Promise.all(
-          cacheNames.map(cacheName => caches.delete(cacheName))
+          cacheNames.map((cacheName) => caches.delete(cacheName))
         );
       }
-      
+
       // useAuth 훅에 localStorage 변경 알림
-      window.dispatchEvent(new Event('localStorageChange'));
-      
+      window.dispatchEvent(new Event("localStorageChange"));
+
       // 페이지 새로고침으로 완전한 상태 초기화
       window.location.href = "/";
     } catch (error) {
@@ -107,17 +109,41 @@ export default function WithdrawPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-white sm:bg-gray-100">
       <Header />
 
-      <div className="flex items-center justify-center min-h-[calc(100vh-80px)] px-4">
-        <div className="bg-white rounded-[20px] pl-[50px] pr-[42px] py-[52px] w-full max-w-md">
-          <h1 className="font-T01-SB text-gray-900 mb-2 ">서비스 탈퇴하기</h1>
-          <p className="font-B01-R text-gray-300 ">
+      <div className="flex sm:items-center sm:justify-center">
+        <div
+          className={`bg-white rounded-[20px] ${
+            isMobile
+              ? "w-full px-[20px] pt-[50px] flex flex-col h-[calc(100vh-50px)]"
+              : "pl-[50px] pr-[42px] py-[52px] w-full max-w-md"
+          }`}
+        >
+          <h1
+            className={`${
+              isMobile ? "font-T03-SB" : "font-T01-SB"
+            } text-gray-900 mb-2 `}
+          >
+            서비스 탈퇴하기
+          </h1>
+          <p
+            className={`${
+              isMobile ? "font-B03-R" : "font-B01-R"
+            } text-gray-300 `}
+          >
             탈퇴하시는 이유를 알려주세요
           </p>
-          <DivisionLine marginTop={24} marginBottom={38} />
-          <div className="grid grid-cols-2 gap-y-[42px] gap-x-[39px] mb-[42px]">
+          <DivisionLine marginTop={24} marginBottom={38} display={!isMobile} />
+          <div
+            className={`${
+              isMobile
+                ? `grid grid-cols-1 gap-y-[30px] ${
+                    isOtherSelected ? "mb-[15px]" : "mb-[30px]"
+                  } mt-[55px]`
+                : "grid grid-cols-2 gap-y-[42px] gap-x-[39px] mb-[42px]"
+            }`}
+          >
             {reasonsOptions.map((option) => (
               <label
                 key={option.id}
@@ -155,11 +181,15 @@ export default function WithdrawPage() {
             )}
           </div>
 
-          <div className="flex gap-[15px] pt-4 justify-end">
+          <div
+            className={`flex gap-[15px] ${
+              isMobile ? "pt-4 items-end mt-auto pb-[38px]" : "pt-4 justify-end"
+            }`}
+          >
             <GrayButton
               onClick={handlePrevious}
               label="이전"
-              className="w-[88px] rounded-[10px]"
+              className="flex-1 rounded-[10px]"
             />
             <ButtonBase
               label="완료"
@@ -169,6 +199,7 @@ export default function WithdrawPage() {
                 (selectedReasons.length === 0 && !isOtherSelected)
               }
               size="M"
+              className="flex-1 !px-0"
             />
           </div>
         </div>

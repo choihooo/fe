@@ -9,7 +9,7 @@ function page() {
   return (
     <div className={`min-h-screen ${isMobile ? "bg-white" : "bg-gray-100"}`}>
       <Header />
-      <div className="flex items-center justify-center min-h-[calc(100vh-80px)]">
+      <div className="flex sm:items-center sm:justify-center min-h-[calc(100vh-80px)]">
         <UserProfilePanel />
       </div>
     </div>
