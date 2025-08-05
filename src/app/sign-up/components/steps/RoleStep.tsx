@@ -3,6 +3,7 @@ import Chip from "@/components/common/Chip";
 import { RoleEnum } from "../../types/schemas";
 import { StepLayout } from "../common/StepLayout";
 import { StepNavigation } from "../common/StepNavigation";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const ROLES = [
   { key: RoleEnum.Enum.STRUCTURE, label: "논리 구조 설계" },
@@ -26,7 +27,7 @@ export default function StepRole({ value, onNext, onPrev }: Props) {
     setSelected((prev) =>
       prev.includes(role) ? prev.filter((r) => r !== role) : [...prev, role]
     );
-
+  const isMobile = useIsMobile();
   return (
     <StepLayout
       title={
@@ -37,16 +38,22 @@ export default function StepRole({ value, onNext, onPrev }: Props) {
         </>
       }
     >
-      <div className="flex flex-wrap gap-3 mb-[47px] w-[409px]">
-        {ROLES.map((r) => (
-          <Chip
-            key={r.key}
-            selected={selected.includes(r.key)}
-            onClick={() => toggle(r.key)}
-          >
-            {r.label}
-          </Chip>
-        ))}
+      <div className="w-full">
+        <div
+          className={`flex flex-wrap gap-3 mb-[47px] ${
+            isMobile ? "w-[290px]" : "w-[409px]"
+          }`}
+        >
+          {ROLES.map((r) => (
+            <Chip
+              key={r.key}
+              selected={selected.includes(r.key)}
+              onClick={() => toggle(r.key)}
+            >
+              {r.label}
+            </Chip>
+          ))}
+        </div>
       </div>
       <StepNavigation
         onNext={() => onNext(selected)}

@@ -1,6 +1,7 @@
 import React from "react";
 import { NextButton, CompleteButton } from "@/components/common/ButtonBase";
 import GrayButton from "@/components/common/GrayButton";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 type StepNavigationProps = {
   onNext: () => void;
@@ -10,26 +11,28 @@ type StepNavigationProps = {
   nextButtonText?: string;
 };
 
-export function StepNavigation({ 
-  onNext, 
-  onPrev, 
-  disabled = false, 
+export function StepNavigation({
+  onNext,
+  onPrev,
+  disabled = false,
   isLastStep = false,
-  nextButtonText
+  nextButtonText,
 }: StepNavigationProps) {
   const ButtonComponent = isLastStep ? CompleteButton : NextButton;
-  
+  const isMobile = useIsMobile();
+  const GraybuttonClass = isMobile ? "flex-1 mr-[12px]" : "w-[88px] mr-[15px]";
+  const NextbuttonClass = isMobile ? "flex-1 !px-0" : "";
   return (
-    <div className="flex w-full justify-end">
+    <div
+      className={`flex w-full h-full justify-end ${
+        isMobile ? "items-end" : "items-start"
+      }`}
+    >
       {onPrev && (
-        <GrayButton
-          label="이전"
-          className="w-[88px] mr-[15px]"
-          onClick={onPrev}
-        />
+        <GrayButton label="이전" className={GraybuttonClass} onClick={onPrev} />
       )}
       <ButtonComponent
-        className="px-6 py-2 rounded-lg bg-blue-500 text-white font-semibold shadow"
+        className={NextbuttonClass}
         onClick={onNext}
         disabled={disabled}
       >
@@ -37,4 +40,4 @@ export function StepNavigation({
       </ButtonComponent>
     </div>
   );
-} 
+}

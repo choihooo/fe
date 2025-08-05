@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/common/Checkbox";
 import { StepLayout } from "../common/StepLayout";
 import { StepNavigation } from "../common/StepNavigation";
 import { agreeToTerms } from "@/app/_apis";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const TERMS = [
   {
@@ -30,6 +31,7 @@ type Props = {
 };
 
 export default function StepTerm({ onNext }: Props) {
+  const isMobile = useIsMobile();
   const [checked, setChecked] = useState<{ [key: string]: boolean }>({
     service: false,
     privacy: false,
@@ -67,7 +69,11 @@ export default function StepTerm({ onNext }: Props) {
             onChange={handleAll}
             ariaLabel="전체 동의"
           />
-          <span className="text-black font-B01-M">전체 동의</span>
+          <span
+            className={`text-black ${isMobile ? "font-B02-M" : "font-B01-M"}`}
+          >
+            전체 동의
+          </span>
         </label>
       </div>
       <hr className="w-full border-gray-100 mb-[27px] h-[1px]" />
@@ -85,10 +91,20 @@ export default function StepTerm({ onNext }: Props) {
                 }
                 ariaLabel={term.label}
               />
-              <span className="font-B02-M text-black">
+              <span
+                className={`${
+                  isMobile ? "font-B03-M" : "font-B02-M"
+                } text-black`}
+              >
                 {term.required ? "(필수)" : "(선택)"}
               </span>
-              <span className="font-B02-R text-gray-700">{term.label}</span>
+              <span
+                className={`${
+                  isMobile ? "font-B03-R" : "font-B02-R"
+                } text-gray-700`}
+              >
+                {term.label}
+              </span>
             </label>
 
             {term.key !== "marketing" && (
@@ -96,7 +112,9 @@ export default function StepTerm({ onNext }: Props) {
                 href={term.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-B03-M text-gray-400 underline ml-4 hover:text-gray-500"
+                className={`${
+                  isMobile ? "font-C03-M" : "font-B03-M"
+                } text-gray-300 underline ml-4 hover:text-gray-500`}
               >
                 보기
               </a>
