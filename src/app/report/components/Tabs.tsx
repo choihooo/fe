@@ -5,8 +5,10 @@ import { GetReport } from "@/app/_apis/report";
 import { ReportRequest } from "@/app/_apis/schemas/reportResponse";
 import { NoReportIcon } from "../../../../public";
 import Loading from "@/components/common/Loading";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const Tabs = () => {
+  const isMobile = useIsMobile();
   const tabs = ["전체", "DCA", "YCC"];
   const [activeTab, setActiveTab] = useState("전체");
   const [cards, setCards] = useState<ReportCardProps[]>([]);
@@ -26,7 +28,6 @@ const Tabs = () => {
         const Cards: ReportCardProps[] = dataList.map((item) => ({
           type: item.contestName,
           title: item.title,
-          category: item.category,
           org: item.brand,
           participants: item.workMembers.join(", "),
           status: statusMap[item.reportStatus] ?? "제작중",
@@ -50,15 +51,17 @@ const Tabs = () => {
 
   return (
     <>
-      <div className="mt-8 flex items-start gap-8 border-b border-gray-200">
+      <div className="sm:mt-8 mt-6 px-4 sm:px-0 flex items-start gap-8 border-b border-gray-200">
         {tabs.map((tab) => (
           <div
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`py-3 cursor-pointer ${
               activeTab === tab
-                ? "text-blue-main font-B01-SB border-b-2 border-blue-main"
-                : "text-gray-500 font-B01-M"
+                ? `text-blue-main ${
+                    isMobile ? "font-B03-SB" : "font-B01-SB"
+                  } border-b-2 border-blue-main`
+                : `text-gray-500 ${isMobile ? "font-B03-R" : "font-B01-M"}`
             }`}
           >
             {tab}
@@ -66,20 +69,31 @@ const Tabs = () => {
         ))}
       </div>
 
-      <div className="mt-10 w-full">
+      <div className="sm:mt-10 w-full bg-gray-100 flex-1">
         {loading ? (
           <div className="flex items-center justify-center mt-[175px]">
             <Loading />
           </div>
         ) : filteredCards.length === 0 ? (
           <div className="flex flex-col items-center justify-center mt-[175px]">
-            <NoReportIcon />
-            <div className=" text-gray-300 font-B01-M mt-[10px]">
+            <NoReportIcon
+              width={isMobile ? 70 : 80}
+              height={isMobile ? 70 : 80}
+            />
+            <div
+              className={`text-gray-300 ${
+                isMobile ? "font-B02-M mt-[12px]" : "font-B01-M mt-[10px]"
+              } `}
+            >
               아직 신청한 리포트가 없어요
             </div>
           </div>
         ) : (
-          filteredCards.map((card, idx) => <ReportCard key={idx} {...card} />)
+          <div className="mt-[30px] px-[20px] sm:px-0 sm:mt-0">
+            {filteredCards.map((card, idx) => (
+              <ReportCard key={idx} {...card} />
+            ))}
+          </div>
         )}
       </div>
     </>
