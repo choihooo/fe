@@ -2,10 +2,12 @@
 import React from "react";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import FileDropBox from "@/components/common/FileDropBox";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const BriefBoard = () => {
   const setBriefUploaded = useSubmitStore((s) => s.setBriefUploaded);
   const setBriefBoardFile = useSubmitStore((s) => s.setBriefBoardFile);
+  const isMobile = useIsMobile();
 
   const handleFileChange = (uploadedFile: File | null) => {
     setBriefBoardFile(uploadedFile);
@@ -13,8 +15,14 @@ const BriefBoard = () => {
   };
 
   return (
-    <div className="w-full px-[325px] mt-[130px]">
-      <div className="text-gray-900 font-T02-B mb-6">
+    <div
+      className={`w-full ${isMobile ? "px-5 mt-16" : "px-[325px] mt-[130px]"}`}
+    >
+      <div
+        className={`text-gray-900 mb-6 ${
+          isMobile ? "font-T04-SB" : "font-T02-B"
+        }`}
+      >
         브리프보드 제출<span className="text-blue-main">*</span>
       </div>
 
@@ -23,7 +31,11 @@ const BriefBoard = () => {
         maxSizeMB={10}
         maxWidth={3508}
         maxHeight={4960}
-        placeholder="마우스로 파일을 끌어오거나, 클릭해 업로드하세요"
+        placeholder={
+          isMobile
+            ? "파일을 선택해 업로드하세요"
+            : "마우스로 파일을 끌어오거나, 클릭해 업로드하세요"
+        }
         description="최대 3508x4960 픽셀, 10MB 이하의 JPG, JPEG 파일"
         onFileChange={handleFileChange}
         required

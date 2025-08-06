@@ -2,10 +2,12 @@
 import React from "react";
 import FileDropBox from "@/components/common/FileDropBox";
 import { useSubmitStore } from "@/store/useSubmitStore";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const YCCPlanPart = () => {
   const setYccBriefUploaded = useSubmitStore((s) => s.setYccBriefUploaded);
   const setYccBriefFile = useSubmitStore((s) => s.setYccBriefFile);
+  const isMobile = useIsMobile();
 
   const handleFileChange = (planFile: File | null) => {
     setYccBriefFile(planFile);
@@ -13,7 +15,11 @@ const YCCPlanPart = () => {
   };
 
   return (
-    <div className="w-full px-[325px] mt-[130px]">
+    <div
+      className={`w-full ${
+        isMobile ? "px-4 mt-[80px]" : "px-[325px] mt-[130px]"
+      }`}
+    >
       <div className="text-gray-900 font-T02-B mb-6">
         기획서 제출 <span className="text-blue-main">*</span>
       </div>

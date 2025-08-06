@@ -3,6 +3,7 @@ import TextInput from "@/components/common/TextInput";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import React, { useEffect, useState } from "react";
 import DropDownInput from "@/components/common/DropDownInput";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const CATEGORY_OPTIONS = [
   "Visual",
@@ -33,6 +34,7 @@ const WorkInformation = () => {
   const setWorkInfoFilled = useSubmitStore((s) => s.setWorkInfoFilled);
   const setField = useSubmitStore((s) => s.setField);
   const setIsWriting = useSubmitStore((s) => s.setIsWriting);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const isAllFilled =
@@ -57,8 +59,12 @@ const WorkInformation = () => {
   }, [number, setField]);
 
   return (
-    <div className="w-full px-[325px] mt-[134px]">
-      <div className=" text-gray-900 font-T02-B">
+    <div
+      className={`${isMobile ? "px-5 mt-16" : "px-[325px] mt-[134px]"} w-full`}
+    >
+      <div
+        className={`text-gray-900 ${isMobile ? "font-T04-SB" : "font-T02-B"}`}
+      >
         작품 정보 <span className="text-blue-main">*</span>
       </div>
 
@@ -75,7 +81,11 @@ const WorkInformation = () => {
         />
       </div>
 
-      <div className="flex flex-row gap-[30px] mt-11 w-full">
+      <div
+        className={`${
+          isMobile ? "flex-col" : "flex-row"
+        } flex gap-[30px] mt-11 w-full`}
+      >
         <div className="flex flex-col gap-[10px] w-full">
           <div className="text-gray-800 font-B01-M"> 카테고리 </div>
           <DropDownInput
