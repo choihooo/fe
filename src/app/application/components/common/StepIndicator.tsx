@@ -4,12 +4,17 @@ import { DashLine } from "./DashLine";
 interface StepIndicatorProps {
   stepNumber: number;
   totalSteps: number;
+  className?: string;
 }
 
-export function StepIndicator({ stepNumber, totalSteps }: StepIndicatorProps) {
+export function StepIndicator({
+  stepNumber,
+  totalSteps,
+  className,
+}: StepIndicatorProps) {
   // 1-based stepNumber
   return (
-    <div className="flex items-center justify-center mb-10">
+    <div className={`flex items-center justify-center mb-10 ${className}`}>
       {Array.from({ length: totalSteps }, (_, i) => {
         const isActive = i < stepNumber;
         const isLast = i === totalSteps - 1;
