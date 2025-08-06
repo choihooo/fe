@@ -1,7 +1,6 @@
 import React from "react";
 import ButtonBase from "@/components/common/ButtonBase";
 import GrayButton from "@/components/common/GrayButton";
-import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface WithdarwConfirmModalProps {
   isOpen: boolean;
@@ -23,7 +22,6 @@ const WithdarwConfirmModal = ({
   confirmText = "",
 }: WithdarwConfirmModalProps) => {
   if (!isOpen) return null;
-  const isMobile = useIsMobile();
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 w-full">
       <div className="w-[328px] rounded-2xl px-5 pb-5 pt-[30px] bg-white shadow-shadow-1 flex flex-col items-center">

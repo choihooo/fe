@@ -11,7 +11,7 @@ import Image from "next/image";
 import Header from "@/components/common/Header";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-const page = () => {
+const Page = () => {
   const isMobile = useIsMobile();
   return (
     <>
@@ -51,4 +51,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
