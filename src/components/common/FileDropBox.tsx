@@ -6,6 +6,7 @@ import {
   DeleteIcon,
   FileIcon,
 } from "../../../public";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface FileDropBoxProps {
   accept: string;
@@ -32,6 +33,8 @@ const FileDropBox = ({
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const isMobile = useIsMobile();
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -118,7 +121,9 @@ const FileDropBox = ({
   return (
     <div className="w-full">
       <div
-        className={`flex items-center justify-center w-full h-[314px] rounded-[10px] border-2 border-dashed transition-colors cursor-pointer ${
+        className={`flex items-center justify-center w-full ${
+          isMobile ? "h-[198px]" : "h-[314px]"
+        } rounded-[10px] border-2 border-dashed transition-colors cursor-pointer ${
           error
             ? "border-orange-point"
             : isDragging
@@ -133,19 +138,31 @@ const FileDropBox = ({
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
       >
-        <div className="flex flex-col items-center justify-center gap-3">
+        <div className="flex flex-col items-center justify-center gap-3 px-4">
           {isDragging ? <BlueFileIcon /> : <FileIcon />}
-          <div className="mt-[27px] text-gray-500 font-B01-M text-center">
+          <div
+            className={`text-gray-500 ${
+              isMobile ? "font-T03-M" : "font-B01-M mt-[27px]"
+            } text-center`}
+          >
             {placeholder}
           </div>
-          <div className="text-gray-300 font-C01-M text-center">
+          <div
+            className={`text-gray-300 ${
+              isMobile ? "font-C01-R" : "font-C01-M"
+            } text-center`}
+          >
             {description}
           </div>
         </div>
       </div>
 
       {file && (
-        <div className="mt-[22px] h-[72px] w-full px-6 py-4 border border-gray-200 rounded-[10px] flex justify-between items-center">
+        <div
+          className={`${
+            isMobile ? "mt-5" : "mt-[22px]"
+          } h-[72px] w-full px-6 py-4 border border-gray-200 rounded-[10px] flex justify-between items-center`}
+        >
           <div className="flex flex-row items-center justify-center gap-[14px]">
             <CompleteFileIcon />
             <div className="flex flex-col text-gray-900 font-B03-M">
@@ -172,7 +189,6 @@ const FileDropBox = ({
         onChange={handleFileChange}
         className="hidden"
       />
-      <span className="hidden border-orange-point bg-blue-50" />
     </div>
   );
 };

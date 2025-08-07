@@ -7,7 +7,7 @@ import { AuthGuard } from "@/components/common/AuthGuard";
 import Header from "@/components/common/Header";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-const page = () => {
+const Page = () => {
   const isMobile = useIsMobile();
   return (
     <AuthGuard>
@@ -41,4 +41,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

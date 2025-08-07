@@ -4,7 +4,7 @@ import UserProfilePanel from "./components/UserProfilePanel";
 import Header from "@/components/common/Header";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-function page() {
+function Page() {
   const isMobile = useIsMobile();
   return (
     <div className={`min-h-screen ${isMobile ? "bg-white" : "bg-gray-100"}`}>
@@ -16,4 +16,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

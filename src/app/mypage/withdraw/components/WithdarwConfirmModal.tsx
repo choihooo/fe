@@ -22,7 +22,6 @@ const WithdarwConfirmModal = ({
   confirmText = "",
 }: WithdarwConfirmModalProps) => {
   if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 w-full">
       <div className="w-[328px] rounded-2xl px-5 pb-5 pt-[30px] bg-white shadow-shadow-1 flex flex-col items-center">

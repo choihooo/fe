@@ -4,6 +4,7 @@ import { useSubmitStore } from "@/store/useSubmitStore";
 import React, { useEffect, useState } from "react";
 import { DeleteIcon, HoverDelete, PlusIcon } from "../../../../../public";
 import { useUserMe } from "@/hooks/queries/useUser";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface TeamMember {
   name: string;
@@ -19,6 +20,7 @@ const isValidEmail = (email: string) =>
 
 const TeamInformation = ({ mode }: TeamInformationProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
 
   const { data: userData } = useUserMe();
 
@@ -46,7 +48,6 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
       { name: applicantName, email: applicantEmail },
       ...teamMembers,
     ];
-
     if (mode === "dca") {
       setField("teamMembers", allMembers);
     } else {
@@ -116,8 +117,12 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
   };
 
   return (
-    <div className="w-full px-[325px] mt-[134px]">
-      <div className="text-gray-900 font-T02-B">
+    <div
+      className={`w-full ${isMobile ? "px-5 mt-16" : "px-[325px] mt-[134px]"}`}
+    >
+      <div
+        className={`text-gray-900 ${isMobile ? "font-T04-SB" : "font-T02-B"}`}
+      >
         팀원 정보<span className="text-blue-main">*</span>
       </div>
       <div className="mt-[14px] text-gray-300 font-B02-M">
@@ -125,68 +130,48 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
         전달합니다.
       </div>
 
-      <div className="mt-[50px]">
-        <div className="flex flex-row gap-6">
-          <div className="flex flex-col gap-[10px]">
-            <div className="text-gray-800 font-B01-M">신청자 이름</div>
-            <TextInput
-              placeholder="이름을 입력하세요."
-              value={applicantName}
-              onChange={(e) => {
-                setApplicantName(e.target.value);
-                setIsWriting(true);
-              }}
-              className="w-[237px]"
-            />
-          </div>
+      <div className="mt-[50px] flex flex-col gap-5 sm:flex-row sm:gap-6">
+        <div className="flex flex-col gap-[10px] w-full">
+          <div className="text-gray-800 font-B01-M">신청자 이름</div>
+          <TextInput
+            placeholder="이름을 입력하세요."
+            value={applicantName}
+            onChange={(e) => {
+              setApplicantName(e.target.value);
+              setIsWriting(true);
+            }}
+            className="w-full"
+          />
+        </div>
 
-          <div className="flex flex-col gap-[10px]">
-            <div className="text-gray-800 font-B01-M">신청자 이메일</div>
-            <TextInput
-              placeholder="이메일을 입력하세요"
-              value={applicantEmail}
-              onChange={(e) => handleApplicantEmailChange(e.target.value)}
-              className="w-[486px]"
-              error={emailErrors.applicant}
-            />
-            <div className="h-[20px]">
-              {emailErrors.applicant && (
-                <div className="text-orange-point font-C01-R">
-                  올바른 이메일 주소를 입력해주세요.
-                </div>
-              )}
-            </div>
+        <div className="flex flex-col gap-[10px] w-full">
+          <div className="text-gray-800 font-B01-M">신청자 이메일</div>
+          <TextInput
+            placeholder="이메일을 입력하세요"
+            value={applicantEmail}
+            onChange={(e) => handleApplicantEmailChange(e.target.value)}
+            className="w-full"
+            error={emailErrors.applicant}
+          />
+          <div className="h-[20px]">
+            {emailErrors.applicant && (
+              <div className="text-orange-point font-C01-R">
+                올바른 이메일 주소를 입력해주세요.
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="mt-[14px] space-y-[14px]">
+      <div className="mt-[14px] space-y-6">
         {teamMembers.map((member, index) => (
-          <div key={index} className="flex flex-row w-full gap-5">
-            <div className="flex flex-col gap-[10px]">
-              <div className="text-gray-800 font-B01-M">이름</div>
-              <TextInput
-                placeholder="이름을 입력하세요."
-                value={member.name}
-                onChange={(e) =>
-                  handleMemberChange(index, "name", e.target.value)
-                }
-                className="w-[237px]"
-              />
-            </div>
+          <div key={index}>
+            {isMobile && (
+              <div className="flex justify-between items-center mb-4">
+                <div className="text-gray-900 font-B02-M">
+                  팀원 {index + 1} 정보
+                </div>
 
-            <div className="flex flex-col gap-[10px] flex-1">
-              <div className="text-gray-800 font-B01-M">이메일</div>
-              <div className="flex items-center gap-[19px]">
-                <TextInput
-                  placeholder="이메일을 입력하세요."
-                  value={member.email}
-                  onChange={(e) =>
-                    handleMemberChange(index, "email", e.target.value)
-                  }
-                  className="w-[486px]"
-                  error={emailErrors[`member-${index}`]}
-                />
                 <button
                   type="button"
                   onClick={() => handleRemoveMember(index)}
@@ -197,26 +182,83 @@ const TeamInformation = ({ mode }: TeamInformationProps) => {
                   {isHovered ? <HoverDelete /> : <DeleteIcon />}
                 </button>
               </div>
-              <div className="h-[20px]">
-                {emailErrors[`member-${index}`] && (
-                  <div className="text-orange-point font-C01-R">
-                    올바른 이메일 주소를 입력해주세요.
-                  </div>
+            )}
+
+            <div className="mb-4">
+              <div
+                className={`text-gray-800 mb-2 ${
+                  isMobile ? "font-B03-M" : "font-B01-M"
+                }`}
+              >
+                이름
+              </div>
+              <TextInput
+                placeholder="이름을 입력하세요."
+                value={member.name}
+                onChange={(e) =>
+                  handleMemberChange(index, "name", e.target.value)
+                }
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <div
+                className={`text-gray-800 mb-2 ${
+                  isMobile ? "font-B03-M" : "font-B01-M"
+                }`}
+              >
+                이메일
+              </div>
+              <div
+                className={`flex items-center ${
+                  isMobile ? "flex-col gap-2" : "flex-row gap-[19px]"
+                }`}
+              >
+                <TextInput
+                  placeholder="이메일을 입력하세요."
+                  value={member.email}
+                  onChange={(e) =>
+                    handleMemberChange(index, "email", e.target.value)
+                  }
+                  className="w-full"
+                  error={emailErrors[`member-${index}`]}
+                />
+                {!isMobile && (
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveMember(index)}
+                    className="cursor-pointer"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
+                    {isHovered ? <HoverDelete /> : <DeleteIcon />}
+                  </button>
                 )}
               </div>
+
+              {emailErrors[`member-${index}`] && (
+                <div className="mt-2 text-orange-point font-C01-R">
+                  올바른 이메일 주소를 입력해주세요.
+                </div>
+              )}
             </div>
           </div>
         ))}
       </div>
 
       {teamMembers.length < 3 && (
-        <button
-          onClick={handleAddMember}
-          className="flex px-[22px] py-3 justify-center items-center gap-[10px] rounded-[10px] bg-gray-100 mt-[56px] cursor-pointer hover:bg-gray-200"
+        <div
+          className={`${isMobile ? "mt-[30px] flex justify-end" : "mt-[56px]"}`}
         >
-          <PlusIcon />
-          <span className="text-gray-700 font-B02-SB"> 참여자 추가 </span>
-        </button>
+          <button
+            onClick={handleAddMember}
+            className="flex px-[22px] py-3 items-center gap-[10px] rounded-[10px] bg-gray-100 cursor-pointer hover:bg-gray-200"
+          >
+            <PlusIcon />
+            <span className="text-gray-700 font-B02-SB"> 팀원 추가 </span>
+          </button>
+        </div>
       )}
     </div>
   );

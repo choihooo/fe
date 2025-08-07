@@ -2,15 +2,19 @@
 import React from "react";
 import TextInput from "@/components/common/TextInput";
 import { useSubmitStore } from "@/store/useSubmitStore";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const VideoLink = () => {
   const youtubeUrl = useSubmitStore((s) => s.youtubeUrl);
   const setField = useSubmitStore((s) => s.setField);
   const category = useSubmitStore((s) => s.category);
+  const isMobile = useIsMobile();
 
   return (
-    <div className="w-full px-[325px] mt-[130px]">
-      <div className="text-gray-900 font-T02-B mb-6">
+    <div
+      className={`w-full ${isMobile ? "px-4 mt-12" : "px-[325px] mt-[130px]"}`}
+    >
+      <div className="text-gray-900 font-T02-B mb-6 ">
         영상 링크 제출{" "}
         {category === "Film" ? (
           <span className="text-blue-main">*</span>
