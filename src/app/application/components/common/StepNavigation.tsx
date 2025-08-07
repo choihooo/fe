@@ -13,7 +13,7 @@ export function StepNavigation({ onNext, onPrev }: StepNavigationProps) {
   return (
     <div
       className={`flex w-full justify-center items-center mt-8 ${
-        isMobile ? "justify-end items-end pr-[20px] pb-[44px] h-[calc(100vh-599px)]" : ""
+        isMobile ? "justify-end items-end pr-[20px] pb-[44px] min-h-[124px] h-[calc(100vh-599px)]" : ""
       }`}
     >
       {onPrev && (
