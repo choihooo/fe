@@ -39,13 +39,20 @@ const WithdarwConfirmModal = ({
           />
         </svg>
 
-        <div className="text-center text-black font-T03-B mt-[18px]">{title}</div>
+        <div className="text-center text-black font-T03-B mt-[18px]">
+          {title}
+        </div>
         <div className="text-center text-gray-500 font-B02-M mb-6 mt-[6px]">
           {description}
         </div>
 
         <div className="flex flex-row w-full gap-3 justify-center">
-          <ButtonBase label={cancelText} onClick={onClose} size="S" className="w-[100px]"/>
+          <ButtonBase
+            label={cancelText}
+            onClick={onClose}
+            size="S"
+            className="w-[100px]"
+          />
           <GrayButton
             label={confirmText}
             className="w-[176px] cursor-pointer flex items-center justify-center"
