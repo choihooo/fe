@@ -6,6 +6,7 @@ import { ReportRequest } from "@/app/_apis/schemas/reportResponse";
 import { NoReportIcon } from "../../../../public";
 import Loading from "@/components/common/Loading";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import ReportTableHeader from "./ReportPageHeader";
 
 const Tabs = () => {
   const isMobile = useIsMobile();
@@ -90,6 +91,7 @@ const Tabs = () => {
           </div>
         ) : (
           <div className="mt-[30px] px-[20px] sm:px-0 sm:mt-0">
+            {!isMobile && <ReportTableHeader />}
             {filteredCards.map((card, idx) => (
               <ReportCard key={idx} {...card} />
             ))}
