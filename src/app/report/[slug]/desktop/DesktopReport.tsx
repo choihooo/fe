@@ -26,28 +26,30 @@ const DesktopReport = () => {
         ))}
       </div>
 
-      <div className="px-[223px] py-[86px]">
-        {/* 탭 컨텐츠 영역 */}
-        <div className="mt-6">
-          {activeTab === "공모전 분석" && <ContestAnalysis />}
+      <div className="w-full py-[86px]">
+        <div className="w-[996px] mx-auto">
+          {/* 탭 컨텐츠 영역 */}
+          <div className="mt-6">
+            {activeTab === "공모전 분석" && <ContestAnalysis />}
 
-          {activeTab === "세부 과제 분석" && (
-            <div className="p-4">
-              <h2 className="text-lg font-semibold mb-4">세부 과제 분석</h2>
-              <p className="text-gray-600">
-                세부 과제 분석 내용이 여기에 표시됩니다.
-              </p>
-            </div>
-          )}
+            {activeTab === "세부 과제 분석" && (
+              <div className="p-4">
+                <h2 className="text-lg font-semibold mb-4">세부 과제 분석</h2>
+                <p className="text-gray-600">
+                  세부 과제 분석 내용이 여기에 표시됩니다.
+                </p>
+              </div>
+            )}
 
-          {activeTab === "개인 출품작 분석" && (
-            <div className="p-4">
-              <h2 className="text-lg font-semibold mb-4">개인 출품작 분석</h2>
-              <p className="text-gray-600">
-                개인 출품작 분석 내용이 여기에 표시됩니다.
-              </p>
-            </div>
-          )}
+            {activeTab === "개인 출품작 분석" && (
+              <div className="p-4">
+                <h2 className="text-lg font-semibold mb-4">개인 출품작 분석</h2>
+                <p className="text-gray-600">
+                  개인 출품작 분석 내용이 여기에 표시됩니다.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

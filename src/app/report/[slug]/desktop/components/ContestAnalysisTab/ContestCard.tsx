@@ -4,23 +4,23 @@ interface ContestCardProps {
   width?: number;
   height?: number;
   className?: string;
-  title: string;
+  contest: string;
 }
 
 export default function ContestCard({
   width = 478,
   height = 554,
   className = "",
-  title,
+  contest,
 }: ContestCardProps) {
   return (
     <div className="relative">
       <div className="absolute top-[50px] left-[37px] font-T01-B text-white">
-        {title}는 이런 공모전이에요
+        {contest}는 이런 공모전이에요
       </div>
 
       <div className="absolute top-[366px] left-[37px] text-blue-100 font-B01-M">
-        {title === "DCA" ? (
+        {contest === "DCA" ? (
           <div>
             DCA는 브랜드 요구사항을 핵심 평가 기준으로 삼아,
             <br /> 이를 정확히 이해하고 반영하는 역량을 평가해요.
