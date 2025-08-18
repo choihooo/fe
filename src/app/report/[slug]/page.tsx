@@ -1,5 +1,5 @@
 import React from "react";
-import DesktopReport from "./components/desktop/DesktopReport";
+import DesktopReport from "./desktop/DesktopReport";
 import Header from "@/components/common/Header";
 
 function page() {
