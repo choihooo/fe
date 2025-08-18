@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import ContestAnalysis from "./components/ContestAnalysis";
+import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
 
 const DesktopReport = () => {
   const [activeTab, setActiveTab] = useState("공모전 분석");
