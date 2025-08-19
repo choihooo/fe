@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
+import DetailTaskAnalysis from "./components/DetailTaskAnalysisTab/DetailTaskAnalysis";
 
 const DesktopReport = () => {
   const [activeTab, setActiveTab] = useState("공모전 분석");
@@ -32,14 +33,7 @@ const DesktopReport = () => {
           <div className="mt-6">
             {activeTab === "공모전 분석" && <ContestAnalysis />}
 
-            {activeTab === "세부 과제 분석" && (
-              <div className="p-4">
-                <h2 className="text-lg font-semibold mb-4">세부 과제 분석</h2>
-                <p className="text-gray-600">
-                  세부 과제 분석 내용이 여기에 표시됩니다.
-                </p>
-              </div>
-            )}
+            {activeTab === "세부 과제 분석" && <DetailTaskAnalysis />}
 
             {activeTab === "개인 출품작 분석" && (
               <div className="p-4">
