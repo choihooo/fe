@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
 import DcaCriteria from "./components/Criteria/DcaCriteria";
+import Footer from "@/app/home/components/Footer";
 
 const DesktopReport = () => {
   const [activeTab, setActiveTab] = useState("공모전 분석");
@@ -50,6 +51,7 @@ const DesktopReport = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
