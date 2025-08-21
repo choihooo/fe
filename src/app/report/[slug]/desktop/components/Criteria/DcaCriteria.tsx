@@ -5,6 +5,8 @@ import BrandUnderstand from "./BrandUnderstand";
 import MediaSelection from "./MediaSelection";
 import ProblemDefinition from "./ProblemDefinition";
 import Possibility from "./Possibility";
+import GrayButton from "@/components/common/GrayButton";
+import Footer from "@/app/home/components/Footer";
 
 const DcaCriteria = () => {
   return (
@@ -24,6 +26,10 @@ const DcaCriteria = () => {
       <MediaSelection />
       <ProblemDefinition />
       <Possibility />
+      <GrayButton
+        label="리포트로 돌아가기"
+        className="w-[175px] px-[30px] py-3 mt-[148px] self-center mb-[178px] cursor-pointer"
+      />
     </div>
   );
 };
