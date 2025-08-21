@@ -1,12 +1,11 @@
 import React from "react";
-import ScoreCalculationMethod from "./ScoreCalculationMethod";
-import EvaluationCriteria from "./EvaluationCriteria";
-import BrandUnderstand from "./BrandUnderstand";
-import MediaSelection from "./MediaSelection";
-import ProblemDefinition from "./ProblemDefinition";
-import Possibility from "./Possibility";
+import ScoreCalculationMethod from "./DCA/ScoreCalculationMethod";
+import BrandUnderstand from "./DCA/BrandUnderstand";
+import ProblemDefinition from "./DCA/ProblemDefinition";
+import Possibility from "./DCA/Possibility";
 import GrayButton from "@/components/common/GrayButton";
-import Footer from "@/app/home/components/Footer";
+import EvaluationCriteria from "./DCA/EvaluationCriteria";
+import MediaSelection from "./DCA/MediaSelection";
 
 const DcaCriteria = () => {
   return (
