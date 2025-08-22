@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
 import DcaCriteria from "./components/Criteria/DcaCriteria";
 import Footer from "@/app/home/components/Footer";
-// import YccCriteria from "./components/Criteria/YccCriteria";
 
 const DesktopReport = () => {
   const [activeTab, setActiveTab] = useState("공모전 분석");
@@ -48,6 +47,7 @@ const DesktopReport = () => {
               <div>
                 {/* <YccCriteria /> */}
                 <DcaCriteria />
+                {/* <YccScoreDetail /> */}
               </div>
             )}
           </div>
