@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
+import DcaCriteria from "./components/Criteria/DcaCriteria";
+import Footer from "@/app/home/components/Footer";
 
 const DesktopReport = () => {
   const [activeTab, setActiveTab] = useState("공모전 분석");
@@ -42,16 +44,16 @@ const DesktopReport = () => {
             )}
 
             {activeTab === "개인 출품작 분석" && (
-              <div className="p-4">
-                <h2 className="text-lg font-semibold mb-4">개인 출품작 분석</h2>
-                <p className="text-gray-600">
-                  개인 출품작 분석 내용이 여기에 표시됩니다.
-                </p>
+              <div>
+                {/* <YccCriteria /> */}
+                <DcaCriteria />
+                {/* <YccScoreDetail /> */}
               </div>
             )}
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
