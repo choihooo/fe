@@ -1,7 +1,7 @@
 import Tip from "../../Tip";
 import { BlueSpan } from "./BlueSpan";
 
-function BBaBBaro() {
+function Tams() {
   return (
     <div>
       <div className="text-gray-900 font-T02-B mt-[108px] mb-[52px]">
@@ -11,48 +11,80 @@ function BBaBBaro() {
       <div>
         <div className="p-[30px] border border-gray-200 rounded-[20px]">
           <div className="font-T03-SB text-gray-900 mb-[32px]">브랜드 소개</div>
-
-          <div className="space-y-[20px]">
+          <div className="font-B01-M text-gray-800">
+            크러시(KRUSH)는 반하다, 부수다 라는 뜻의 영단어  Crush 에
+            롯데칠성음료의 맥주 브랜드 클라우드(Kloud)의 헤리티지를 담은 알파벳
+            K를 더한 단어로, 낡은 관습을 부수고, 새로움으로 매혹한다는 뜻을 담은
+            브랜드
+          </div>
+          <div className="space-y-[20px] mt-[20px]">
             <div className="flex gap-[16px]">
               <div className="font-B01-M text-gray-500 min-w-[80px]">
-                1983년
+                23년 11월
               </div>
               <div className="flex-1">
                 <div className="font-B01-M text-gray-800 mb-[12px]">
-                  롯데웰푸드의 스테디 셀러 초코스틱 과자 &lt;빼빼로&gt; 출시
+                  기존의 맥주 브랜드와 선을 긋는{" "}
+                  <BlueSpan>나와 가장 가까운 4세대 맥주</BlueSpan> 라는 차별화된
+                  컨셉으로 런칭
+                </div>
+                <div className="flex gap-1 font-B02-R text-gray-500 mt-[12px]">
+                  <div>-</div>
+                  <div>
+                    제품 패키지에서도{" "}
+                    <BlueSpan>탄산을 제대로 느낄 수 있는</BlueSpan>
+                     숄더리스(shoulder-less) 병 디자인에 투명한 크리스탈 커팅을
+                    적용하여 <BlueSpan>시각적 청량감</BlueSpan>을 극대화, 캔
+                    표면에는 빙산과 눈의 질감을 감각적으로 느낄 수 있는   아이스
+                    타일(Ice Tile) 로 눈 속에서 막 꺼낸 캔처럼 차가운 눈 결정의
+                    촉감을 강조
+                  </div>
                 </div>
               </div>
             </div>
             <div className="flex gap-[16px]">
               <div className="font-B01-M text-gray-500 min-w-[80px]">
-                1995년
+                25년 5월
               </div>
               <div className="flex-1">
                 <div className="font-B01-M text-gray-800 mb-[12px]">
-                  1995년 시작되어{" "}
-                  <span className="text-blue-main">
-                    국내 대표 나눔 데이 문화
-                  </span>
-                  로 굳건히 자리잡고 있는 11월 11일 &lt;빼빼로 데이&gt;
-                  <br />
-                  빼빼로데이 인지율 99%, 참여율 98% 육박 (2022년 소비자 조사
-                  결과)
+                  새롭게 출시된 <BlueSpan>풀오픈캔</BlueSpan> 은 특히 일반적인
+                  캔맥주와 다른 독특한 캡 구조가 적용됨
+                  <br />캔 상단 탭 전체가 시원하게 열리는 형태라 마치{" "}
+                  <BlueSpan>작은 맥주잔</BlueSpan>처럼 즐길 수 있고, 캔 입구가
+                  넓어 얼음이나 소주, 레몬즙 등을
+                  <BlueSpan>섞어 마시기</BlueSpan>에 좋음, 음용 시 맛과 함께
+                  <BlueSpan>시각적인 즐거움</BlueSpan>도 느낄 수 있는 것이 특징
+                </div>
+                <div className="flex gap-1 font-B02-R text-gray-500 mt-[12px]">
+                  <div>-</div>
+                  <div>
+                    자사 클라우드대비 22% 높아진 강탄산(탄산볼륨 3.3)으로,{" "}
+                    <BlueSpan>국내 맥주 중 가장 높은 탄산압</BlueSpan>을
+                    보유하고 있어, 강한 탄산과 시원하고 청량한 맛을 느낄 수 있음
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {/* <div className="space-y-[4px]">
-          <div className="font-T04-R text-gray-500">- asd</div>
-        </div> */}
         <div className="flex flex-col gap-[70px]">
           <div className="px-[30px] py-[34px] bg-blue-50 rounded-[20px] mt-[14px]">
             <div className="flex gap-[16px] font-T03-SB text-blue-main mb-[32px]">
               <Tip /> 수상한 Tip
             </div>
             <div className="font-B01-R text-gray-900">
-              → ‘데이 마케팅의 대표’라는 말은 빼빼로의 가장 큰 장점이기도
-              하지만, ‘데이 마케팅에 속박’되었다는 의미로도 해석 될 수 있어요
+              - 기존 맥주와 선을 달리하는 ‘4세대 맥주’
+              <br />- 청략감과 탄산을 강조하는 패키지 디자인 & 국내 맥주 중 가장
+              큰 탄산압
+              <br />- 2025년 새롭게 출시된 ‘풀 오픈 캔’
+              <br />
+              <br /> → 4세대 맥주라는 워딩을 사용하며, 명확한 20대 젊은 세대를
+              겨냥한 제품임을 알 수 있어요
+              <br /> → 크러시의 가장 큰 제품 USP는 ‘탄산과 청량함’이라는 점을
+              지속적으로 이야기해주고 있어요
+              <br /> → 새롭게 리뉴얼 된 ‘풀 오픈 캔’ 패키지의 다양한 활용성을
+              이야기하며 자랑하듯 이야기하고 있어요
             </div>
           </div>
         </div>
@@ -67,36 +99,25 @@ function BBaBBaro() {
             <div className="flex gap-[3.5px]">
               <div>-</div>
               <div>
-                빼빼로는 국내 과자 시장에서 독보적인 브랜드 파워를 보유하고 있음
-                <br />
-                <span className="text-blue-main">
-                  빼빼로데이 시즌(10~11월)에 매출이 집중되는 시즌성 강점&nbsp;
-                </span>
-                보유하였으나,&nbsp;
-                <span className="text-blue-main">
-                  최근 비시즌 (1~9월)에도 빼빼로 소비가 증가
-                </span>
-                하고 있어 연중 수요 기반 확대 중 빼빼로데이 인지율 99%, 참여율
-                98% 육박 (2022년 소비자 조사 결과)
+                국내 맥주시장은 경쟁사의 시장 점유율이 상위권을 차지하는
+                양강체제를 이루고 있음
               </div>
             </div>
             <div className="flex gap-[3.5px]">
               <div>-</div>
               <div>
-                다양한 맛 출시, 한정판 패키지, 콜라보레이션 굿즈, SNS 이벤트
-                등으로 소비자 경험을 다각화하며 &nbsp;
-                <span className="text-blue-main">
-                  브랜드와 소비자 간의 상호작용 강화 &nbsp;
-                </span>
-                중
+                특히 한국의 주류문화의 특성상 주로 술자리를 함께 하는 사람들
+                <BlueSpan>
+                  다수의 선호 의견에 따라서 주류 브랜드를 선택
+                </BlueSpan>
+                하거나,  <BlueSpan>주점에 입점되어있는 제품</BlueSpan> 중에
+                고르는 <BlueSpan>관행적인 주문 상황</BlueSpan>이 주가 되어,
+                시장에 새롭게 진입하는 제품의 음용 시도가 쉽지 않은 상황
               </div>
             </div>
             <div className="flex gap-[3.5px]">
               <div>-</div>
-              <div>
-                최근 타겟 선호도가 높은 K-pop 아이돌 스트레이 키즈(Stray Kids)
-                앰버서더로 신규 캠페인 런칭 
-              </div>
+              <div>최근 젊은 층의 음주가 지속 줄어드는 현상을 보이고 있음</div>
             </div>
           </div>
         </div>
@@ -107,15 +128,16 @@ function BBaBBaro() {
               <Tip /> 수상한 Tip
             </div>
             <div className="flex gap-[3.5px]">
-              <div>-</div>
-              <div className="font-B01-R">
-                시즌을 활용한 주력 마케팅과 비시즌으로 확장하는 서브 마케팅 추구
-              </div>
-            </div>
-            <br />
-            <div className="font-B01-R text-gray-900">
-              → 강점인 데이마케팅을 강화하여 이슈의 재점화, 또는 일상적 접점을
-              늘리는 비시즌 전략을 희망한다고 볼 수 있어요
+              - 한국 주류 문화인 ‘다수결 주류 선택’, ‘입점 된 제품 중에 고르는
+              관행’으로 인한 신제품의 시장 진입 어려움
+              <br />
+              - 줄어드는 젊은 세대의 음주
+              <br />
+              <br />
+              → ‘마시던 것만 마시는’ 주류 문화의 관습을 이야기하며, ‘새로운
+              제품에 대한 음용 시도’가 직면한 과제임을 유추할 수 있어요
+              <br />→ 젊은 세대의 음주가 줄어들며 이러한 어려움을 더욱 키우고
+              있다고 볼 수 있어요
             </div>
           </div>
         </div>
@@ -263,8 +285,7 @@ function BBaBBaro() {
               <br />
               → 모델 활용 가능하나, 필수가 아니라는 말은 모델을 굳이 고려할
               필요가 없다는 말으로 해석할 수 있어요.
-              <br />
-              → 국내가 중심이지만 +@로 글로벌 확장도 가능하면 더 좋겠죠?
+              <br />→ 국내가 중심이지만 +@로 글로벌 확장도 가능하면 더 좋겠죠?
             </div>
           </div>
         </div>
@@ -273,6 +294,4 @@ function BBaBBaro() {
   );
 }
 
-export default BBaBBaro;
-
-
+export default Tams;

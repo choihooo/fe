@@ -18,10 +18,11 @@ function DetailTaskAnalysis() {
             "repeating-linear-gradient(to right, #d1d5db 0px, #d1d5db 4px, transparent 4px, transparent 8px)",
         }}
       />
-
+      {/* api 연결 필요 */}
       <ReflectionConsistencySection />
 
-      <BriefAnalysisSection />
+      {/*  */}
+      <BriefAnalysisSection brandName="크러시" />
     </div>
   );
 }
