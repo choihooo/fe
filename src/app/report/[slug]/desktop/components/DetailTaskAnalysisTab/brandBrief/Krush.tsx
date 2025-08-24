@@ -128,7 +128,7 @@ function Krush() {
             <div className="flex gap-[16px] font-T03-SB text-blue-main mb-[32px]">
               <Tip /> 수상한 Tip
             </div>
-            <div className="flex gap-[3.5px]">
+            <div className="font-B01-R gap-[3.5px]">
               - 한국 주류 문화인 ‘다수결 주류 선택’, ‘입점 된 제품 중에 고르는
               관행’으로 인한 신제품의 시장 진입 어려움
               <br />
