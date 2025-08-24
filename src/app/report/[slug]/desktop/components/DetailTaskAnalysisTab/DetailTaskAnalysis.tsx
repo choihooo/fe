@@ -22,7 +22,7 @@ function DetailTaskAnalysis() {
       <ReflectionConsistencySection />
 
       {/*  */}
-      <BriefAnalysisSection brandName="탐스" />
+      <BriefAnalysisSection brandName="크러시" />
     </div>
   );
 }

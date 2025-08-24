@@ -261,9 +261,21 @@ function Krush() {
                 <br />
                 [참고] 크게 열리는 탄산 러시 최근 캠페인 영상
                 <br /> &lt;지금 필요한 건, 크게 터지는 탄산 러시&gt; 광고 영상:
-                링크 <br /> &lt;빠짐 없이, 크게 터지는 탄산 러시&gt; 광고 영상:
-                링크 <br /> &lt;풀오픈캔으로 크게 열리는 탄산 러시&gt; 광고
-                영상: 링크
+                <a href="https://www.youtube.com/watch?v=wJwQD0GMlaI" target="_blank" className="underline">
+                  링크
+                </a>{" "}
+                <br /> &lt;빠짐 없이, 크게 터지는 탄산 러시&gt; 광고 영상:
+                <a href="https://www.youtube.com/watch?v=wM1MIbQbucQ" target="_blank" className="underline">
+                  링크
+                </a>{" "}
+                <br /> &lt;풀오픈캔으로 크게 열리는 탄산 러시&gt; 광고 영상:
+                <a
+                  href="https://www.youtube.com/watch?v=wJwQD0GMlaI"
+                  target="_blank"
+                  className="underline"
+                >
+                  링크
+                </a>
               </div>
             </div>{" "}
           </div>
