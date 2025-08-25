@@ -22,7 +22,7 @@ function DetailTaskAnalysis() {
       <ReflectionConsistencySection />
 
       {/*  */}
-      <BriefAnalysisSection brandName="에어리즘" />
+      <BriefAnalysisSection brandName="롯데월드" />
     </div>
   );
 }
