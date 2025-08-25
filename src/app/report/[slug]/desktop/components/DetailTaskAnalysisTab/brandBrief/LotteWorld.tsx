@@ -124,7 +124,7 @@ function LotteWorld() {
             <div className="flex gap-[16px] font-T03-SB text-blue-main mb-[32px]">
               <Tip /> 수상한 Tip
             </div>
-            <div className="flex gap-[3.5px] ">
+            <div className="flex gap-[3.5px] font-B01-R">
               - 유명 IP나 오리지널 콘텐츠를 이용한 몰입형 체험공간/전시가 트렌드{" "}
               → 테마파크의 비일상적 경험이 높은 시너지로 작용 <br />
               - 뮤지엄, 체험존 등 다양한 체험공간이 융복합적으로 나타나면서
