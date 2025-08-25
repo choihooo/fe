@@ -22,7 +22,7 @@ function DetailTaskAnalysis() {
       <ReflectionConsistencySection />
 
       {/*  */}
-      <BriefAnalysisSection brandName="넥센타이어" />
+      <BriefAnalysisSection brandName="SBI 저축은행 사이다뱅크" />
     </div>
   );
 }
