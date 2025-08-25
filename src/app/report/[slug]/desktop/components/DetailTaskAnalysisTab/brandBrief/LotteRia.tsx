@@ -110,7 +110,7 @@ function LotteRia() {
               </BlueSpan>
               을 보이는 것으로 조사됨
               <br />
-              <br />   월 1회 이상 버거를 취식하며{" "}
+              <br />월 1회 이상 버거를 취식하며{" "}
               <BlueSpan>유행과 트렌드에 민감한 2034남녀</BlueSpan>
             </DashList>
           </div>
