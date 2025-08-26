@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import FeedbackModal from "./FeedbackModal";
 
 interface ReportHeaderProps {
   title?: string;
@@ -13,6 +14,22 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
   organization = "유니세프",
   participants = ["이현수", "신민서", "우준식", "김수연"],
 }) => {
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+
+  const handleOpenFeedbackModal = () => {
+    setIsFeedbackModalOpen(true);
+  };
+
+  const handleCloseFeedbackModal = () => {
+    setIsFeedbackModalOpen(false);
+  };
+
+  const handleSubmitFeedback = (rating: number, review: string) => {
+    // 여기서 피드백 데이터를 처리할 수 있습니다
+    console.log("피드백 제출:", { rating, review, title });
+    // API 호출 등을 추가할 수 있습니다
+  };
+
   return (
     <div className="w-full">
       <div className="flex justify-between items-start">
@@ -47,7 +64,10 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
         {/* 오른쪽: 버튼들 */}
         <div className="flex gap-3 ml-8 relative h-full justify-end pt-[56px]">
           {/* 피드백 버튼 */}
-          <button className="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors font-B02-SB text-gray-700">
+          <button 
+            onClick={handleOpenFeedbackModal}
+            className="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors font-B02-SB text-gray-700"
+          >
             피드백 남기기
           </button>
 
@@ -68,6 +88,13 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
           </button>
         </div>
       </div>
+
+      {/* 피드백 모달 */}
+      <FeedbackModal
+        isOpen={isFeedbackModalOpen}
+        onClose={handleCloseFeedbackModal}
+        onSubmit={handleSubmitFeedback}
+      />
     </div>
   );
 };

@@ -1,17 +1,23 @@
 import React from "react";
 
-const CloseIcon = () => {
+interface CloseIconProps {
+  size?: number;
+  className?: string;
+}
+
+const CloseIcon: React.FC<CloseIconProps> = ({ size = 14, className = "" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="14"
+      width={size}
+      height={size}
       viewBox="0 0 14 14"
       fill="none"
+      className={className}
     >
       <path
         d="M10.1465 3.14648C10.3418 2.95127 10.6583 2.95124 10.8535 3.14648C11.0487 3.34174 11.0487 3.65827 10.8535 3.85352L7.70703 7L10.8535 10.1465C11.0487 10.3418 11.0488 10.6583 10.8535 10.8535C10.6583 11.0487 10.3417 11.0487 10.1465 10.8535L7 7.70703L3.85352 10.8535C3.65827 11.0487 3.34175 11.0487 3.14648 10.8535C2.95123 10.6583 2.95124 10.3417 3.14648 10.1465L6.29297 7L3.14648 3.85352C2.95123 3.65826 2.95124 3.34175 3.14648 3.14648C3.34174 2.95122 3.65825 2.95123 3.85352 3.14648L7 6.29297L10.1465 3.14648Z"
-        fill="#AAACB2"
+        fill="currentColor"
       />
     </svg>
   );
