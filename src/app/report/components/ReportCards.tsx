@@ -1,6 +1,6 @@
 import React from "react";
 import CheckBox from "../../../../public/icons/CheckBox";
-import { ReportDelete, WhiteReportIcon } from "../../../../public";
+import { ReportDelete } from "../../../../public";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
 export interface ReportCardProps {

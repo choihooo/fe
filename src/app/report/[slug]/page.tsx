@@ -1,6 +1,7 @@
 import React from "react";
 import DesktopReport from "./desktop/DesktopReport";
 import Header from "@/components/common/Header";
+import Footer from "@/app/home/components/Footer";
 
 function page() {
   return (
@@ -9,6 +10,7 @@ function page() {
       <div className="min-h-[calc(100vh-80px)]">
         <DesktopReport />
       </div>
+      <Footer />
     </div>
   );
 }
