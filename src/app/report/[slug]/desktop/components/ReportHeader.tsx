@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FeedbackModal from "./FeedbackModal";
+import ShareModal from "./ShareModal";
 
 interface ReportHeaderProps {
   title?: string;
@@ -15,6 +16,7 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
   participants = ["이현수", "신민서", "우준식", "김수연"],
 }) => {
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const handleOpenFeedbackModal = () => {
     setIsFeedbackModalOpen(true);
@@ -28,6 +30,14 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
     // 여기서 피드백 데이터를 처리할 수 있습니다
     console.log("피드백 제출:", { rating, review, title });
     // API 호출 등을 추가할 수 있습니다
+  };
+
+  const handleOpenShareModal = () => {
+    setIsShareModalOpen(true);
+  };
+
+  const handleCloseShareModal = () => {
+    setIsShareModalOpen(false);
   };
 
   return (
@@ -72,7 +82,10 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
           </button>
 
           {/* 공유 버튼 */}
-          <button className="px-[14px] py-[10px] bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors">
+          <button 
+            onClick={handleOpenShareModal}
+            className="px-[14px] py-[10px] bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors cursor-pointer"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -94,6 +107,14 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
         isOpen={isFeedbackModalOpen}
         onClose={handleCloseFeedbackModal}
         onSubmit={handleSubmitFeedback}
+      />
+
+      {/* 공유 모달 */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={handleCloseShareModal}
+        reportUrl={`https://www.pickspot.co.kr/report/${title}`}
+        reportCode="3463FJ29"
       />
     </div>
   );
