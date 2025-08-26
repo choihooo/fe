@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import CheckBox from "../../../../public/icons/CheckBox";
 import { ReportDelete } from "../../../../public";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 
 export interface ReportCardProps {
   type: string;
@@ -9,6 +10,7 @@ export interface ReportCardProps {
   org: string;
   participants: string;
   status: "완료" | "제작중";
+  onDelete?: () => void;
 }
 
 const ReportCard = ({
@@ -17,8 +19,21 @@ const ReportCard = ({
   org,
   participants,
   status,
+  onDelete,
 }: ReportCardProps) => {
   const isMobile = useIsMobile();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<"simple" | "title-confirm">("simple");
+
+  const handleDeleteClick = () => {
+    // 항상 simple 모달로 시작
+    setModalType("simple");
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    onDelete?.();
+  };
 
   if (isMobile) {
     return (
@@ -57,22 +72,33 @@ const ReportCard = ({
   }
 
   return (
-    <div className="w-full flex flex-row items-start rounded-[6px] bg-gray-50 h-[72px] px-11 py-[23px] mb-[14px]">
-      <div className="text-gray-700 font-B02-M w-[76px]">{type}</div>
-      <div className="w-[347px] text-black font-B01-R">{title}</div>
-      <div className="w-[163px] text-gray-700 font-B02-R"> {org}</div>
-      <div className="w-[234px] text-gray-700 font-B02-R"> {participants}</div>
-      <div
-        className={`font-B02-M w-[203px] ${
-          status === "완료" ? "text-blue-main" : "text-gray-500"
-        }`}
-      >
-        {status}
+    <>
+      <div className="w-full flex flex-row items-start rounded-[6px] bg-gray-50 h-[72px] px-11 py-[23px] mb-[14px]">
+        <div className="text-gray-700 font-B02-M w-[76px]">{type}</div>
+        <div className="w-[347px] text-black font-B01-R">{title}</div>
+        <div className="w-[163px] text-gray-700 font-B02-R"> {org}</div>
+        <div className="w-[234px] text-gray-700 font-B02-R"> {participants}</div>
+        <div
+          className={`font-B02-M w-[203px] ${
+            status === "완료" ? "text-blue-main" : "text-gray-500"
+          }`}
+        >
+          {status}
+        </div>
+        <div className="cursor-pointer" onClick={handleDeleteClick}>
+          <ReportDelete />
+        </div>
       </div>
-      <div className="cursor-pointer">
-        <ReportDelete />
-      </div>
-    </div>
+
+      {/* 삭제 확인 모달 */}
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleDeleteConfirm}
+        title={title}
+        type={modalType}
+      />
+    </>
   );
 };
 
