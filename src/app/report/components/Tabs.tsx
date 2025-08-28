@@ -32,6 +32,7 @@ const Tabs = () => {
           org: item.brand,
           participants: item.workMembers.join(", "),
           status: statusMap[item.reportStatus] ?? "제작중",
+          workId: item.workId,
         }));
 
         setCards(Cards);

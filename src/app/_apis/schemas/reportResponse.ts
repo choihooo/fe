@@ -5,6 +5,7 @@ export interface ReportRequest {
   brand: string;
   workMembers: string[];
   reportStatus: "DONE" | "IN_PROGRESS";
+  workId: number;
 }
 
 export interface ReportResponse {

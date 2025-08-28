@@ -3,6 +3,7 @@ import CheckBox from "../../../../public/icons/CheckBox";
 import { ReportDelete } from "../../../../public";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import DeleteConfirmModal from "./DeleteConfirmModal";
+import { useRouter } from "next/navigation";
 
 export interface ReportCardProps {
   type: string;
@@ -11,6 +12,7 @@ export interface ReportCardProps {
   participants: string;
   status: "완료" | "제작중";
   onDelete?: () => void;
+  workId: number;
 }
 
 const ReportCard = ({
@@ -20,12 +22,15 @@ const ReportCard = ({
   participants,
   status,
   onDelete,
+  workId,
 }: ReportCardProps) => {
   const isMobile = useIsMobile();
+  const router = useRouter();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"simple" | "title-confirm">("simple");
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     // 항상 simple 모달로 시작
     setModalType("simple");
     setIsDeleteModalOpen(true);
@@ -33,6 +38,10 @@ const ReportCard = ({
 
   const handleDeleteConfirm = () => {
     onDelete?.();
+  };
+
+  const navigateToReport = () => {
+    router.push(`/report/${workId}`);
   };
 
   if (isMobile) {
@@ -62,7 +71,7 @@ const ReportCard = ({
             <div className="text-gray-700 font-C01-R">{participants}</div>
           </div>
           {status === "완료" && (
-            <button className="flex mt-[22px] items-center justify-center px-[22px] py-3 rounded-[10px] bg-blue-main cursor-pointer">
+            <button onClick={navigateToReport} className="flex mt-[22px] items-center justify-center px-[22px] py-3 rounded-[10px] bg-blue-main cursor-pointer">
               <div className="text-white font-B03-M">리포트 보기</div>
             </button>
           )}
@@ -73,7 +82,7 @@ const ReportCard = ({
 
   return (
     <>
-      <div className="w-full flex flex-row items-start rounded-[6px] bg-gray-50 h-[72px] px-11 py-[23px] mb-[14px]">
+      <div onClick={navigateToReport} className="w-full flex flex-row items-start rounded-[6px] bg-gray-50 h-[72px] px-11 py-[23px] mb-[14px] cursor-pointer">
         <div className="text-gray-700 font-B02-M w-[76px]">{type}</div>
         <div className="w-[347px] text-black font-B01-R">{title}</div>
         <div className="w-[163px] text-gray-700 font-B02-R"> {org}</div>
@@ -85,7 +94,7 @@ const ReportCard = ({
         >
           {status}
         </div>
-        <div className="cursor-pointer" onClick={handleDeleteClick}>
+        <div className="ml-auto" onClick={handleDeleteClick}>
           <ReportDelete />
         </div>
       </div>
