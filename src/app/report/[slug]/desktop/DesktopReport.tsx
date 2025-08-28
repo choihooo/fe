@@ -3,12 +3,10 @@ import React, { useState } from "react";
 import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
 import DetailTaskAnalysis from "./components/DetailTaskAnalysisTab/DetailTaskAnalysis";
 import DcaCriteria from "./components/Criteria/DcaCriteria";
-import Footer from "@/app/home/components/Footer";
 
 const DesktopReport = () => {
   const [activeTab, setActiveTab] = useState("공모전 분석");
 
-  
   const tabs = ["공모전 분석", "세부 과제 분석", "개인 출품작 분석"];
 
   return (
@@ -40,6 +38,7 @@ const DesktopReport = () => {
 
             {activeTab === "개인 출품작 분석" && (
               <div>
+                {/* <WorkEvaluation /> */}
                 {/* <YccCriteria /> */}
                 <DcaCriteria />
                 {/* <YccScoreDetail /> */}
@@ -48,7 +47,6 @@ const DesktopReport = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
