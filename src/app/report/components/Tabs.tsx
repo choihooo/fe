@@ -1,49 +1,43 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReportCard, { ReportCardProps } from "./ReportCards";
-import { GetReport } from "@/app/_apis/report";
 import { ReportRequest } from "@/app/_apis/schemas/reportResponse";
 import { NoReportIcon } from "../../../../public";
 import Loading from "@/components/common/Loading";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import ReportTableHeader from "./ReportPageHeader";
+import { useReportList } from "@/hooks/queries";
 
 const Tabs = () => {
   const isMobile = useIsMobile();
   const tabs = ["전체", "DCA", "YCC"];
   const [activeTab, setActiveTab] = useState("전체");
-  const [cards, setCards] = useState<ReportCardProps[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchReports = async () => {
-      try {
-        const data = await GetReport(0);
-        const dataList: ReportRequest[] = data.result.responseList;
+  // React Query를 사용하여 리포트 목록 가져오기
+  const { data: reportData, isLoading, error } = useReportList(0);
 
-        const statusMap: Record<string, "완료" | "제작중"> = {
-          COMPLETED: "완료",
-          IN_PROGRESS: "제작중",
-        };
+  // 데이터 변환
+  const cards: ReportCardProps[] = React.useMemo(() => {
+    if (!reportData?.isSuccess || !reportData.result) return [];
 
-        const Cards: ReportCardProps[] = dataList.map((item) => ({
-          type: item.contestName,
-          title: item.title,
-          org: item.brand,
-          participants: item.workMembers.join(", "),
-          status: statusMap[item.reportStatus] ?? "제작중",
-        }));
+    const dataList: ReportRequest[] = reportData.result.responseList;
 
-        setCards(Cards);
-      } catch (err) {
-        console.error("리포트 불러오기 실패", err);
-      } finally {
-        setLoading(false);
-      }
+    const statusMap: Record<string, "완료" | "제작중"> = {
+      COMPLETED: "완료",
+      IN_PROGRESS: "제작중",
+      DONE: "완료",
     };
 
-    fetchReports();
-  }, []);
+    return dataList.map((item) => ({
+      type: item.contestName,
+      title: item.title ?? item.workName,
+      org: item.brand,
+      participants: item.workMembers?.join(", ") ?? "",
+      status: statusMap[item.reportStatus] ?? "제작중",
+      workId: item.workId,
+      isDeletable: item.isDeletable,
+    }));
+  }, [reportData]);
 
   const filteredCards =
     activeTab === "전체"
@@ -71,9 +65,13 @@ const Tabs = () => {
       </div>
 
       <div className="sm:mt-10 w-full bg-gray-100 flex-1">
-        {loading ? (
+        {isLoading ? (
           <div className="flex items-center justify-center mt-[175px]">
             <Loading />
+          </div>
+        ) : error ? (
+          <div className="text-center py-8 text-red-500">
+            리포트를 불러오는데 실패했습니다.
           </div>
         ) : filteredCards.length === 0 ? (
           <div className="flex flex-col items-center justify-center mt-[175px]">

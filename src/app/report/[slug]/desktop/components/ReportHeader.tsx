@@ -1,18 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
+import FeedbackModal from "./FeedbackModal";
+import ShareModal from "./ShareModal";
+import { useSubmitFeedback, useShareReport } from "@/hooks/queries";
 
 interface ReportHeaderProps {
-  title?: string;
-  category?: string;
-  organization?: string;
-  participants?: string[];
+  workName: string;
+  contestName: string;
+  brand: string;
+  workMembers: string[];
+  workId: number;
 }
 
 const ReportHeader: React.FC<ReportHeaderProps> = ({
-  title = "너에게서 나를 보다",
-  category = "DCA",
-  organization = "유니세프",
-  participants = ["이현수", "신민서", "우준식", "김수연"],
+  workName,
+  contestName,
+  brand,
+  workMembers,
+  workId,
 }) => {
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [shareLink, setShareLink] = useState<string>("");
+  const [shareCode, setShareCode] = useState<string>("");
+
+  const submitFeedbackMutation = useSubmitFeedback();
+  const shareReportMutation = useShareReport();
+
+  const handleOpenFeedbackModal = () => {
+    setIsFeedbackModalOpen(true);
+  };
+
+  const handleCloseFeedbackModal = () => {
+    setIsFeedbackModalOpen(false);
+  };
+
+  const handleSubmitFeedback = (rating: number, review: string) => {
+    submitFeedbackMutation.mutate({ workId, score: rating, content: review });
+  };
+
+  const handleOpenShareModal = () => {
+    // 공유 링크 생성 호출 후 모달 오픈
+    shareReportMutation.mutate(workId, {
+      onSuccess: (res) => {
+        const link = res.result?.link ?? `https://www.pickspot.co.kr/report/${workId}`;
+        const code = res.result?.code ?? "";
+        setShareLink(link);
+        setShareCode(code);
+        setIsShareModalOpen(true);
+      },
+      onError: () => {
+        setShareLink(`https://www.pickspot.co.kr/report/${workId}`);
+        setShareCode("");
+        setIsShareModalOpen(true);
+      },
+    });
+  };
+
+  const handleCloseShareModal = () => {
+    setIsShareModalOpen(false);
+  };
+
   return (
     <div className="w-full">
       <div className="flex justify-between items-start">
@@ -20,23 +67,25 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
         <div className="flex-1">
           {/* 제목 */}
           <h1 className="text-[36px] font-semibold text-gray-900 mb-4">
-            {title}
+            {workName}
           </h1>
 
           <div className="font-B01-M">
             <div className="flex items-center text-gray-900">
               <span className="font-gray-900">공모전</span>
               <span className="mx-3 text-gray-300">|</span>
-              <span className="font-B01-R text-gray-700">{category}</span>
+              <span className="font-B01-R text-gray-700">{contestName}</span>
 
               <span className="ml-[34px] font-gray-900">브랜드</span>
               <span className="mx-3 text-gray-300">|</span>
-              <span className="font-B01-R text-gray-700">{organization}</span>
+              <span className="font-B01-R text-gray-700">
+                {brand}
+              </span>
 
               <span className="ml-[34px] font-gary-900">참여자</span>
               <span className="mx-3 text-gray-300">|</span>
               <span className="font-B01-R text-gray-700">
-                {participants.join(", ")}
+                {workMembers?.join(", ") || ""}
               </span>
             </div>
 
@@ -47,12 +96,18 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
         {/* 오른쪽: 버튼들 */}
         <div className="flex gap-3 ml-8 relative h-full justify-end pt-[56px]">
           {/* 피드백 버튼 */}
-          <button className="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors font-B02-SB text-gray-700">
+          <button
+            onClick={handleOpenFeedbackModal}
+            className="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors font-B02-SB text-gray-700"
+          >
             피드백 남기기
           </button>
 
           {/* 공유 버튼 */}
-          <button className="px-[14px] py-[10px] bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors">
+          <button
+            onClick={handleOpenShareModal}
+            className="px-[14px] py-[10px] bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors cursor-pointer"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -68,6 +123,21 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
           </button>
         </div>
       </div>
+
+      {/* 피드백 모달 */}
+      <FeedbackModal
+        isOpen={isFeedbackModalOpen}
+        onClose={handleCloseFeedbackModal}
+        onSubmit={handleSubmitFeedback}
+      />
+
+      {/* 공유 모달 */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={handleCloseShareModal}
+        reportUrl={shareLink || `https://www.pickspot.co.kr/report/${workId}`}
+        reportCode={shareCode || ""}
+      />
     </div>
   );
 };

@@ -7,13 +7,19 @@ import GrayButton from "@/components/common/GrayButton";
 import EvaluationCriteria from "./DCA/EvaluationCriteria";
 import MediaSelection from "./DCA/MediaSelection";
 
-const DcaCriteria = () => {
+interface DcaCriteriaProps {
+  contestName: string;
+  workId: number;
+  brand: string;
+}
+
+const DcaCriteria = ({ contestName, workId, brand }: DcaCriteriaProps) => {
   return (
     <div className="flex flex-col items-start w-full">
       <div className="flex flex-row items-center w-full">
         <div className="text-gray-900 font-B01-M"> 공모전 </div>
         <span className="mx-3 text-gray-200">|</span>
-        <div className="text-gray-700 font-B01-R">DCA</div>
+        <div className="text-gray-700 font-B01-R">{contestName}</div>
       </div>
       <div className="text-gray-900 font-semibold text-4xl mt-4">평가 기준</div>
 

@@ -4,12 +4,26 @@ import ReflectionConsistencySection from "./ReflectionConsistencySection";
 import BriefInterpretationSection from "./BriefInterpretationSection";
 import BriefAnalysisSection from "./BriefAnalysisSection";
 
-function DetailTaskAnalysis() {
+interface DetailTaskAnalysisProps {
+  contestName: string;
+  workId: number;
+  brand: string;
+  workName: string;
+  workMembers: string[];
+}
+
+function DetailTaskAnalysis({ contestName, workId, brand, workName, workMembers }: DetailTaskAnalysisProps) {
   return (
     <div>
-      <ReportHeader />
+      <ReportHeader 
+        workName={workName}
+        contestName={contestName}
+        brand={brand}
+        workMembers={workMembers}
+        workId={workId}
+      />
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
-      <BriefInterpretationSection />
+      <BriefInterpretationSection workId={workId} />
 
       <div
         className="w-full h-[1.2px] my-[42px]"
@@ -19,10 +33,10 @@ function DetailTaskAnalysis() {
         }}
       />
       {/* api 연결 필요 */}
-      <ReflectionConsistencySection />
+      <ReflectionConsistencySection workId={workId} />
 
       {/*  */}
-      <BriefAnalysisSection brandName="SBI 저축은행 사이다뱅크" />
+      <BriefAnalysisSection brandName={brand} />
     </div>
   );
 }
