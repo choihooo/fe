@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { GetReport, GetReportDetail, GetDcaBriefEvaluation, SubmitFeedback } from "@/app/_apis/report";
+import { GetReport, GetReportDetail, GetDcaBriefEvaluation, SubmitFeedback, ShareReport } from "@/app/_apis/report";
 import { reportKeys } from "./index";
 
 /**
@@ -47,5 +47,14 @@ export function useSubmitFeedback() {
   return useMutation({
     mutationFn: ({ workId, score, content }: { workId: number; score: number; content: string }) =>
       SubmitFeedback(workId, { score, content }),
+  });
+}
+
+/**
+ * 리포트 공유 뮤테이션 훅
+ */
+export function useShareReport() {
+  return useMutation({
+    mutationFn: (workId: number) => ShareReport(workId),
   });
 }

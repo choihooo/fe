@@ -13,6 +13,7 @@ export interface ReportCardProps {
   status: "완료" | "제작중";
   onDelete?: () => void;
   workId: number;
+  isDeletable?: boolean;
 }
 
 const ReportCard = ({
@@ -23,6 +24,7 @@ const ReportCard = ({
   status,
   onDelete,
   workId,
+  isDeletable,
 }: ReportCardProps) => {
   const isMobile = useIsMobile();
   const router = useRouter();
@@ -94,9 +96,11 @@ const ReportCard = ({
         >
           {status}
         </div>
-        <div className="ml-auto" onClick={handleDeleteClick}>
-          <ReportDelete />
-        </div>
+        {isDeletable && (
+          <div className="ml-auto" onClick={handleDeleteClick}>
+            <ReportDelete />
+          </div>
+        )}
       </div>
 
       {/* 삭제 확인 모달 */}

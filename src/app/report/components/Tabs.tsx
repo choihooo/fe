@@ -35,6 +35,7 @@ const Tabs = () => {
       participants: item.workMembers?.join(", ") ?? "",
       status: statusMap[item.reportStatus] ?? "제작중",
       workId: item.workId,
+      isDeletable: item.isDeletable,
     }));
   }, [reportData]);
 

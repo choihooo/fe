@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FeedbackModal from "./FeedbackModal";
 import ShareModal from "./ShareModal";
-import { useSubmitFeedback } from "@/hooks/queries";
+import { useSubmitFeedback, useShareReport } from "@/hooks/queries";
 
 interface ReportHeaderProps {
   workName: string;
@@ -20,8 +20,11 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
 }) => {
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [shareLink, setShareLink] = useState<string>("");
+  const [shareCode, setShareCode] = useState<string>("");
 
   const submitFeedbackMutation = useSubmitFeedback();
+  const shareReportMutation = useShareReport();
 
   const handleOpenFeedbackModal = () => {
     setIsFeedbackModalOpen(true);
@@ -36,7 +39,21 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
   };
 
   const handleOpenShareModal = () => {
-    setIsShareModalOpen(true);
+    // 공유 링크 생성 호출 후 모달 오픈
+    shareReportMutation.mutate(workId, {
+      onSuccess: (res) => {
+        const link = res.result?.link ?? `https://www.pickspot.co.kr/report/${workId}`;
+        const code = res.result?.code ?? "";
+        setShareLink(link);
+        setShareCode(code);
+        setIsShareModalOpen(true);
+      },
+      onError: () => {
+        setShareLink(`https://www.pickspot.co.kr/report/${workId}`);
+        setShareCode("");
+        setIsShareModalOpen(true);
+      },
+    });
   };
 
   const handleCloseShareModal = () => {
@@ -118,8 +135,8 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
       <ShareModal
         isOpen={isShareModalOpen}
         onClose={handleCloseShareModal}
-        reportUrl={`https://www.pickspot.co.kr/report/${workId}`}
-        reportCode="3463FJ29"
+        reportUrl={shareLink || `https://www.pickspot.co.kr/report/${workId}`}
+        reportCode={shareCode || ""}
       />
     </div>
   );

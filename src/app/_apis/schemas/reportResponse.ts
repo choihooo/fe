@@ -52,3 +52,15 @@ export interface SubmitFeedbackResponse {
   code: number;
   message: string;
 }
+
+// 리포트 공유 응답
+export interface ShareReportResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    workId: number;
+    link: string;
+    code: string;
+  };
+}
