@@ -11,7 +11,7 @@ const DesktopReport = () => {
   const params = useParams();
   const workId = Number((params as any)?.slug);
 
-  // React Query를 사용하여 리포트 데이터 가져오기
+
   const { data: reportData, isLoading, error } = useReportDetail(workId);
   const isYcc = reportData?.result?.contestName === "YCC";
   const tabs = isYcc
@@ -112,6 +112,7 @@ const DesktopReport = () => {
 
             {activeTab === "개인 출품작 분석" && (
               <div>
+                {/* <WorkEvaluation /> */}
                 {/* <YccCriteria /> */}
                 <DcaCriteria
                   contestName={contestName}
