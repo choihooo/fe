@@ -64,3 +64,23 @@ export interface ShareReportResponse {
     code: string;
   };
 }
+
+//DCA 출품작 전체 총평 응답
+export interface WorkAllEvaluationResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    totalScore: number;
+    targetScore: number;
+    target: string;
+    brandScore: number;
+    brand: string;
+    mediaScore: number;
+    media: string;
+    problemScore: number;
+    problem: string;
+    feasibilityScore: number;
+    feasibility: string;
+  };
+}

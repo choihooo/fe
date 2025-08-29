@@ -7,15 +7,35 @@ import GrayButton from "@/components/common/GrayButton";
 import ButtonBase from "@/components/common/ButtonBase";
 import Strength from "./Strength";
 
-const WorkEvaluation = () => {
+interface WorkEvaluationProps {
+  contestName: string;
+  workId: number;
+  brand: string;
+  workName: string;
+  workMembers: string[];
+}
+
+const WorkEvaluation = ({
+  contestName,
+  workId,
+  brand,
+  workName,
+  workMembers,
+}: WorkEvaluationProps) => {
   return (
     <div>
-      <ReportHeader />
+      <ReportHeader
+        workName={workName}
+        contestName={contestName}
+        brand={brand}
+        workMembers={workMembers}
+        workId={workId}
+      />
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
       <Summary />
-      <RadarChartComponent />
+      <RadarChartComponent workId={workId} />
       <div className="w-full border-t border-gray-300 border-dashed mt-[108px] mb-[108px]" />
-      <AllEvalution />
+      <AllEvalution workId={workId} />
       <div className="flex flex-row items-center justify-end mt-20 w-full gap-[10px]">
         <GrayButton
           label="평가 기준 >"

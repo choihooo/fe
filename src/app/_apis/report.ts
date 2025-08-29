@@ -1,5 +1,13 @@
 import { authAxiosInstance } from "./axiosInstance";
-import { ReportDetailResponse, ReportResponse, DcaBriefEvaluationResponse, SubmitFeedbackRequest, SubmitFeedbackResponse, ShareReportResponse } from "./schemas/reportResponse";
+import {
+  ReportDetailResponse,
+  ReportResponse,
+  DcaBriefEvaluationResponse,
+  SubmitFeedbackRequest,
+  SubmitFeedbackResponse,
+  ShareReportResponse,
+  WorkAllEvaluationResponse,
+} from "./schemas/reportResponse";
 
 export async function GetReport(page: number): Promise<ReportResponse> {
   const res = await authAxiosInstance.get<ReportResponse>("/v1/reports", {
@@ -10,21 +18,28 @@ export async function GetReport(page: number): Promise<ReportResponse> {
   return res.data;
 }
 
-export async function GetReportDetail(workId: number): Promise<ReportDetailResponse> {
+export async function GetReportDetail(
+  workId: number
+): Promise<ReportDetailResponse> {
   const res = await authAxiosInstance.get<ReportDetailResponse>(
     `/v1/reports/${workId}`
   );
   return res.data;
 }
 
-export async function GetDcaBriefEvaluation(workId: number): Promise<DcaBriefEvaluationResponse> {
+export async function GetDcaBriefEvaluation(
+  workId: number
+): Promise<DcaBriefEvaluationResponse> {
   const res = await authAxiosInstance.get<DcaBriefEvaluationResponse>(
     `/v1/personal-works/dca/${workId}/brief-evaluation`
   );
   return res.data;
 }
 
-export async function SubmitFeedback(workId: number, body: SubmitFeedbackRequest): Promise<SubmitFeedbackResponse> {
+export async function SubmitFeedback(
+  workId: number,
+  body: SubmitFeedbackRequest
+): Promise<SubmitFeedbackResponse> {
   const res = await authAxiosInstance.post<SubmitFeedbackResponse>(
     `/v1/feedback/${workId}`,
     body
@@ -32,9 +47,20 @@ export async function SubmitFeedback(workId: number, body: SubmitFeedbackRequest
   return res.data;
 }
 
-export async function ShareReport(workId: number): Promise<ShareReportResponse> {
+export async function ShareReport(
+  workId: number
+): Promise<ShareReportResponse> {
   const res = await authAxiosInstance.post<ShareReportResponse>(
     `/v1/reports/${workId}`
+  );
+  return res.data;
+}
+
+export async function WorkAllEvaluation(
+  workId: number
+): Promise<WorkAllEvaluationResponse> {
+  const res = await authAxiosInstance.get<WorkAllEvaluationResponse>(
+    `/v1/personal-works/dca/${workId}/evaluation`
   );
   return res.data;
 }
