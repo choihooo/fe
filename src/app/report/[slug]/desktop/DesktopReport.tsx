@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useReportDetail } from "@/hooks/queries";
 import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
 import DetailTaskAnalysis from "./components/DetailTaskAnalysisTab/DetailTaskAnalysis";
@@ -9,14 +9,28 @@ import DcaCriteria from "./components/Criteria/DcaCriteria";
 const DesktopReport = () => {
   const [activeTab, setActiveTab] = useState("공모전 분석");
   const params = useParams() as { slug?: string };
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const workId = Number(params?.slug);
 
+  const [showVerifiedToast, setShowVerifiedToast] = useState(false);
+
+  useEffect(() => {
+    const verified = searchParams?.get("verified");
+    if (verified === "1") {
+      setShowVerifiedToast(true);
+      const timeout = setTimeout(() => setShowVerifiedToast(false), 3000);
+      // URL 정리 (쿼리 제거)
+      router.replace(`/report/${workId}`);
+      return () => clearTimeout(timeout);
+    }
+  }, [searchParams, router, workId]);
 
   const { data: reportData, isLoading, error } = useReportDetail(workId);
   const isYcc = reportData?.result?.contestName === "YCC";
   const tabs = isYcc
     ? ["공모전 분석", "개인 출품작 분석"]
-    : ["공모전 분석", "세부 과제 분석", "개인 출품작 분석"];
+    : ["공모전 분석", "세부 과제 분석", "개인 출폼작 분석"];
 
   // 로딩 중일 때 스켈레톤 UI 표시
   if (isLoading) {
@@ -69,6 +83,27 @@ const DesktopReport = () => {
 
   return (
     <div className="w-full">
+      {/* {showVerifiedToast && ( */}
+      <div className="fixed flex items-center gap-3 bottom-[44px] right-[120px] z-50 rounded-[10px] bg-blue-50 text-gray-900 px-5 py-4 font-B02-M">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          viewBox="0 0 26 26"
+          fill="none"
+        >
+          <rect width="26" height="26" rx="13" fill="#256AFF" />
+          <path
+            d="M7 12.4706L11.7143 17L19 10"
+            stroke="#FAFAFA"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        새로운 리포트가 추가되었습니다
+      </div>
+      {/* )} */}
       {/* 탭 네비게이션 */}
       <div className="flex items-center shadow-1-b px-[112px] h-[58px]">
         {tabs.map((tab) => (
@@ -114,9 +149,7 @@ const DesktopReport = () => {
               <div>
                 {/* <WorkEvaluation /> */}
                 {/* <YccCriteria /> */}
-                <DcaCriteria
-                  contestName={contestName}
-                />
+                <DcaCriteria contestName={contestName} />
                 {/* <YccScoreDetail /> */}
               </div>
             )}
