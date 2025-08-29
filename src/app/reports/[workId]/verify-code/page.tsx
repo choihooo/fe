@@ -1,0 +1,83 @@
+"use client";
+import React, { useState } from "react";
+import Header from "@/components/common/Header";
+import Footer from "@/app/home/components/Footer";
+import TextInput from "@/components/common/TextInput";
+import GrayButton from "@/components/common/GrayButton";
+import ButtonBase from "@/components/common/ButtonBase";
+import { useRouter, useParams } from "next/navigation";
+import { useVerifyReportCode } from "@/hooks/queries";
+
+function page() {
+  const router = useRouter();
+  const params = useParams();
+  const workId = Number((params as any)?.workId);
+  const [code, setCode] = useState("");
+  const [errorMsg, setErrorMsg] = useState<string>("");
+
+  const verifyMutation = useVerifyReportCode();
+
+  const handleCancel = () => {
+    router.back();
+  };
+
+  const handleVerify = () => {
+    if (!Number.isFinite(workId) || !code.trim()) return;
+    setErrorMsg("");
+    verifyMutation.mutate(
+      { workId, code: code.trim() },
+      {
+        onSuccess: (res) => {
+          if (res?.isSuccess) {
+            router.push(`/report/${workId}`);
+          } else {
+            setErrorMsg(res?.message || "코드가 일치하지 않습니다.");
+          }
+        },
+        onError: (err: any) => {
+          const msg =
+            err?.response?.data?.message || "코드가 일치하지 않습니다.";
+          setErrorMsg(msg);
+        },
+      }
+    );
+  };
+
+  return (
+    <div className="min-h-screen ">
+      <Header />
+      <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4 bg-gray-100">
+        <div className="w-[424px] rounded-[20px] bg-white p-[42px] pt-[52px]">
+          <div className="text-gray-900 font-T01-B mb-6">리포트 코드 인증</div>
+
+          <div className="mb-6">
+            <TextInput
+              placeholder="코드를 입력하세요"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              className="w-full"
+              error={!!errorMsg}
+            />
+            {errorMsg && (
+              <div className="mt-2 text-[12px] font-B02-R text-orange-point">
+                {errorMsg}
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center justify-end gap-3">
+            <GrayButton
+              label="취소"
+              className="w-[88px]"
+              onClick={handleCancel}
+            />
+            <ButtonBase label="인증하기" size="M" onClick={handleVerify} />
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+export default page;
