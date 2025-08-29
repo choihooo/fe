@@ -1,6 +1,24 @@
+import Loading from "@/components/common/Loading";
+import { usePersonalSummary } from "@/hooks/queries";
 import React from "react";
 
-const Summary = () => {
+type SummaryProps = { workId: number };
+
+const Summary = ({ workId }: SummaryProps) => {
+  const { data: summaryData, isLoading, isError } = usePersonalSummary(workId);
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center mt-[29px]">
+        <Loading />
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div className="text-center text-red-500"> 에러가 발생했습니다.</div>
+    );
+
   return (
     <div className="flex flex-col gap-[52px] items-start">
       <div className="text-gray-900 font-T02-B"> 작품 요약</div>
@@ -8,24 +26,21 @@ const Summary = () => {
         <div className="flex flex-col gap-[14px]">
           <span className="text-blue-main font-T04-SB"> 타겟</span>
           <div className="text-gray-800 font-B01-M">
-            정기 후원 참여율이 낮은 20~39세 MZ세대. 공감보다 자기 연결감을
-            중시하며, 개인의 가치에 기반한 메세지에 반응한다
+            {summaryData?.result.target}
           </div>
         </div>
 
         <div className="flex flex-col gap-[14px]">
           <span className="text-blue-main font-T04-SB"> 인사이트</span>
           <div className="text-gray-800 font-B01-M">
-            2030세대는 자신과 닮았다고 느끼는 대상에게 감정적으로 더 쉽게
-            연결되며, ‘투영’을 통해 연대감을 느낀다.
+            {summaryData?.result.insight}
           </div>
         </div>
 
         <div className="flex flex-col gap-[14px]">
           <span className="text-blue-main font-T04-SB"> 솔루션</span>
           <div className="text-gray-800 font-B01-M">
-            수혜자에게 후원자의 어린 시절을 투영하게 하여, 정서적 연결을 통해
-            기부 행동으로 자연스럽게 이어지도록 유도한다.
+            {summaryData?.result.solution}
           </div>
         </div>
       </div>

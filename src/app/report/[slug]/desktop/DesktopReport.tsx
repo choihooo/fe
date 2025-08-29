@@ -4,7 +4,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useReportDetail } from "@/hooks/queries";
 import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
 import DetailTaskAnalysis from "./components/DetailTaskAnalysisTab/DetailTaskAnalysis";
-import DcaCriteria from "./components/Criteria/DcaCriteria";
+import WorkEvaluation from "./components/WorkSummary/WorkEvaluation";
 
 const DesktopReport = () => {
   const [activeTab, setActiveTab] = useState("공모전 분석");
@@ -13,14 +13,13 @@ const DesktopReport = () => {
   const searchParams = useSearchParams();
   const workId = Number(params?.slug);
 
+  // verified=1 쿼리 처리: 토스트 노출 후 URL 정리
   const [showVerifiedToast, setShowVerifiedToast] = useState(false);
-
   useEffect(() => {
     const verified = searchParams?.get("verified");
     if (verified === "1") {
       setShowVerifiedToast(true);
       const timeout = setTimeout(() => setShowVerifiedToast(false), 3000);
-      // URL 정리 (쿼리 제거)
       router.replace(`/report/${workId}`);
       return () => clearTimeout(timeout);
     }
@@ -30,18 +29,15 @@ const DesktopReport = () => {
   const isYcc = reportData?.result?.contestName === "YCC";
   const tabs = isYcc
     ? ["공모전 분석", "개인 출품작 분석"]
-    : ["공모전 분석", "세부 과제 분석", "개인 출폼작 분석"];
+    : ["공모전 분석", "세부 과제 분석", "개인 출품작 분석"];
 
-  // 로딩 중일 때 스켈레톤 UI 표시
+  // 로딩 중 스켈레톤
   if (isLoading) {
     return (
       <div className="w-full">
         <div className="flex items-center shadow-1-b px-[112px] h-[58px]">
           {tabs.map((tab) => (
-            <div
-              key={tab}
-              className="px-[17px] py-[17px] text-gray-300 font-B02-M"
-            >
+            <div key={tab} className="px-[17px] py-[17px] text-gray-300 font-B02-M">
               {tab}
             </div>
           ))}
@@ -57,24 +53,20 @@ const DesktopReport = () => {
     );
   }
 
-  // 에러 발생 시 에러 메시지 표시
+  // 에러
   if (error) {
     return (
       <div className="w-full">
-        <div className="text-red-500 text-center py-8">
-          리포트 정보를 불러오는데 실패했습니다.
-        </div>
+        <div className="text-red-500 text-center py-8">리포트 정보를 불러오는데 실패했습니다.</div>
       </div>
     );
   }
 
-  // 데이터가 없거나 성공하지 않은 경우
+  // 데이터 없음
   if (!reportData?.isSuccess || !reportData.result) {
     return (
       <div className="w-full">
-        <div className="text-gray-500 text-center py-8">
-          리포트 정보를 찾을 수 없습니다.
-        </div>
+        <div className="text-gray-500 text-center py-8">리포트 정보를 찾을 수 없습니다.</div>
       </div>
     );
   }
@@ -83,34 +75,29 @@ const DesktopReport = () => {
 
   return (
     <div className="w-full">
-      {/* {showVerifiedToast && ( */}
-      <div className="fixed flex items-center gap-3 bottom-[44px] right-[120px] z-50 rounded-[10px] bg-blue-50 text-gray-900 px-5 py-4 font-B02-M">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="26"
-          height="26"
-          viewBox="0 0 26 26"
-          fill="none"
-        >
-          <rect width="26" height="26" rx="13" fill="#256AFF" />
-          <path
-            d="M7 12.4706L11.7143 17L19 10"
-            stroke="#FAFAFA"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        새로운 리포트가 추가되었습니다
-      </div>
-      {/* )} */}
+      {showVerifiedToast && (
+        <div className="fixed flex items-center gap-3 bottom-[44px] right-[120px] z-50 rounded-[10px] bg-blue-50 text-gray-900 px-5 py-4 font-B02-M">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true" focusable="false">
+            <rect width="26" height="26" rx="13" fill="#256AFF" />
+            <path
+              d="M7 12.4706L11.7143 17L19 10"
+              stroke="#FAFAFA"
+              strokeWidth={1.8}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          새로운 리포트가 추가되었습니다
+        </div>
+      )}
+
       {/* 탭 네비게이션 */}
       <div className="flex items-center shadow-1-b px-[112px] h-[58px]">
         {tabs.map((tab) => (
           <div
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-[17px] py-[17px] cursor-pointer transition-colors  ${
+            className={`px-[17px] py-[17px] cursor-pointer transition-colors ${
               activeTab === tab
                 ? "text-blue-main border-b-2 border-blue-main font-B02-SB"
                 : "text-gray-300 hover:text-gray-700 font-B02-M"
@@ -123,37 +110,39 @@ const DesktopReport = () => {
 
       <div className="w-full py-[86px]">
         <div className="w-[996px] mx-auto">
-          {/* 탭 컨텐츠 영역 */}
-          <div className="mt-6">
-            {activeTab === "공모전 분석" && (
-              <ContestAnalysis
+          {/* 탭 컨텐츠 */}
+          {activeTab === "공모전 분석" && (
+            <ContestAnalysis
+              contestName={contestName}
+              workId={workId}
+              brand={brand}
+              workName={workName}
+              workMembers={workMembers}
+            />
+          )}
+
+          {activeTab === "세부 과제 분석" && (
+            <DetailTaskAnalysis
+              contestName={contestName}
+              workId={workId}
+              brand={brand}
+              workName={workName}
+              workMembers={workMembers}
+            />
+          )}
+
+          {activeTab === "개인 출품작 분석" && (
+            <div>
+              <WorkEvaluation
                 contestName={contestName}
                 workId={workId}
                 brand={brand}
                 workName={workName}
                 workMembers={workMembers}
               />
-            )}
-
-            {activeTab === "세부 과제 분석" && (
-              <DetailTaskAnalysis
-                contestName={contestName}
-                workId={workId}
-                brand={brand}
-                workName={workName}
-                workMembers={workMembers}
-              />
-            )}
-
-            {activeTab === "개인 출품작 분석" && (
-              <div>
-                {/* <WorkEvaluation /> */}
-                {/* <YccCriteria /> */}
-                <DcaCriteria contestName={contestName} />
-                {/* <YccScoreDetail /> */}
-              </div>
-            )}
-          </div>
+              {/* 필요 시 YccCriteria / DcaCriteria 등을 여기에서 조건부로 추가 */}
+            </div>
+          )}
         </div>
       </div>
     </div>

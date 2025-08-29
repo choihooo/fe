@@ -65,6 +65,62 @@ export interface ShareReportResponse {
   };
 }
 
+//DCA 출품작 전체 총평 응답
+export interface WorkAllEvaluationResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    totalScore: number;
+    targetScore: number;
+    target: string;
+    brandScore: number;
+    brand: string;
+    mediaScore: number;
+    media: string;
+    problemScore: number;
+    problem: string;
+    feasibilityScore: number;
+    feasibility: string;
+  };
+}
+
+//개인 출품작 강점 조회
+export interface StrengthsResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    code: string;
+    label: string;
+    score: number;
+    description: string;
+  };
+}
+
+export interface WeaknessResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    code: string;
+    label: string;
+    score: number;
+    description: string;
+  };
+}
+
+export interface SummaryProps {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    target: string;
+    insight: string;
+    solution: string;
+  };
+}
+
 // 리포트 코드 인증
 export interface VerifyReportCodeRequest {
   code: string;
