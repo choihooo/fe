@@ -1,4 +1,5 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+// src/app/hooks/queries.ts
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   GetReport,
   GetReportDetail,
@@ -10,6 +11,7 @@ import {
   PersonalWeakness,
   PersonalSummary,
   VerifyReportCode,
+  DeleteReportVisibility,
 } from "@/app/_apis/report";
 import { reportKeys } from "./index";
 
@@ -20,8 +22,8 @@ export function useReportList(page: number) {
   return useQuery({
     queryKey: reportKeys.list(page),
     queryFn: () => GetReport(page),
-    staleTime: 5 * 60 * 1000, // 5분간 캐시 유지
-    gcTime: 10 * 60 * 1000, // 10분간 가비지 컬렉션
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 }
 
@@ -33,8 +35,8 @@ export function useReportDetail(workId: number) {
     queryKey: reportKeys.detail(workId),
     queryFn: () => GetReportDetail(workId),
     enabled: Number.isFinite(workId),
-    staleTime: 5 * 60 * 1000, // 5분간 캐시 유지
-    gcTime: 10 * 60 * 1000, // 10분간 가비지 컬렉션
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 }
 
@@ -46,8 +48,8 @@ export function useDcaBriefEvaluation(workId: number) {
     queryKey: reportKeys.dcaBriefEvaluation(workId),
     queryFn: () => GetDcaBriefEvaluation(workId),
     enabled: Number.isFinite(workId),
-    staleTime: 5 * 60 * 1000, // 5분간 캐시 유지
-    gcTime: 10 * 60 * 1000, // 10분간 가비지 컬렉션
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 }
 
@@ -84,13 +86,22 @@ export function useWorkAllEvaluation(workId: number) {
   return useQuery({
     queryKey: ["workAllEvaluation", workId],
     queryFn: () => WorkAllEvaluation(workId),
+    enabled: Number.isFinite(workId),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 }
 
+/**
+ * 개인 강점/약점/요약 쿼리 훅
+ */
 export function usePersonalStrengths(workId: number) {
   return useQuery({
     queryKey: ["PersonalStrengths", workId],
     queryFn: () => PersonalStrengths(workId),
+    enabled: Number.isFinite(workId),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 }
 
@@ -98,6 +109,9 @@ export function usePersonalWeakness(workId: number) {
   return useQuery({
     queryKey: ["PersonalWeakness", workId],
     queryFn: () => PersonalWeakness(workId),
+    enabled: Number.isFinite(workId),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 }
 
@@ -105,6 +119,9 @@ export function usePersonalSummary(workId: number) {
   return useQuery({
     queryKey: ["PersonalSummary", workId],
     queryFn: () => PersonalSummary(workId),
+    enabled: Number.isFinite(workId),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 }
 
@@ -115,5 +132,20 @@ export function useVerifyReportCode() {
   return useMutation({
     mutationFn: ({ workId, code }: { workId: number; code: string }) =>
       VerifyReportCode(workId, { code }),
+  });
+}
+
+/**
+ * 리포트 삭제(visibility) 뮤테이션 훅
+ */
+export function useDeleteReportVisibility() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ workId, title }: { workId: number; title: string }) =>
+      DeleteReportVisibility(workId, { title }),
+    onSuccess: () => {
+      // 첫 페이지 목록 무효화 (필요시 확장)
+      queryClient.invalidateQueries({ queryKey: reportKeys.list(0) });
+    },
   });
 }

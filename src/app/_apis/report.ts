@@ -13,7 +13,6 @@ import {
   VerifyReportCodeRequest,
   VerifyReportCodeResponse,
 } from "./schemas/reportResponse";
-
 export async function GetReport(page: number): Promise<ReportResponse> {
   const res = await authAxiosInstance.get<ReportResponse>("/v1/reports", {
     params: {
@@ -101,6 +100,14 @@ export async function VerifyReportCode(
 ): Promise<VerifyReportCodeResponse> {
   const res = await authAxiosInstance.post<VerifyReportCodeResponse>(
     `/v1/reports/${workId}/verify-code`,
+    body
+  );
+  return res.data;
+}
+
+export async function DeleteReportVisibility(workId: number, body: DeleteReportVisibilityRequest): Promise<DeleteReportVisibilityResponse> {
+  const res = await authAxiosInstance.patch<DeleteReportVisibilityResponse>(
+    `/v1/reports/${workId}/visibility`,
     body
   );
   return res.data;
