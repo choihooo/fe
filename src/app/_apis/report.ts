@@ -10,6 +10,8 @@ import {
   StrengthsResponse,
   WeaknessResponse,
   SummaryProps,
+  VerifyReportCodeRequest,
+  VerifyReportCodeResponse,
 } from "./schemas/reportResponse";
 
 export async function GetReport(page: number): Promise<ReportResponse> {
@@ -89,6 +91,17 @@ export async function PersonalWeakness(
 export async function PersonalSummary(workId: number): Promise<SummaryProps> {
   const res = await authAxiosInstance.get<SummaryProps>(
     `/v1/personal-works/${workId}/summary`
+  );
+  return res.data;
+}
+
+export async function VerifyReportCode(
+  workId: number,
+  body: VerifyReportCodeRequest
+): Promise<VerifyReportCodeResponse> {
+  const res = await authAxiosInstance.post<VerifyReportCodeResponse>(
+    `/v1/reports/${workId}/verify-code`,
+    body
   );
   return res.data;
 }

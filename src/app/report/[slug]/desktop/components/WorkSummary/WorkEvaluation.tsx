@@ -31,6 +31,7 @@ const WorkEvaluation = ({
         workMembers={workMembers}
         workId={workId}
       />
+
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
       <Summary workId={workId} />
       <RadarChartComponent workId={workId} />

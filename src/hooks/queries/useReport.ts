@@ -9,6 +9,7 @@ import {
   PersonalStrengths,
   PersonalWeakness,
   PersonalSummary,
+  VerifyReportCode,
 } from "@/app/_apis/report";
 import { reportKeys } from "./index";
 
@@ -104,5 +105,15 @@ export function usePersonalSummary(workId: number) {
   return useQuery({
     queryKey: ["PersonalSummary", workId],
     queryFn: () => PersonalSummary(workId),
+  });
+}
+
+/**
+ * 리포트 코드 인증 뮤테이션 훅
+ */
+export function useVerifyReportCode() {
+  return useMutation({
+    mutationFn: ({ workId, code }: { workId: number; code: string }) =>
+      VerifyReportCode(workId, { code }),
   });
 }

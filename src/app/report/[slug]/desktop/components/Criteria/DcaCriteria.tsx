@@ -9,11 +9,9 @@ import MediaSelection from "./DCA/MediaSelection";
 
 interface DcaCriteriaProps {
   contestName: string;
-  workId: number;
-  brand: string;
 }
 
-const DcaCriteria = ({ contestName, workId, brand }: DcaCriteriaProps) => {
+const DcaCriteria = ({ contestName }: DcaCriteriaProps) => {
   return (
     <div className="flex flex-col items-start w-full">
       <div className="flex flex-row items-center w-full">
