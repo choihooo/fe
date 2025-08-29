@@ -11,7 +11,6 @@ const DesktopReport = () => {
   const params = useParams();
   const workId = Number((params as any)?.slug);
 
-
   const { data: reportData, isLoading, error } = useReportDetail(workId);
   const isYcc = reportData?.result?.contestName === "YCC";
   const tabs = isYcc
@@ -112,13 +111,19 @@ const DesktopReport = () => {
 
             {activeTab === "개인 출품작 분석" && (
               <div>
-                {/* <WorkEvaluation /> */}
                 {/* <YccCriteria /> */}
                 <DcaCriteria
                   contestName={contestName}
                   workId={workId}
                   brand={brand}
                 />
+                {/* <WorkEvaluation
+                  contestName={contestName}
+                  workId={workId}
+                  brand={brand}
+                  workName={workName}
+                  workMembers={workMembers}
+                /> */}
                 {/* <YccScoreDetail /> */}
               </div>
             )}
