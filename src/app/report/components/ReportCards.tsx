@@ -4,6 +4,7 @@ import { ReportDelete } from "../../../../public";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import { useRouter } from "next/navigation";
+import { useDeleteReportVisibility } from "@/hooks/queries";
 
 export interface ReportCardProps {
   type: string;
@@ -33,6 +34,8 @@ const ReportCard = ({
     "simple"
   );
 
+  const deleteMutation = useDeleteReportVisibility();
+
   const isCompleted = status === "완료";
 
   const handleDeleteClick = (e?: React.MouseEvent) => {
@@ -42,7 +45,12 @@ const ReportCard = ({
   };
 
   const handleDeleteConfirm = () => {
-    onDelete?.();
+    if (onDelete) {
+      onDelete();
+      return;
+    }
+    deleteMutation.mutate({ workId, title });
+    setIsDeleteModalOpen(false);
   };
 
   const navigateToReport = () => {

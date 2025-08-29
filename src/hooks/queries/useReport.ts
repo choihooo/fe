@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { GetReport, GetReportDetail, GetDcaBriefEvaluation, SubmitFeedback, ShareReport, VerifyReportCode } from "@/app/_apis/report";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { GetReport, GetReportDetail, GetDcaBriefEvaluation, SubmitFeedback, ShareReport, VerifyReportCode, DeleteReportVisibility } from "@/app/_apis/report";
 import { reportKeys } from "./index";
 
 /**
@@ -66,5 +66,20 @@ export function useVerifyReportCode() {
   return useMutation({
     mutationFn: ({ workId, code }: { workId: number; code: string }) =>
       VerifyReportCode(workId, { code }),
+  });
+}
+
+/**
+ * 리포트 삭제(visibility) 뮤테이션 훅
+ */
+export function useDeleteReportVisibility() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ workId, title }: { workId: number; title: string }) =>
+      DeleteReportVisibility(workId, { title }),
+    onSuccess: () => {
+      // 첫 페이지 목록 무효화 (필요 시 확장)
+      queryClient.invalidateQueries({ queryKey: reportKeys.list(0) });
+    },
   });
 }

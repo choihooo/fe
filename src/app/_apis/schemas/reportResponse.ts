@@ -78,3 +78,15 @@ export interface VerifyReportCodeResponse {
     workId: number;
   };
 }
+
+// 리포트 삭제(visibility 변경)
+export interface DeleteReportVisibilityRequest {
+  title: string;
+}
+
+export interface DeleteReportVisibilityResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: string;
+}
