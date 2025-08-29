@@ -9,6 +9,7 @@ import {
   WorkAllEvaluationResponse,
   StrengthsResponse,
   WeaknessResponse,
+  SummaryProps,
 } from "./schemas/reportResponse";
 
 export async function GetReport(page: number): Promise<ReportResponse> {
@@ -81,6 +82,13 @@ export async function PersonalWeakness(
 ): Promise<WeaknessResponse> {
   const res = await authAxiosInstance.get<WeaknessResponse>(
     `/v1/personal-works/${workId}/weaknesses`
+  );
+  return res.data;
+}
+
+export async function PersonalSummary(workId: number): Promise<SummaryProps> {
+  const res = await authAxiosInstance.get<SummaryProps>(
+    `/v1/personal-works/${workId}/summary`
   );
   return res.data;
 }

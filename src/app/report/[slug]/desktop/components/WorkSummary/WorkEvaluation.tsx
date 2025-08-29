@@ -32,7 +32,7 @@ const WorkEvaluation = ({
         workId={workId}
       />
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
-      <Summary />
+      <Summary workId={workId} />
       <RadarChartComponent workId={workId} />
       <div className="w-full border-t border-gray-300 border-dashed mt-[108px] mb-[108px]" />
       <AllEvalution workId={workId} />

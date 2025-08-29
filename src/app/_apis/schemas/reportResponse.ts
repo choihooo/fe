@@ -109,3 +109,14 @@ export interface WeaknessResponse {
     description: string;
   };
 }
+
+export interface SummaryProps {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    target: string;
+    insight: string;
+    solution: string;
+  };
+}

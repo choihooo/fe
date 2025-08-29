@@ -8,6 +8,7 @@ import {
   WorkAllEvaluation,
   PersonalStrengths,
   PersonalWeakness,
+  PersonalSummary,
 } from "@/app/_apis/report";
 import { reportKeys } from "./index";
 
@@ -96,5 +97,12 @@ export function usePersonalWeakness(workId: number) {
   return useQuery({
     queryKey: ["PersonalWeakness", workId],
     queryFn: () => PersonalWeakness(workId),
+  });
+}
+
+export function usePersonalSummary(workId: number) {
+  return useQuery({
+    queryKey: ["PersonalSummary", workId],
+    queryFn: () => PersonalSummary(workId),
   });
 }
