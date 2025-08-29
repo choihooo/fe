@@ -1,11 +1,13 @@
 export interface ReportRequest {
   contestName: string;
+  title?: string;
   workName: string;
   category: string;
   brand: string;
   workMembers: string[];
-  reportStatus: "DONE" | "IN_PROGRESS";
   workId: number;
+  reportStatus: "DONE" | "IN_PROGRESS" | "COMPLETED";
+  isDeletable?: boolean;
 }
 
 export interface ReportResponse {

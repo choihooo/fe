@@ -16,7 +16,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
   onClose,
   onSubmit,
 }) => {
-  const [rating, setRating] = useState<number>(5);
+  const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>("");
 
   const handleSubmit = () => {
@@ -24,7 +24,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
     // 제출 후 모달 닫기
     onClose();
     // 상태 초기화
-    setRating(5);
+    setRating(0);
     setReview("");
   };
 

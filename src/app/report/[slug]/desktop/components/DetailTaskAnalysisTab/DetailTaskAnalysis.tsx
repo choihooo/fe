@@ -23,7 +23,7 @@ function DetailTaskAnalysis({ contestName, workId, brand, workName, workMembers 
         workId={workId}
       />
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
-      <BriefInterpretationSection />
+      <BriefInterpretationSection workId={workId} />
 
       <div
         className="w-full h-[1.2px] my-[42px]"

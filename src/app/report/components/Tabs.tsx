@@ -25,13 +25,14 @@ const Tabs = () => {
     const statusMap: Record<string, "완료" | "제작중"> = {
       COMPLETED: "완료",
       IN_PROGRESS: "제작중",
+      DONE: "완료",
     };
 
     return dataList.map((item) => ({
       type: item.contestName,
-      title: item.workName,
+      title: item.title ?? item.workName,
       org: item.brand,
-      participants: item.workMembers.join(", "),
+      participants: item.workMembers?.join(", ") ?? "",
       status: statusMap[item.reportStatus] ?? "제작중",
       workId: item.workId,
     }));
