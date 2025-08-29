@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useReportDetail } from "@/hooks/queries";
 import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
 import DetailTaskAnalysis from "./components/DetailTaskAnalysisTab/DetailTaskAnalysis";
-import DcaCriteria from "./components/Criteria/DcaCriteria";
+import WorkEvaluation from "./components/WorkSummary/WorkEvaluation";
 
 const DesktopReport = () => {
   const [activeTab, setActiveTab] = useState("공모전 분석");
@@ -88,42 +88,39 @@ const DesktopReport = () => {
       <div className="w-full py-[86px]">
         <div className="w-[996px] mx-auto">
           {/* 탭 컨텐츠 영역 */}
-          <div className="mt-6">
-            {activeTab === "공모전 분석" && (
-              <ContestAnalysis
+          {activeTab === "공모전 분석" && (
+            <ContestAnalysis
+              contestName={contestName}
+              workId={workId}
+              brand={brand}
+              workName={workName}
+              workMembers={workMembers}
+            />
+          )}
+
+          {activeTab === "세부 과제 분석" && (
+            <DetailTaskAnalysis
+              contestName={contestName}
+              workId={workId}
+              brand={brand}
+              workName={workName}
+              workMembers={workMembers}
+            />
+          )}
+
+          {activeTab === "개인 출품작 분석" && (
+            <div>
+              {/* <YccCriteria /> */}
+              <WorkEvaluation
                 contestName={contestName}
                 workId={workId}
                 brand={brand}
                 workName={workName}
                 workMembers={workMembers}
               />
-            )}
-
-            {activeTab === "세부 과제 분석" && (
-              <DetailTaskAnalysis
-                contestName={contestName}
-                workId={workId}
-                brand={brand}
-                workName={workName}
-                workMembers={workMembers}
-              />
-            )}
-
-            {activeTab === "개인 출품작 분석" && (
-              <div>
-                {/* <YccCriteria /> */}
-                <DcaCriteria contestName={contestName} />
-                {/* <WorkEvaluation
-                  contestName={contestName}
-                  workId={workId}
-                  brand={brand}
-                  workName={workName}
-                  workMembers={workMembers}
-                /> */}
-                {/* <YccScoreDetail /> */}
-              </div>
-            )}
-          </div>
+              {/* <YccScoreDetail /> */}
+            </div>
+          )}
         </div>
       </div>
     </div>
