@@ -64,3 +64,17 @@ export interface ShareReportResponse {
     code: string;
   };
 }
+
+// 리포트 코드 인증
+export interface VerifyReportCodeRequest {
+  code: string;
+}
+
+export interface VerifyReportCodeResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    workId: number;
+  };
+}

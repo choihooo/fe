@@ -1,5 +1,5 @@
 import { authAxiosInstance } from "./axiosInstance";
-import { ReportDetailResponse, ReportResponse, DcaBriefEvaluationResponse, SubmitFeedbackRequest, SubmitFeedbackResponse, ShareReportResponse } from "./schemas/reportResponse";
+import { ReportDetailResponse, ReportResponse, DcaBriefEvaluationResponse, SubmitFeedbackRequest, SubmitFeedbackResponse, ShareReportResponse, VerifyReportCodeRequest, VerifyReportCodeResponse } from "./schemas/reportResponse";
 
 export async function GetReport(page: number): Promise<ReportResponse> {
   const res = await authAxiosInstance.get<ReportResponse>("/v1/reports", {
@@ -35,6 +35,14 @@ export async function SubmitFeedback(workId: number, body: SubmitFeedbackRequest
 export async function ShareReport(workId: number): Promise<ShareReportResponse> {
   const res = await authAxiosInstance.post<ShareReportResponse>(
     `/v1/reports/${workId}`
+  );
+  return res.data;
+}
+
+export async function VerifyReportCode(workId: number, body: VerifyReportCodeRequest): Promise<VerifyReportCodeResponse> {
+  const res = await authAxiosInstance.post<VerifyReportCodeResponse>(
+    `/v1/reports/${workId}/verify-code`,
+    body
   );
   return res.data;
 }
