@@ -32,9 +32,8 @@ const POLAR_RADII = Array.from(
 const LABEL_OFFSET_PX = 24;
 const VALUE_OFFSET_PX = 8;
 
-const makeTickRenderer =
-  (data: Datum[]) =>
-  (props: TickProps): React.ReactElement<SVGElement> => {
+const makeTickRenderer = (data: Datum[]) => {
+  const RadarTickLabel = (props: TickProps): React.ReactElement<SVGElement> => {
     const { x, y, cx, cy, payload } = props;
     if (x == null || y == null || cx == null || cy == null) return <g />;
 
@@ -111,11 +110,14 @@ const makeTickRenderer =
       </g>
     );
   };
+  RadarTickLabel.displayName = "RadarTickLabel";
+  return RadarTickLabel;
+};
 
 type RadarChartComponentProps = { workId: number };
 
 const RadarChartComponent = ({ workId }: RadarChartComponentProps) => {
-  const { data, isLoading, isError, error } = useWorkAllEvaluation(workId);
+  const { data, isLoading, isError } = useWorkAllEvaluation(workId);
 
   const result: WorkAllEvaluationResponse["result"] | undefined = data?.result;
 
