@@ -8,8 +8,8 @@ import DcaCriteria from "./components/Criteria/DcaCriteria";
 
 const DesktopReport = () => {
   const [activeTab, setActiveTab] = useState("공모전 분석");
-  const params = useParams();
-  const workId = Number((params as any)?.slug);
+  const params = useParams() as { slug?: string };
+  const workId = Number(params?.slug);
 
 
   const { data: reportData, isLoading, error } = useReportDetail(workId);
@@ -116,8 +116,6 @@ const DesktopReport = () => {
                 {/* <YccCriteria /> */}
                 <DcaCriteria
                   contestName={contestName}
-                  workId={workId}
-                  brand={brand}
                 />
                 {/* <YccScoreDetail /> */}
               </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { cn } from "@/utils/cn";
 import CloseIcon from "../../../../../../public/icons/CloseIcon";
 import CopyIcon from "../../../../../../public/icons/CopyIcon";
 import CheckIcon from "../../../../../../public/icons/CheckIcon";

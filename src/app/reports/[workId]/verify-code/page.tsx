@@ -8,10 +8,10 @@ import ButtonBase from "@/components/common/ButtonBase";
 import { useRouter, useParams } from "next/navigation";
 import { useVerifyReportCode } from "@/hooks/queries";
 
-function page() {
+function VerifyCodePage() {
   const router = useRouter();
-  const params = useParams();
-  const workId = Number((params as any)?.workId);
+  const params = useParams() as { workId?: string };
+  const workId = Number(params?.workId);
   const [code, setCode] = useState("");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
@@ -34,10 +34,12 @@ function page() {
             setErrorMsg(res?.message || "코드가 일치하지 않습니다.");
           }
         },
-        onError: (err: any) => {
-          const msg =
-            err?.response?.data?.message || "코드가 일치하지 않습니다.";
-          setErrorMsg(msg);
+        onError: (err: unknown) => {
+          const message =
+            typeof err === "object" && err !== null &&
+            // @ts-expect-error - runtime safe optional access
+            (err.response?.data?.message as string | undefined);
+          setErrorMsg(message || "코드가 일치하지 않습니다.");
         },
       }
     );
@@ -71,7 +73,7 @@ function page() {
               className="w-[88px]"
               onClick={handleCancel}
             />
-            <ButtonBase label="인증하기" size="M" onClick={handleVerify} />
+            <ButtonBase label={verifyMutation.isPending ? "인증중" : "인증하기"} size="M" onClick={handleVerify} />
           </div>
         </div>
       </div>
@@ -80,4 +82,4 @@ function page() {
   );
 }
 
-export default page;
+export default VerifyCodePage;

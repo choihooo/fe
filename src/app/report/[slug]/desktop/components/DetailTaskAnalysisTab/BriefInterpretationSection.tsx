@@ -6,7 +6,7 @@ interface BriefInterpretationSectionProps {
 }
 
 function BriefInterpretationSection({ workId }: BriefInterpretationSectionProps) {
-  const { data, isLoading, error } = useDcaBriefEvaluation(workId);
+  const { data, isLoading } = useDcaBriefEvaluation(workId);
 
   if (isLoading) {
     return (

@@ -7,10 +7,30 @@ import GrayButton from "@/components/common/GrayButton";
 import ButtonBase from "@/components/common/ButtonBase";
 import Strength from "./Strength";
 
-const WorkEvaluation = () => {
+interface WorkEvaluationProps {
+  workName: string;
+  contestName: string;
+  brand: string;
+  workMembers: string[];
+  workId: number;
+}
+
+const WorkEvaluation = ({
+  workName,
+  contestName,
+  brand,
+  workMembers,
+  workId,
+}: WorkEvaluationProps) => {
   return (
     <div>
-      <ReportHeader />
+      <ReportHeader
+        workName={workName}
+        contestName={contestName}
+        brand={brand}
+        workMembers={workMembers}
+        workId={workId}
+      />
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
       <Summary />
       <RadarChartComponent />
