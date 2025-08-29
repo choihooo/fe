@@ -6,6 +6,8 @@ import {
   SubmitFeedback,
   ShareReport,
   WorkAllEvaluation,
+  PersonalStrengths,
+  PersonalWeakness,
 } from "@/app/_apis/report";
 import { reportKeys } from "./index";
 
@@ -80,5 +82,19 @@ export function useWorkAllEvaluation(workId: number) {
   return useQuery({
     queryKey: ["workAllEvaluation", workId],
     queryFn: () => WorkAllEvaluation(workId),
+  });
+}
+
+export function usePersonalStrengths(workId: number) {
+  return useQuery({
+    queryKey: ["PersonalStrengths", workId],
+    queryFn: () => PersonalStrengths(workId),
+  });
+}
+
+export function usePersonalWeakness(workId: number) {
+  return useQuery({
+    queryKey: ["PersonalWeakness", workId],
+    queryFn: () => PersonalWeakness(workId),
   });
 }

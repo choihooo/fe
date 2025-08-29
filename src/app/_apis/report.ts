@@ -7,6 +7,8 @@ import {
   SubmitFeedbackResponse,
   ShareReportResponse,
   WorkAllEvaluationResponse,
+  StrengthsResponse,
+  WeaknessResponse,
 } from "./schemas/reportResponse";
 
 export async function GetReport(page: number): Promise<ReportResponse> {
@@ -61,6 +63,24 @@ export async function WorkAllEvaluation(
 ): Promise<WorkAllEvaluationResponse> {
   const res = await authAxiosInstance.get<WorkAllEvaluationResponse>(
     `/v1/personal-works/dca/${workId}/evaluation`
+  );
+  return res.data;
+}
+
+export async function PersonalStrengths(
+  workId: number
+): Promise<StrengthsResponse> {
+  const res = await authAxiosInstance.get<StrengthsResponse>(
+    `/v1/personal-works/${workId}/strengths`
+  );
+  return res.data;
+}
+
+export async function PersonalWeakness(
+  workId: number
+): Promise<WeaknessResponse> {
+  const res = await authAxiosInstance.get<WeaknessResponse>(
+    `/v1/personal-works/${workId}/weaknesses`
   );
   return res.data;
 }

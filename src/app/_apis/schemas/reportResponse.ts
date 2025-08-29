@@ -84,3 +84,28 @@ export interface WorkAllEvaluationResponse {
     feasibility: string;
   };
 }
+
+//개인 출품작 강점 조회
+export interface StrengthsResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    code: string;
+    label: string;
+    score: number;
+    description: string;
+  };
+}
+
+export interface WeaknessResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    code: string;
+    label: string;
+    score: number;
+    description: string;
+  };
+}

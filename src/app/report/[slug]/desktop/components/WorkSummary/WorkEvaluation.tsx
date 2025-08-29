@@ -43,7 +43,7 @@ const WorkEvaluation = ({
         />
         <ButtonBase label="점수 상세보기 >" size="S" />
       </div>
-      <Strength />
+      <Strength workId={workId} />
     </div>
   );
 };
