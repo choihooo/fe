@@ -8,19 +8,19 @@ import ButtonBase from "@/components/common/ButtonBase";
 import Strength from "./Strength";
 
 interface WorkEvaluationProps {
-  workName: string;
   contestName: string;
-  brand: string;
-  workMembers: string[];
   workId: number;
+  brand: string;
+  workName: string;
+  workMembers: string[];
 }
 
 const WorkEvaluation = ({
-  workName,
   contestName,
-  brand,
-  workMembers,
   workId,
+  brand,
+  workName,
+  workMembers,
 }: WorkEvaluationProps) => {
   return (
     <div>
@@ -31,11 +31,12 @@ const WorkEvaluation = ({
         workMembers={workMembers}
         workId={workId}
       />
+
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
-      <Summary />
-      <RadarChartComponent />
+      <Summary workId={workId} />
+      <RadarChartComponent workId={workId} />
       <div className="w-full border-t border-gray-300 border-dashed mt-[108px] mb-[108px]" />
-      <AllEvalution />
+      <AllEvalution workId={workId} />
       <div className="flex flex-row items-center justify-end mt-20 w-full gap-[10px]">
         <GrayButton
           label="평가 기준 >"
@@ -43,7 +44,7 @@ const WorkEvaluation = ({
         />
         <ButtonBase label="점수 상세보기 >" size="S" />
       </div>
-      <Strength />
+      <Strength workId={workId} />
     </div>
   );
 };

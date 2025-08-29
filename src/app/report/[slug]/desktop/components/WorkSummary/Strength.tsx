@@ -1,36 +1,47 @@
 "use client";
+import Loading from "@/components/common/Loading";
+import { usePersonalStrengths, usePersonalWeakness } from "@/hooks/queries";
 import { useState } from "react";
 
-const dummy = {
-  strengths: [
-    {
-      score: "9 ",
-      title: "타깃과의 접점 고려 여부",
-      desc: "브리프에서 제시한 Gen-Z 타깃의 ‘익의성’, ‘디지털 감수성’, ‘감각적 경험’ 요소를 단순 반복이 아닌, 새롭게 재해석한 시도가 돋보입니다. 특히 ‘열어봐야 하는’ 형태로 구성된 매체는 타깃의 호기심과 상호작용 욕구를 반영한 훌륭한 인사이트 응용이라 볼 수 있습니다.",
-    },
-    {
-      score: "9",
-      title: "타깃과의 접점 고려 여부",
-      desc: "브리프에서 제시한 Gen-Z 타깃의 ‘익의성’, ‘디지털 감수성’, ‘감각적 경험’ 요소를 단순 반복이 아닌, 새롭게 재해석한 시도가 돋보입니다. 특히 ‘열어봐야 하는’ 형태로 구성된 매체는 타깃의 호기심과 상호작용 욕구를 반영한 훌륭한 인사이트 응용이라 볼 수 있습니다.",
-    },
-    {
-      score: "9",
-      title: "타깃과의 접점 고려 여부",
-      desc: "브리프에서 제시한 Gen-Z 타깃의 ‘익의성’, ‘디지털 감수성’, ‘감각적 경험’ 요소를 단순 반복이 아닌, 새롭게 재해석한 시도가 돋보입니다. 특히 ‘열어봐야 하는’ 형태로 구성된 매체는 타깃의 호기심과 상호작용 욕구를 반영한 훌륭한 인사이트 응용이라 볼 수 있습니다.",
-    },
-  ],
-  improvements: [
-    {
-      score: "7",
-      title: "타깃과의 접점 고려 여부",
-      desc: "브리프에서 제시한 Gen-Z 타깃의 ‘익의성’, ‘디지털 감수성’, ‘감각적 경험’ 요소를 단순 반복이 아닌, 새롭게 재해석한 시도가 돋보입니다. 특히 ‘열어봐야 하는’ 형태로 구성된 매체는 타깃의 호기심과 상호작용 욕구를 반영한 훌륭한 인사이트 응용이라 볼 수 있습니다.",
-    },
-  ],
+type StrengthItem = {
+  code: string;
+  score: number;
+  label: string;
+  description: string;
 };
 
-const Strength = () => {
+type StrengthProps = { workId: number };
+
+const Strength = ({ workId }: StrengthProps) => {
   const [tab, setTab] = useState<"강점" | "보완점">("강점");
-  const items = tab === "강점" ? dummy.strengths : dummy.improvements;
+
+  const {
+    data: strengthData,
+    isLoading: sLoading,
+    isError: sError,
+  } = usePersonalStrengths(workId);
+
+  const {
+    data: weaknessData,
+    isLoading: wLoading,
+    isError: wError,
+  } = usePersonalWeakness(workId);
+
+  const isLoading = tab === "강점" ? sLoading : wLoading;
+  const isError = tab === "강점" ? sError : wError;
+
+  const items: StrengthItem[] =
+    tab === "강점"
+      ? Array.isArray(strengthData?.result)
+        ? strengthData.result
+        : strengthData?.result
+        ? [strengthData.result]
+        : []
+      : Array.isArray(weaknessData?.result)
+      ? weaknessData.result
+      : weaknessData?.result
+      ? [weaknessData.result]
+      : [];
 
   return (
     <div className="flex flex-col mt-[108px] items-start w-full mb-[219px]">
@@ -52,21 +63,37 @@ const Strength = () => {
         ))}
       </div>
 
+      {isLoading && (
+        <div className="flex items-center justify-center mt-[29px]">
+          <Loading />
+        </div>
+      )}
+      {isError && (
+        <div className="text-center text-red-500"> 에러가 발생했습니다.</div>
+      )}
+      {!isLoading && !isError && items.length === 0 && (
+        <div className="text-gray-600 mt-[29px] text-center">
+          데이터가 없습니다.
+        </div>
+      )}
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 w-full">
-        {items.map((card, id) => (
+        {items.map((card) => (
           <div
-            key={id}
+            key={card.code}
             className="flex h-full flex-col rounded-[10px] border border-blue-main bg-white pl-8 pr-[30px] pt-9 pb-[35px]"
           >
             <div className="mb-2 text-blue-main">
-              <span className="font-B01-B">{card.score}</span>
+              <span className="font-B01-B">{String(card.score).trim()}</span>
               <span className="font-B01-R"> / 10점</span>
             </div>
 
             <div className="mb-[23px] text-gray-900 font-T04-SB">
-              {card.title}
+              {card.label}
             </div>
-            <p className="text-gray-500 font-B02-M text-justify">{card.desc}</p>
+            <p className="text-gray-500 font-B02-M text-justify">
+              {card.description}
+            </p>
           </div>
         ))}
       </div>

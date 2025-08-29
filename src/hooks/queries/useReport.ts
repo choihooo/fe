@@ -1,5 +1,16 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { GetReport, GetReportDetail, GetDcaBriefEvaluation, SubmitFeedback, ShareReport, VerifyReportCode } from "@/app/_apis/report";
+import {
+  GetReport,
+  GetReportDetail,
+  GetDcaBriefEvaluation,
+  SubmitFeedback,
+  ShareReport,
+  WorkAllEvaluation,
+  PersonalStrengths,
+  PersonalWeakness,
+  PersonalSummary,
+  VerifyReportCode,
+} from "@/app/_apis/report";
 import { reportKeys } from "./index";
 
 /**
@@ -45,8 +56,15 @@ export function useDcaBriefEvaluation(workId: number) {
  */
 export function useSubmitFeedback() {
   return useMutation({
-    mutationFn: ({ workId, score, content }: { workId: number; score: number; content: string }) =>
-      SubmitFeedback(workId, { score, content }),
+    mutationFn: ({
+      workId,
+      score,
+      content,
+    }: {
+      workId: number;
+      score: number;
+      content: string;
+    }) => SubmitFeedback(workId, { score, content }),
   });
 }
 
@@ -56,6 +74,37 @@ export function useSubmitFeedback() {
 export function useShareReport() {
   return useMutation({
     mutationFn: (workId: number) => ShareReport(workId),
+  });
+}
+
+/**
+ * 리포트 총평 쿼리 훅
+ */
+export function useWorkAllEvaluation(workId: number) {
+  return useQuery({
+    queryKey: ["workAllEvaluation", workId],
+    queryFn: () => WorkAllEvaluation(workId),
+  });
+}
+
+export function usePersonalStrengths(workId: number) {
+  return useQuery({
+    queryKey: ["PersonalStrengths", workId],
+    queryFn: () => PersonalStrengths(workId),
+  });
+}
+
+export function usePersonalWeakness(workId: number) {
+  return useQuery({
+    queryKey: ["PersonalWeakness", workId],
+    queryFn: () => PersonalWeakness(workId),
+  });
+}
+
+export function usePersonalSummary(workId: number) {
+  return useQuery({
+    queryKey: ["PersonalSummary", workId],
+    queryFn: () => PersonalSummary(workId),
   });
 }
 
