@@ -107,7 +107,10 @@ export async function VerifyReportCode(
   return res.data;
 }
 
-export async function DeleteReportVisibility(workId: number, body: DeleteReportVisibilityRequest): Promise<DeleteReportVisibilityResponse> {
+export async function DeleteReportVisibility(
+  workId: number,
+  body: DeleteReportVisibilityRequest
+): Promise<DeleteReportVisibilityResponse> {
   const res = await authAxiosInstance.patch<DeleteReportVisibilityResponse>(
     `/v1/reports/${workId}/visibility`,
     body
