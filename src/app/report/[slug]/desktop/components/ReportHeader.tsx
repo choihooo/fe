@@ -1,22 +1,27 @@
 import React, { useState } from "react";
 import FeedbackModal from "./FeedbackModal";
 import ShareModal from "./ShareModal";
+import { useSubmitFeedback } from "@/hooks/queries";
 
 interface ReportHeaderProps {
-  title?: string;
-  category?: string;
-  organization?: string;
-  participants?: string[];
+  workName: string;
+  contestName: string;
+  brand: string;
+  workMembers: string[];
+  workId: number;
 }
 
 const ReportHeader: React.FC<ReportHeaderProps> = ({
-  title = "너에게서 나를 보다",
-  category = "DCA",
-  organization = "유니세프",
-  participants = ["이현수", "신민서", "우준식", "김수연"],
+  workName,
+  contestName,
+  brand,
+  workMembers,
+  workId,
 }) => {
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+  const submitFeedbackMutation = useSubmitFeedback();
 
   const handleOpenFeedbackModal = () => {
     setIsFeedbackModalOpen(true);
@@ -27,9 +32,7 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
   };
 
   const handleSubmitFeedback = (rating: number, review: string) => {
-    // 여기서 피드백 데이터를 처리할 수 있습니다
-    console.log("피드백 제출:", { rating, review, title });
-    // API 호출 등을 추가할 수 있습니다
+    submitFeedbackMutation.mutate({ workId, score: rating, content: review });
   };
 
   const handleOpenShareModal = () => {
@@ -47,23 +50,25 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
         <div className="flex-1">
           {/* 제목 */}
           <h1 className="text-[36px] font-semibold text-gray-900 mb-4">
-            {title}
+            {workName}
           </h1>
 
           <div className="font-B01-M">
             <div className="flex items-center text-gray-900">
               <span className="font-gray-900">공모전</span>
               <span className="mx-3 text-gray-300">|</span>
-              <span className="font-B01-R text-gray-700">{category}</span>
+              <span className="font-B01-R text-gray-700">{contestName}</span>
 
               <span className="ml-[34px] font-gray-900">브랜드</span>
               <span className="mx-3 text-gray-300">|</span>
-              <span className="font-B01-R text-gray-700">{organization}</span>
+              <span className="font-B01-R text-gray-700">
+                {brand}
+              </span>
 
               <span className="ml-[34px] font-gary-900">참여자</span>
               <span className="mx-3 text-gray-300">|</span>
               <span className="font-B01-R text-gray-700">
-                {participants.join(", ")}
+                {workMembers?.join(", ") || ""}
               </span>
             </div>
 
@@ -74,7 +79,7 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
         {/* 오른쪽: 버튼들 */}
         <div className="flex gap-3 ml-8 relative h-full justify-end pt-[56px]">
           {/* 피드백 버튼 */}
-          <button 
+          <button
             onClick={handleOpenFeedbackModal}
             className="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors font-B02-SB text-gray-700"
           >
@@ -82,7 +87,7 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
           </button>
 
           {/* 공유 버튼 */}
-          <button 
+          <button
             onClick={handleOpenShareModal}
             className="px-[14px] py-[10px] bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors cursor-pointer"
           >
@@ -113,7 +118,7 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
       <ShareModal
         isOpen={isShareModalOpen}
         onClose={handleCloseShareModal}
-        reportUrl={`https://www.pickspot.co.kr/report/${title}`}
+        reportUrl={`https://www.pickspot.co.kr/report/${workId}`}
         reportCode="3463FJ29"
       />
     </div>
