@@ -29,11 +29,14 @@ const ReportCard = ({
   const isMobile = useIsMobile();
   const router = useRouter();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<"simple" | "title-confirm">("simple");
+  const [modalType, setModalType] = useState<"simple" | "title-confirm">(
+    "simple"
+  );
+
+  const isCompleted = status === "완료";
 
   const handleDeleteClick = (e?: React.MouseEvent) => {
     e?.stopPropagation();
-    // 항상 simple 모달로 시작
     setModalType("simple");
     setIsDeleteModalOpen(true);
   };
@@ -43,6 +46,7 @@ const ReportCard = ({
   };
 
   const navigateToReport = () => {
+    if (!isCompleted) return;
     router.push(`/report/${workId}`);
   };
 
@@ -57,12 +61,12 @@ const ReportCard = ({
             <div className="flex flex-row gap-2 items-center">
               <div
                 className={`font-C01-M ${
-                  status === "완료" ? "text-gray-800" : "text-gray-500"
+                  isCompleted ? "text-gray-800" : "text-gray-500"
                 }`}
               >
                 {status}
               </div>
-              {status === "완료" && <CheckBox />}
+              {isCompleted && <CheckBox />}
             </div>
           </div>
           <div className="text-gray-900 font-B02-SB mt-[16px]">{title}</div>
@@ -72,8 +76,11 @@ const ReportCard = ({
             <div className="w-[1px] h-4 bg-gray-200 mx-2 mt-[2px]"></div>
             <div className="text-gray-700 font-C01-R">{participants}</div>
           </div>
-          {status === "완료" && (
-            <button onClick={navigateToReport} className="flex mt-[22px] items-center justify-center px-[22px] py-3 rounded-[10px] bg-blue-main cursor-pointer">
+          {isCompleted && (
+            <button
+              onClick={navigateToReport}
+              className="flex mt-[22px] items-center justify-center px-[22px] py-3 rounded-[10px] bg-blue-main cursor-pointer"
+            >
               <div className="text-white font-B03-M">리포트 보기</div>
             </button>
           )}
@@ -84,14 +91,22 @@ const ReportCard = ({
 
   return (
     <>
-      <div onClick={navigateToReport} className="w-full flex flex-row items-start rounded-[6px] bg-gray-50 h-[72px] px-11 py-[23px] mb-[14px] cursor-pointer">
+      <div
+        onClick={navigateToReport}
+        className={`w-full flex flex-row items-start rounded-[6px] bg-gray-50 h-[72px] px-11 py-[23px] mb-[14px] ${
+          isCompleted ? "cursor-pointer" : "cursor-not-allowed"
+        }`}
+      >
         <div className="text-gray-700 font-B02-M w-[76px]">{type}</div>
         <div className="w-[347px] text-black font-B01-R">{title}</div>
         <div className="w-[163px] text-gray-700 font-B02-R"> {org}</div>
-        <div className="w-[234px] text-gray-700 font-B02-R"> {participants}</div>
+        <div className="w-[234px] text-gray-700 font-B02-R">
+          {" "}
+          {participants}
+        </div>
         <div
           className={`font-B02-M w-[203px] ${
-            status === "완료" ? "text-blue-main" : "text-gray-500"
+            isCompleted ? "text-blue-main" : "text-gray-500"
           }`}
         >
           {status}

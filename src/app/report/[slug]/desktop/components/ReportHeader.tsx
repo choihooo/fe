@@ -76,11 +76,15 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
               <span className="mx-3 text-gray-300">|</span>
               <span className="font-B01-R text-gray-700">{contestName}</span>
 
-              <span className="ml-[34px] font-gray-900">브랜드</span>
-              <span className="mx-3 text-gray-300">|</span>
-              <span className="font-B01-R text-gray-700">
-                {brand}
-              </span>
+              {contestName !== "YCC" && (
+                <>
+                  <span className="ml-[34px] font-gray-900">브랜드</span>
+                  <span className="mx-3 text-gray-300">|</span>
+                  <span className="font-B01-R text-gray-700">
+                    {brand}
+                  </span>
+                </>
+              )}
 
               <span className="ml-[34px] font-gary-900">참여자</span>
               <span className="mx-3 text-gray-300">|</span>
