@@ -14,6 +14,7 @@ import {
   VerifyReportCodeResponse,
   DeleteReportVisibilityRequest,
   DeleteReportVisibilityResponse,
+  WorkYCCEvaluationResponse,
 } from "./schemas/reportResponse";
 export async function GetReport(page: number): Promise<ReportResponse> {
   const res = await authAxiosInstance.get<ReportResponse>("/v1/reports", {
@@ -68,6 +69,16 @@ export async function WorkAllEvaluation(
   const res = await authAxiosInstance.get<WorkAllEvaluationResponse>(
     `/v1/personal-works/dca/${workId}/evaluation`
   );
+  return res.data;
+}
+
+export async function WorkYccEvaluation(
+  workId: number
+): Promise<WorkYCCEvaluationResponse> {
+  const res = await authAxiosInstance.get<WorkYCCEvaluationResponse>(
+    `/v1/personal-works/ycc/${workId}/evaluation`
+  );
+  console.log(res.data);
   return res.data;
 }
 

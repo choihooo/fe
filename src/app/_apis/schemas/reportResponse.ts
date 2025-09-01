@@ -85,6 +85,26 @@ export interface WorkAllEvaluationResponse {
   };
 }
 
+//ycc 전체 총평자 응답
+export interface WorkYCCEvaluationResponse {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: {
+    totalScore: number;
+    feasibilityScore: number;
+    feasibility: string;
+    mediaScore: number;
+    media: string;
+    agendaScore: number;
+    agenda: string;
+    influenceScore: number;
+    influence: string;
+    deliveryScore: number;
+    delivery: string;
+  };
+}
+
 //개인 출품작 강점 조회
 export interface StrengthsResponse {
   isSuccess: boolean;
