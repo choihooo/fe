@@ -30,8 +30,6 @@ const WorkEvaluation = ({
   workMembers,
 }: WorkEvaluationProps) => {
   const [view, setView] = useState<View>("report");
-  const isDCA = contestName === "DCA";
-  const isYCC = !isDCA;
 
   if (view === "criteria") {
     return (
@@ -75,8 +73,6 @@ const WorkEvaluation = ({
       />
 
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
-
-      {/* ▼ 내부 컴포넌트들도 contestName을 받아 훅을 enabled로 분기하도록 */}
       <Summary workId={workId} />
       <RadarChartComponent workId={workId} contestName={contestName} />
       <div className="w-full border-t border-gray-300 border-dashed mt-[108px] mb-[108px]" />

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useReportDetail } from "@/hooks/queries";
 import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
@@ -30,15 +30,11 @@ const DesktopReport = () => {
   const contestName = reportData?.result?.contestName as
     | ContestName
     | undefined;
-  const isYcc = contestName === "YCC";
 
-  const tabs = useMemo(
-    () =>
-      isYcc
-        ? ["공모전 분석", "개인 출품작 분석"]
-        : ["공모전 분석", "세부 과제 분석", "개인 출품작 분석"],
-    [isYcc]
-  );
+  const isYcc = reportData?.result?.contestName === "YCC";
+  const tabs = isYcc
+    ? ["공모전 분석", "개인 출품작 분석"]
+    : ["공모전 분석", "세부 과제 분석", "개인 출품작 분석"];
 
   // 로딩 중 스켈레톤
   useEffect(() => {
