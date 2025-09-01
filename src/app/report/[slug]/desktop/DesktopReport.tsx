@@ -123,7 +123,7 @@ const DesktopReport = () => {
             onClick={() => setActiveTab(tab)}
             className={`px-[17px] py-[17px] cursor-pointer transition-colors ${
               activeTab === tab
-                ? "text-blue-main border-b-2 border-blue-main font-B02-SB"
+                ? "text-gray-800 border-b-2 border-gray-800 font-B02-SB"
                 : "text-gray-300 hover:text-gray-700 font-B02-M"
             }`}
           >
