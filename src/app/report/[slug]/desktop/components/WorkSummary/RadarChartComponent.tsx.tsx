@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import {
   Radar,
   RadarChart,
@@ -7,19 +7,16 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from "recharts";
-
-import { WorkAllEvaluationResponse } from "@/app/_apis/schemas/reportResponse";
-import { useWorkAllEvaluation } from "@/hooks/queries";
+import {
+  WorkAllEvaluationResponse,
+  WorkYCCEvaluationResponse,
+} from "@/app/_apis/schemas/reportResponse";
+import { useWorkAllEvaluation, useWorkYccEvaluation } from "@/hooks/queries";
 import Loading from "@/components/common/Loading";
 
-type TickProps = {
-  x?: number | string;
-  y?: number | string;
-  cx?: number | string;
-  cy?: number | string;
-  payload?: { value: string };
-};
 type Datum = { subject: string; value: number };
+type ContestName = "DCA" | "YCC";
+type Props = { workId: number; contestName: ContestName };
 
 const MAX_SCORE = 10;
 const RING_GAP_PX = 43;
@@ -32,21 +29,43 @@ const POLAR_RADII = Array.from(
 const LABEL_OFFSET_PX = 24;
 const VALUE_OFFSET_PX = 8;
 
+const SUBJECT_MAP = {
+  DCA: (r: WorkAllEvaluationResponse["result"]): Datum[] => [
+    { subject: "타겟 적합성", value: r.targetScore },
+    { subject: "브랜드 이해도", value: r.brandScore },
+    { subject: "매체 선정", value: r.mediaScore },
+    { subject: "문제정의", value: r.problemScore },
+    { subject: "실현 가능성", value: r.feasibilityScore },
+  ],
+  YCC: (r: WorkYCCEvaluationResponse["result"]): Datum[] => [
+    { subject: "실현 가능성", value: r.feasibilityScore },
+    { subject: "매체 선정", value: r.mediaScore },
+    { subject: "아젠다 선정", value: r.agendaScore },
+    { subject: "영향력", value: r.influenceScore },
+    { subject: "전달력", value: r.deliveryScore },
+  ],
+} as const;
+
 const makeTickRenderer = (data: Datum[]) => {
-  const RadarTickLabel = (props: TickProps): React.ReactElement<SVGElement> => {
+  const RadarTickLabel = (props: {
+    x?: number | string;
+    y?: number | string;
+    cx?: number | string;
+    cy?: number | string;
+    payload?: { value: string };
+  }): React.ReactElement<SVGElement> => {
     const { x, y, cx, cy, payload } = props;
     if (x == null || y == null || cx == null || cy == null) return <g />;
 
     const nx = Number(x),
-      ny = Number(y);
-    const ncx = Number(cx),
+      ny = Number(y),
+      ncx = Number(cx),
       ncy = Number(cy);
-
-    const dx = nx - ncx;
-    const dy = ny - ncy;
-    const len = Math.hypot(dx, dy) || 1;
-    const ux = dx / len;
-    const uy = dy / len;
+    const dx = nx - ncx,
+      dy = ny - ncy,
+      len = Math.hypot(dx, dy) || 1;
+    const ux = dx / len,
+      uy = dy / len;
 
     const labelX = nx + ux * LABEL_OFFSET_PX;
     const labelY = ny + uy * LABEL_OFFSET_PX;
@@ -61,16 +80,13 @@ const makeTickRenderer = (data: Datum[]) => {
     const scoreX = vertexX + ux * VALUE_OFFSET_PX;
     const scoreY = vertexY + uy * VALUE_OFFSET_PX;
 
-    const textValue = Number(v).toFixed(v % 1 === 0 ? 0 : 1);
-
-    const multiLineTargets = ["브랜드 이해도", "실현 가능성"];
-    const makeTwoLines = multiLineTargets.includes(subject);
-    const lineHeight = 16;
-    const extraGap = 8;
+    const parts = subject.split(" ");
+    const lineHeight = 16,
+      extraGap = 8;
 
     return (
       <g>
-        {makeTwoLines ? (
+        {parts.length > 1 ? (
           <text
             x={labelX}
             y={labelY}
@@ -79,10 +95,10 @@ const makeTickRenderer = (data: Datum[]) => {
             fill="#434448"
           >
             <tspan x={labelX} dy={0}>
-              {subject.split(" ")[0] ?? subject}
+              {parts[0]}
             </tspan>
             <tspan x={labelX} dy={lineHeight + extraGap}>
-              {subject.split(" ")[1] ?? ""}
+              {parts.slice(1).join(" ")}
             </tspan>
           </text>
         ) : (
@@ -96,16 +112,15 @@ const makeTickRenderer = (data: Datum[]) => {
             {subject}
           </text>
         )}
-
         <text
           x={scoreX}
-          y={scoreY + 14 / 2 - 2}
+          y={scoreY + 5}
           textAnchor="middle"
           fontSize={14}
           fontWeight={600}
           fill="#256AFF"
         >
-          {textValue}
+          {Number(v).toFixed(1)}
         </text>
       </g>
     );
@@ -114,41 +129,45 @@ const makeTickRenderer = (data: Datum[]) => {
   return RadarTickLabel;
 };
 
-type RadarChartComponentProps = { workId: number };
+const RadarChartComponent = ({ workId, contestName }: Props) => {
+  const isDCA = contestName === "DCA";
 
-const RadarChartComponent = ({ workId }: RadarChartComponentProps) => {
-  const { data, isLoading, isError } = useWorkAllEvaluation(workId);
+  const dca = useWorkAllEvaluation(workId, { enabled: isDCA });
+  const ycc = useWorkYccEvaluation(workId, { enabled: !isDCA });
 
-  const result: WorkAllEvaluationResponse["result"] | undefined = data?.result;
+  const dcaRes: WorkAllEvaluationResponse["result"] | undefined = isDCA
+    ? dca.data?.result
+    : undefined;
+  const yccRes: WorkYCCEvaluationResponse["result"] | undefined = !isDCA
+    ? ycc.data?.result
+    : undefined;
 
-  const chartData: Datum[] = useMemo(
-    () =>
-      result
-        ? [
-            { subject: "타겟 적합성", value: result.targetScore },
-            { subject: "브랜드 이해도", value: result.brandScore },
-            { subject: "매체 선정", value: result.mediaScore },
-            { subject: "문제정의", value: result.problemScore },
-            { subject: "실현 가능성", value: result.feasibilityScore },
-          ]
-        : [],
-    [result]
-  );
+  const chartData: Datum[] = isDCA
+    ? dcaRes
+      ? SUBJECT_MAP.DCA(dcaRes)
+      : []
+    : yccRes
+    ? SUBJECT_MAP.YCC(yccRes)
+    : [];
 
-  const tickRenderer = useMemo(() => makeTickRenderer(chartData), [chartData]);
+  const tickRenderer = makeTickRenderer(chartData);
 
-  if (isLoading)
+  const active = isDCA ? dca : ycc;
+  if (active.isLoading) {
     return (
-      <div className="flex items-center justify-center ">
+      <div className="flex items-center justify-center">
         <Loading />
       </div>
     );
-  if (isError)
-    return (
-      <div className="text-center text-red-500"> 에러가 발생했습니다.</div>
-    );
-  if (!result)
+  }
+  if (active.isError) {
+    return <div className="text-center text-red-500">에러가 발생했습니다.</div>;
+  }
+  if (chartData.length === 0) {
     return <div className="mt-[108px] text-gray-600">데이터가 없습니다.</div>;
+  }
+
+  const totalScore = isDCA ? dcaRes!.totalScore : yccRes!.totalScore;
 
   return (
     <div className="flex flex-col items-start mt-[108px]">
@@ -157,7 +176,7 @@ const RadarChartComponent = ({ workId }: RadarChartComponentProps) => {
       <div className="w-full text-center">
         <div className="text-gray-800 font-T04-SB">총점</div>
         <div className="text-blue-main text-[56px] font-semibold mt-[6px]">
-          {result.totalScore}점
+          {totalScore}점
         </div>
 
         <div className="mt-[52px]">

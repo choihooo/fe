@@ -1,5 +1,11 @@
 // src/app/hooks/queries.ts
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  QueryKey,
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 import {
   GetReport,
   GetReportDetail,
@@ -12,8 +18,13 @@ import {
   PersonalSummary,
   VerifyReportCode,
   DeleteReportVisibility,
+  WorkYccEvaluation,
 } from "@/app/_apis/report";
 import { reportKeys } from "./index";
+import {
+  WorkAllEvaluationResponse,
+  WorkYCCEvaluationResponse,
+} from "@/app/_apis/schemas/reportResponse";
 
 /**
  * 리포트 목록 조회 쿼리 훅
@@ -82,13 +93,37 @@ export function useShareReport() {
 /**
  * 리포트 총평 쿼리 훅
  */
-export function useWorkAllEvaluation(workId: number) {
+
+type QueryOpts<T> = Omit<
+  UseQueryOptions<T, unknown, T, QueryKey>,
+  "queryKey" | "queryFn"
+>;
+
+export function useWorkAllEvaluation(
+  workId: number,
+  options?: QueryOpts<WorkAllEvaluationResponse>
+) {
   return useQuery({
     queryKey: ["workAllEvaluation", workId],
     queryFn: () => WorkAllEvaluation(workId),
     enabled: Number.isFinite(workId),
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
+    ...options,
+  });
+}
+
+export function useWorkYccEvaluation(
+  workId: number,
+  options?: QueryOpts<WorkYCCEvaluationResponse>
+) {
+  return useQuery({
+    queryKey: ["WorkYccEvaluation", workId],
+    queryFn: () => WorkYccEvaluation(workId),
+    enabled: Number.isFinite(workId),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+    ...options,
   });
 }
 
