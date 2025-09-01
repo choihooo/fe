@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import {
   Radar,
   RadarChart,
@@ -38,11 +38,11 @@ const SUBJECT_MAP = {
     { subject: "실현 가능성", value: r.feasibilityScore },
   ],
   YCC: (r: WorkYCCEvaluationResponse["result"]): Datum[] => [
-    { subject: "타겟 적합성", value: r.feasibilityScore },
-    { subject: "브랜드 적합성", value: r.mediaScore },
-    { subject: "매체선정", value: r.agendaScore },
-    { subject: "문제정의", value: r.influenceScore },
-    { subject: "실현 가능성", value: r.deliveryScore },
+    { subject: "실현 가능성", value: r.feasibilityScore },
+    { subject: "매체 선정", value: r.mediaScore },
+    { subject: "아젠다 선정", value: r.agendaScore },
+    { subject: "영향력", value: r.influenceScore },
+    { subject: "전달력", value: r.deliveryScore },
   ],
 } as const;
 
@@ -150,7 +150,7 @@ const RadarChartComponent = ({ workId, contestName }: Props) => {
     ? SUBJECT_MAP.YCC(yccRes)
     : [];
 
-  const tickRenderer = useMemo(() => makeTickRenderer(chartData), [chartData]);
+  const tickRenderer = makeTickRenderer(chartData);
 
   const active = isDCA ? dca : ycc;
   if (active.isLoading) {

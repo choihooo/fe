@@ -73,27 +73,27 @@ const AllEvalution = ({ workId, contestName }: AllEvalutionProps) => {
       ]
     : [
         {
-          subject: "타겟 적합성",
+          subject: "실현 가능성",
           value: yccResult!.feasibilityScore,
           description: yccResult!.feasibility,
         },
         {
-          subject: "브랜드 이해도",
+          subject: "매체 선정",
           value: yccResult!.mediaScore,
           description: yccResult!.media,
         },
         {
-          subject: "매체선정",
+          subject: "아젠다 선정",
           value: yccResult!.agendaScore,
           description: yccResult!.agenda,
         },
         {
-          subject: "문제정의",
+          subject: "영향력",
           value: yccResult!.influenceScore,
           description: yccResult!.influence,
         },
         {
-          subject: "실현 가능성",
+          subject: "전달력",
           value: yccResult!.deliveryScore,
           description: yccResult!.delivery,
         },
