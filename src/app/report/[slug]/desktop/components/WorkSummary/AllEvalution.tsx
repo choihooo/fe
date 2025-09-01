@@ -104,10 +104,8 @@ const AllEvalution = ({ workId, contestName }: AllEvalutionProps) => {
       {items.map((item) => (
         <div key={item.subject}>
           <div className="flex items-center gap-[10px]">
-            <div className="inline-flex items-center justify-center rounded-[8px] bg-blue-50 text-blue-main px-3 py-[6px] text-[14px] font-medium leading-none">
-              <div className="inline-flex items-center justify-center rounded-[8px] bg-blue-50 text-blue-main px-3 py-[6px] text-[14px] font-medium leading-none">
-                {item.value.toFixed(1)}
-              </div>
+            <div className="inline-flex items-center justify-center rounded-[8px] w-[45px] bg-blue-50 text-blue-main h-[33px] px-3 py-[6px] text-[14px] font-medium leading-none">
+              {item.value.toFixed(1)}
             </div>
             <div className="text-gray-800 font-T04-SB">{item.subject}</div>
           </div>
