@@ -24,29 +24,79 @@ interface YccScoreDetailProps {
   workId: number;
 }
 
-type DetailItem = {
-  type: EvaluationType;
-  label: string;
-  score: number;
-  description: string;
-};
-
 const toArray = <T,>(value: T | T[] | undefined | null): T[] =>
   Array.isArray(value) ? value : value ? [value] : [];
 
 const normalizeLabel = (label: string) => label.trim();
 
-const YccScoreDetail = ({
+interface SectionScoreListProps {
+  workId: number;
+  type: EvaluationType;
+  heading: string;
+  strengthLabels: Set<string>;
+  weaknessLabels: Set<string>;
+}
+
+function SectionScoreList({
+  workId,
+  type,
+  heading,
+  strengthLabels,
+  weaknessLabels,
+}: SectionScoreListProps) {
+  const { data, isLoading, isError } = useScoreDetail(workId, type);
+
+  if (isLoading) {
+    return (
+      <div className="my-6 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="my-6 text-orange-point">
+        {heading} 점수 상세를 불러오지 못했어요.
+      </div>
+    );
+  }
+
+  const detailArray = toArray(
+    data?.result.detailEvaluations as
+      | { code: string; label: string; score: number; description: string }
+      | Array<{
+          code: string;
+          label: string;
+          score: number;
+          description: string;
+        }>
+      | undefined
+  );
+
+  const items: ScoreItem[] = detailArray.map((detail) => ({
+    order: `${detail.score}점`,
+    title: detail.label,
+    body: detail.description,
+  }));
+
+  const variants: Variant[] = detailArray.map((detail) => {
+    const label = normalizeLabel(detail.label);
+    if (strengthLabels.has(label)) return "success";
+    if (weaknessLabels.has(label)) return "warning";
+    return "default";
+  });
+
+  return <ScoreList heading={heading} items={items} variants={variants} />;
+}
+
+function YccScoreDetail({
   contestName,
   workName,
   workId,
-}: YccScoreDetailProps) => {
+}: YccScoreDetailProps) {
   const types: EvaluationType[] = contestName === "DCA" ? DCA_TYPES : YCC_TYPES;
   const headings = contestName === "DCA" ? DCA_HEADINGS : YCC_HEADINGS;
-
-  const detailQueryResults = types.map((type) => useScoreDetail(workId, type));
-  const isAnyDetailLoading = detailQueryResults.some((q) => q.isLoading);
-  const isAnyDetailError = detailQueryResults.some((q) => q.isError);
 
   const {
     data: strengthsResponse,
@@ -60,11 +110,10 @@ const YccScoreDetail = ({
     isError: isWeaknessesError,
   } = usePersonalWeakness(workId);
 
-  const isLoading =
-    isAnyDetailLoading || isStrengthsLoading || isWeaknessesLoading;
-  const isError = isAnyDetailError || isStrengthsError || isWeaknessesError;
+  const isMetaLoading = isStrengthsLoading || isWeaknessesLoading;
+  const isMetaError = isStrengthsError || isWeaknessesError;
 
-  if (isLoading) {
+  if (isMetaLoading) {
     return (
       <div className="flex items-center justify-center mt-[108px]">
         <Loading />
@@ -72,7 +121,7 @@ const YccScoreDetail = ({
     );
   }
 
-  if (isError) {
+  if (isMetaError) {
     return (
       <div className="text-orange-point">점수 상세를 불러오지 못했어요.</div>
     );
@@ -87,51 +136,6 @@ const YccScoreDetail = ({
   const weaknessLabels = new Set(
     weaknessItems.map((item) => normalizeLabel(item.label))
   );
-
-  const allScoreDetails: DetailItem[] = detailQueryResults.flatMap(
-    (queryResult, index) => {
-      const type = types[index];
-      const detailArray = toArray(
-        queryResult.data?.result.detailEvaluations as
-          | { code: string; label: string; score: number; description: string }
-          | Array<{
-              code: string;
-              label: string;
-              score: number;
-              description: string;
-            }>
-          | undefined
-      );
-
-      return detailArray.map((detail) => ({
-        type,
-        label: detail.label,
-        score: detail.score,
-        description: detail.description,
-      }));
-    }
-  );
-
-  const sectionData = types.map((type, index) => {
-    const detailsForType = allScoreDetails.filter(
-      (detail) => detail.type === type
-    );
-
-    const items: ScoreItem[] = detailsForType.map((detail) => ({
-      order: `${detail.score}점`,
-      title: detail.label,
-      body: detail.description,
-    }));
-
-    const variants: Variant[] = detailsForType.map((detail) => {
-      const label = normalizeLabel(detail.label);
-      if (strengthLabels.has(label)) return "success";
-      if (weaknessLabels.has(label)) return "warning";
-      return "default";
-    });
-
-    return { items, variants, heading: headings[index] };
-  });
 
   return (
     <div className="flex flex-col items-start w-full">
@@ -153,16 +157,18 @@ const YccScoreDetail = ({
         </div>
       </div>
 
-      {sectionData.map((section, idx) => (
-        <ScoreList
-          key={types[idx]}
-          heading={section.heading}
-          items={section.items}
-          variants={section.variants}
+      {types.map((type, idx) => (
+        <SectionScoreList
+          key={type}
+          workId={workId}
+          type={type}
+          heading={headings[idx]}
+          strengthLabels={strengthLabels}
+          weaknessLabels={weaknessLabels}
         />
       ))}
     </div>
   );
-};
+}
 
 export default YccScoreDetail;
