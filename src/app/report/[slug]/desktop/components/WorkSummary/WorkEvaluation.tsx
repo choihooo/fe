@@ -64,7 +64,7 @@ const WorkEvaluation = ({
   if (currentView === "scoreDetail") {
     return (
       <div>
-        <YccScoreDetail />
+        <YccScoreDetail contestName={contestName} workName={workName} />
 
         <div className="flex justify-end mt-6">
           <ButtonBase
