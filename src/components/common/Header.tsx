@@ -4,9 +4,8 @@ import { usePathname, useRouter } from "next/navigation";
 import Logo from "./Logo";
 import { cn } from "@/utils/cn";
 import { useState, useRef, useEffect } from "react";
-import { useAuthQuery } from "@/hooks/queries/useAuth";
+import { useAuthQuery, useLogout } from "@/hooks/queries/useAuth";
 import ProfileDropdown from "./ProfileDropdown";
-import { logout } from "@/app/_apis/auth";
 import { useSubmitStore } from "@/store/useSubmitStore";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import { useIsMobile } from "@/hooks/useIsMobile";
@@ -36,6 +35,7 @@ function Header({ theme }: HeaderProps) {
   const profile = authData?.profile || null;
 
   const { isWriting, setIsWriting } = useSubmitStore();
+  const logoutMutation = useLogout();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -97,12 +97,14 @@ function Header({ theme }: HeaderProps) {
 
   const handleLogout = async () => {
     try {
-      await logout();
+      await logoutMutation.mutateAsync();
+      // 로그아웃 성공 시 홈으로 이동
+      router.push("/home");
     } catch (error) {
-      console.error("로그아웃 실패:", error);
+      console.error("로그아웃 처리 중 오류 발생:", error);
+      // 에러 발생 시에도 홈으로 이동 (이미 localStorage는 정리됨)
+      router.push("/home");
     }
-    localStorage.clear();
-    router.push("/home");
   };
 
   return (

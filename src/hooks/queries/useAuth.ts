@@ -140,24 +140,27 @@ export function useLogout() {
     mutationFn: logout,
     onSuccess: () => {
       if (typeof window !== "undefined") {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("name");
-        localStorage.removeItem("profileImage");
+        // 모든 인증 관련 데이터 정리
+        localStorage.clear();
+        console.log("✅ 로그아웃 성공: localStorage 정리 완료");
       }
 
+      // 모든 쿼리 데이터 정리
       queryClient.clear();
+      console.log("✅ 로그아웃 성공: 쿼리 데이터 정리 완료");
     },
     onError: (error) => {
-      console.error("로그아웃 실패:", error);
+      console.error("❌ 로그아웃 API 실패:", error);
 
       if (typeof window !== "undefined") {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("name");
-        localStorage.removeItem("profileImage");
+        // API 실패 시에도 모든 인증 관련 데이터 정리
+        localStorage.clear();
+        console.log("🔄 로그아웃 실패 시에도 localStorage 정리 완료");
       }
+
+      // 모든 쿼리 데이터 정리
       queryClient.clear();
+      console.log("🔄 로그아웃 실패 시에도 쿼리 데이터 정리 완료");
     },
   });
 }
