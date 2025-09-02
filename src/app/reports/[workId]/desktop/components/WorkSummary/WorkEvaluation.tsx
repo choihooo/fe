@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReportHeader from "../ReportHeader";
 import Summary from "./Summary";
@@ -36,6 +36,23 @@ const WorkEvaluation = ({
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // 브라우저 뒤로 가기 시 /reports 페이지로 이동
+  useEffect(() => {
+    const handlePopState = () => {
+      router.push("/reports");
+    };
+
+    // 현재 페이지를 히스토리에 추가
+    window.history.pushState(null, "", window.location.href);
+    
+    // popstate 이벤트 리스너 추가
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [router]);
+
   // 쿼리 파라미터에서 현재 뷰 가져오기
   const currentView = (searchParams?.get("view") as View) || "report";
 
@@ -44,19 +61,15 @@ const WorkEvaluation = ({
     const currentUrl = new URL(window.location.href);
     currentUrl.searchParams.set("view", newView);
     router.push(currentUrl.pathname + currentUrl.search, { scroll: false });
+
+    // 스크롤을 맨 위로 이동
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (currentView === "criteria") {
     return (
       <div>
         <DcaCriteria contestName={contestName} />
-        {/* <div className="flex justify-end mt-6">
-          <ButtonBase
-            label="돌아가기"
-            size="S"
-            onClick={() => handleViewChange("report")}
-          />
-        </div> */}
       </div>
     );
   }
@@ -65,14 +78,6 @@ const WorkEvaluation = ({
     return (
       <div>
         <YccScoreDetail contestName={contestName} workName={workName} />
-
-        {/* <div className="flex justify-end mt-6">
-          <ButtonBase
-            label="돌아가기"
-            size="S"
-            onClick={() => handleViewChange("report")}
-          />
-        </div> */}
       </div>
     );
   }

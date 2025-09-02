@@ -30,7 +30,7 @@ function VerifyCodePage() {
       {
         onSuccess: (res) => {
           if (res?.isSuccess) {
-            router.push(`/report/${workId}?verified=1`);
+            router.push(`/reports/${workId}?verified=1`);
           } else {
             setErrorMsg(res?.message || "코드가 일치하지 않습니다.");
           }

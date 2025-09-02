@@ -93,7 +93,7 @@ const YccScoreDetail = ({ contestName, workName }: YccScoreDetailProps) => {
         label="리포트로 돌아가기"
         size="S"
         className="mt-[148px] self-center"
-        onClick={() => router.push("/report")}
+        onClick={() => router.push("/reports")}
       />
     </div>
   );

@@ -13,7 +13,7 @@ const ApplyComfirmModal = ({ isOpen }: ApplyComfirmModalProps) => {
   if (!isOpen) return null;
 
   const handleGoReport = () => {
-    rounter.push("/report");
+    rounter.push("/reports");
   };
 
   return (

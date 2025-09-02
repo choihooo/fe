@@ -55,7 +55,7 @@ const ReportCard = ({
 
   const navigateToReport = () => {
     if (!isCompleted) return;
-    router.push(`/report/${workId}`);
+    router.push(`/reports/${workId}`);
   };
 
   if (isMobile) {
