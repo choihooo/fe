@@ -102,8 +102,12 @@ const DesktopReport = () => {
         <div className="fixed flex items-center gap-3 bottom-[44px] right-[120px] z-50 rounded-[10px] bg-blue-50 text-gray-900 px-5 py-4 font-B02-M">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="26" height="26" viewBox="0 0 26 26" fill="none"
-            aria-hidden="true" focusable="false"
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
           >
             <rect width="26" height="26" rx="13" fill="#256AFF" />
             <path

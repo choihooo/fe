@@ -10,6 +10,7 @@ import Strength from "./Strength";
 import DcaCriteria from "../Criteria/DcaCriteria";
 import YccScoreDetail from "../ScoreDetail/YccScoreDetail";
 import RadarChartComponent from "./RadarChartComponent.tsx";
+import { Arrow } from "../../../../../../../public";
 
 type ContestName = "DCA" | "YCC";
 
@@ -92,12 +93,24 @@ const WorkEvaluation = ({
 
       <div className="flex flex-row items-center justify-end mt-20 w-full gap-[10px]">
         <GrayButton
-          label="평가 기준 >"
+          label={
+            <span className="flex items-center gap-1">
+              <span className="text-gray-800 font-B02-SB">평가 기준</span>
+              <Arrow />
+            </span>
+          }
           className="flex pt-3 pl-[22px] pr-4 cursor-pointer"
           onClick={() => handleViewChange("criteria")}
         />
         <ButtonBase
-          label="점수 상세보기 >"
+          label={
+            <span className="flex items-center gap-1">
+              <span className="text-white text-center font-B02-SB">
+                점수 상세보기
+              </span>
+              <Arrow strokeColor="#ECECEE" />
+            </span>
+          }
           size="S"
           onClick={() => handleViewChange("scoreDetail")}
         />

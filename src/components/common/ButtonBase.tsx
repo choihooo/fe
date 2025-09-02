@@ -2,7 +2,7 @@ type Size = "S" | "M" | "L";
 
 interface ButtonBaseProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  label: string;
+  label: React.ReactNode;
   size?: Size;
   className?: string;
 }

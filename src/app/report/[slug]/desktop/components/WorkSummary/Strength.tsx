@@ -14,6 +14,7 @@ type StrengthProps = { workId: number };
 
 const Strength = ({ workId }: StrengthProps) => {
   const [tab, setTab] = useState<"강점" | "보완점">("강점");
+  const isWeak = tab === "보완점";
 
   const {
     data: strengthData,
@@ -48,19 +49,29 @@ const Strength = ({ workId }: StrengthProps) => {
       <div className="text-gray-900 font-T02-B">강점 및 보완점</div>
 
       <div className="mb-[29px] flex flex-row items-start gap-3 mt-[55px]">
-        {(["강점", "보완점"] as const).map((t) => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`relative rounded-[30px] px-[22px] py-[10px] items-center font-B01-M cursor-pointer ${
-              tab === t
-                ? "bg-blue-main text-white"
-                : "bg-white border border-gray-200 text-gray-800"
-            }`}
-          >
-            {t}
-          </button>
-        ))}
+        {(["강점", "보완점"] as const).map((t) => {
+          const isActive = tab === t;
+          const isWeak = t === "보완점";
+
+          const activeClass = isWeak
+            ? "bg-orange-point text-white"
+            : "bg-blue-main text-white";
+
+          const inactiveClass =
+            "bg-white border border-gray-200 text-gray-800 hover:bg-gray-50";
+
+          return (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              className={`relative rounded-[30px] px-[22px] py-[10px] items-center font-B01-M cursor-pointer ${
+                isActive ? activeClass : inactiveClass
+              }`}
+            >
+              {t}
+            </button>
+          );
+        })}
       </div>
 
       {isLoading && (
@@ -69,7 +80,7 @@ const Strength = ({ workId }: StrengthProps) => {
         </div>
       )}
       {isError && (
-        <div className="text-center text-red-500"> 에러가 발생했습니다.</div>
+        <div className="text-center text-red-500">에러가 발생했습니다.</div>
       )}
       {!isLoading && !isError && items.length === 0 && (
         <div className="text-gray-600 mt-[29px] text-center">
@@ -77,13 +88,19 @@ const Strength = ({ workId }: StrengthProps) => {
         </div>
       )}
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 w-full">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 w-full ">
         {items.map((card) => (
           <div
             key={card.code}
-            className="flex h-full flex-col rounded-[10px] border border-blue-main bg-white pl-8 pr-[30px] pt-9 pb-[35px]"
+            className={`flex flex-col rounded-[10px] border bg-white pl-8 h-[325px] pr-[30px] pt-9 pb-[35px]  ${
+              isWeak ? "border-orange-point" : "border-blue-main"
+            }`}
           >
-            <div className="mb-2 text-blue-main">
+            <div
+              className={`mb-2 ${
+                isWeak ? "text-orange-point" : "text-blue-main"
+              }`}
+            >
               <span className="font-B01-B">{String(card.score).trim()}</span>
               <span className="font-B01-R"> / 10점</span>
             </div>
@@ -91,7 +108,7 @@ const Strength = ({ workId }: StrengthProps) => {
             <div className="mb-[23px] text-gray-900 font-T04-SB">
               {card.label}
             </div>
-            <p className="text-gray-500 font-B02-M text-justify">
+            <p className="text-gray-500 font-B02-M text-justify text-ellipsis">
               {card.description}
             </p>
           </div>

@@ -2,7 +2,7 @@ import React from "react";
 
 interface GrayButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  label: string;
+  label: React.ReactNode;
 }
 
 function GrayButton({ label, className = "", ...props }: GrayButtonProps) {

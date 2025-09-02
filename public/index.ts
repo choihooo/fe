@@ -22,3 +22,4 @@ export { default as WhiteReportIcon } from "./icons/WhiteReport";
 export { default as HoverDelete } from "./icons/HoverDeleteIcon";
 export { default as NoReportIcon } from "./icons/NoReport";
 export { default as ReportDelete } from "./icons/ReportDelete";
+export { default as Arrow } from "./icons/Arrow";
