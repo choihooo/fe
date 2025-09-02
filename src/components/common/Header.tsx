@@ -17,7 +17,7 @@ interface HeaderProps {
 const NAV_ITEMS = [
   { id: "home", label: "홈", href: "/home" },
   { id: "application", label: "신청하기", href: "/application" },
-  { id: "report", label: "내 리포트", href: "/report" },
+  { id: "report", label: "내 리포트", href: "/reports" },
 ];
 
 function Header({ theme }: HeaderProps) {

@@ -9,10 +9,10 @@ import WorkEvaluation from "./components/WorkSummary/WorkEvaluation";
 type ContestName = "DCA" | "YCC";
 
 const DesktopReport = () => {
-  const params = useParams() as { slug?: string };
+  const params = useParams() as { workId?: string };
   const router = useRouter();
   const searchParams = useSearchParams();
-  const workId = Number(params?.slug);
+  const workId = Number(params?.workId);
 
   // 쿼리 파라미터에서 현재 탭 가져오기
   const currentTab = searchParams?.get("tab") || "공모전 분석";
@@ -23,7 +23,7 @@ const DesktopReport = () => {
     if (verified === "1") {
       setShowVerifiedToast(true);
       const timeout = setTimeout(() => setShowVerifiedToast(false), 3000);
-      router.replace(`/report/${workId}?tab=${currentTab}`);
+      router.replace(`/reports/${workId}?tab=${currentTab}`);
       return () => clearTimeout(timeout);
     }
   }, [searchParams, router, workId, currentTab]);
@@ -41,13 +41,13 @@ const DesktopReport = () => {
   // YCC인데 세부 과제 분석 탭이 선택된 경우 공모전 분석으로 리다이렉트
   useEffect(() => {
     if (isYcc && currentTab === "세부 과제 분석") {
-      router.replace(`/report/${workId}?tab=공모전 분석`);
+      router.replace(`/reports/${workId}?tab=공모전 분석`);
     }
   }, [isYcc, currentTab, router, workId]);
 
   // 탭 변경 시 쿼리 파라미터 업데이트
   const handleTabChange = (tab: string) => {
-    router.push(`/report/${workId}?tab=${tab}`, { scroll: false });
+    router.push(`/reports/${workId}?tab=${tab}`, { scroll: false });
   };
 
   if (isLoading) {

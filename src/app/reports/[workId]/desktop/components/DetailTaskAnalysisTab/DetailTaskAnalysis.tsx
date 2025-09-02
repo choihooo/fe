@@ -1,5 +1,5 @@
 import React from "react";
-import ReportHeader from "../../components/ReportHeader";
+import ReportHeader from "../ReportHeader";
 import ReflectionConsistencySection from "./ReflectionConsistencySection";
 import BriefInterpretationSection from "./BriefInterpretationSection";
 import BriefAnalysisSection from "./BriefAnalysisSection";
