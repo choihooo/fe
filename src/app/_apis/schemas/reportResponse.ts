@@ -8,6 +8,7 @@ export interface ReportRequest {
   workId: number;
   reportStatus: "DONE" | "IN_PROGRESS" | "COMPLETED";
   isDeletable?: boolean;
+  hasFeedback?: boolean;
 }
 
 export interface ReportResponse {

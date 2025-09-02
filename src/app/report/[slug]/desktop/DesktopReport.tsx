@@ -94,7 +94,7 @@ const DesktopReport = () => {
     );
   }
 
-  const { brand, workName, workMembers } = reportData.result;
+  const { brand, workName, workMembers, hasFeedback } = reportData.result;
 
   return (
     <div className="w-full">
@@ -149,6 +149,7 @@ const DesktopReport = () => {
               brand={brand}
               workName={workName}
               workMembers={workMembers}
+              hasFeedback={hasFeedback ?? false}
             />
           )}
 
@@ -159,6 +160,7 @@ const DesktopReport = () => {
               brand={brand}
               workName={workName}
               workMembers={workMembers}
+              hasFeedback={hasFeedback ?? false}
             />
           )}
 
@@ -169,6 +171,7 @@ const DesktopReport = () => {
               brand={brand}
               workName={workName}
               workMembers={workMembers}
+              hasFeedback={hasFeedback ?? false}
             />
           )}
         </div>
