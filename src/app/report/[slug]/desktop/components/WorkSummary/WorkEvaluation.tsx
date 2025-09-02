@@ -50,13 +50,13 @@ const WorkEvaluation = ({
     return (
       <div>
         <DcaCriteria contestName={contestName} />
-        <div className="flex justify-end mt-6">
+        {/* <div className="flex justify-end mt-6">
           <ButtonBase
             label="돌아가기"
             size="S"
             onClick={() => handleViewChange("report")}
           />
-        </div>
+        </div> */}
       </div>
     );
   }

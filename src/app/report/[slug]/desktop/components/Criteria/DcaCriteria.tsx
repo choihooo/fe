@@ -4,10 +4,10 @@ import ScoreCalculationMethod from "./DCA/ScoreCalculationMethod";
 import BrandUnderstand from "./DCA/BrandUnderstand";
 import ProblemDefinition from "./DCA/ProblemDefinition";
 import Possibility from "./DCA/Possibility";
-import GrayButton from "@/components/common/GrayButton";
 import EvaluationCriteria from "./DCA/EvaluationCriteria";
 import MediaSelection from "./DCA/MediaSelection";
 import { useRouter } from "next/navigation";
+import ButtonBase from "@/components/common/ButtonBase";
 
 interface DcaCriteriaProps {
   contestName: string;
@@ -32,9 +32,10 @@ const DcaCriteria = ({ contestName }: DcaCriteriaProps) => {
       <MediaSelection />
       <ProblemDefinition />
       <Possibility />
-      <GrayButton
+      <ButtonBase
         label="리포트로 돌아가기"
-        className="w-[175px] px-[30px] py-3 mt-[148px] self-center mb-[178px] cursor-pointer"
+        size="S"
+        className="mt-[148px] self-center"
         onClick={() => router.push("/report")}
       />
     </div>

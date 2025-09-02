@@ -6,8 +6,8 @@ import YccMediaSelection from "./YCC/YccMediaSelection";
 import SelectAgenda from "./YCC/SelectAgenda";
 import Effect from "./YCC/Effect";
 import Ability from "./YCC/Ability";
-import GrayButton from "@/components/common/GrayButton";
 import { useRouter } from "next/navigation";
+import ButtonBase from "@/components/common/ButtonBase";
 
 const YccCriteria = () => {
   const router = useRouter();
@@ -28,9 +28,10 @@ const YccCriteria = () => {
       <SelectAgenda />
       <Effect />
       <Ability />
-      <GrayButton
+      <ButtonBase
         label="리포트로 돌아가기"
-        className="w-[175px] px-[30px] py-3 mt-[148px] self-center mb-[178px] cursor-pointer"
+        size="S"
+        className="mt-[148px] self-center"
         onClick={() => router.push("/report")}
       />
     </div>

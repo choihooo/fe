@@ -1,7 +1,7 @@
 import React from "react";
 import ScoreList, { type ScoreItem } from "./ScoreList";
-import GrayButton from "@/components/common/GrayButton";
 import { useRouter } from "next/navigation";
+import ButtonBase from "@/components/common/ButtonBase";
 
 interface YccScoreDetailProps {
   contestName: string;
@@ -89,9 +89,10 @@ const YccScoreDetail = ({ contestName, workName }: YccScoreDetailProps) => {
         variants={["default", "default", "default", "warning", "default"]}
       />
 
-      <GrayButton
+      <ButtonBase
         label="리포트로 돌아가기"
-        className="w-[175px] px-[30px] py-3 mt-[148px] self-center mb-[23px] cursor-pointer"
+        size="S"
+        className="mt-[148px] self-center"
         onClick={() => router.push("/report")}
       />
     </div>
