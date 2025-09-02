@@ -6,15 +6,12 @@ import ProblemDefinition from "./DCA/ProblemDefinition";
 import Possibility from "./DCA/Possibility";
 import EvaluationCriteria from "./DCA/EvaluationCriteria";
 import MediaSelection from "./DCA/MediaSelection";
-import { useRouter } from "next/navigation";
-import ButtonBase from "@/components/common/ButtonBase";
 
 interface DcaCriteriaProps {
   contestName: string;
 }
 
 const DcaCriteria = ({ contestName }: DcaCriteriaProps) => {
-  const router = useRouter();
   return (
     <div className="flex flex-col items-start w-full">
       <div className="flex flex-row items-center w-full">
@@ -32,12 +29,6 @@ const DcaCriteria = ({ contestName }: DcaCriteriaProps) => {
       <MediaSelection />
       <ProblemDefinition />
       <Possibility />
-      <ButtonBase
-        label="리포트로 돌아가기"
-        size="S"
-        className="mt-[148px] self-center"
-        onClick={() => router.push("/report")}
-      />
     </div>
   );
 };

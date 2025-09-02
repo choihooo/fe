@@ -6,11 +6,8 @@ import YccMediaSelection from "./YCC/YccMediaSelection";
 import SelectAgenda from "./YCC/SelectAgenda";
 import Effect from "./YCC/Effect";
 import Ability from "./YCC/Ability";
-import { useRouter } from "next/navigation";
-import ButtonBase from "@/components/common/ButtonBase";
 
 const YccCriteria = () => {
-  const router = useRouter();
   return (
     <div className="flex flex-col items-start w-full">
       <div className="flex flex-row items-center w-full">
@@ -28,12 +25,12 @@ const YccCriteria = () => {
       <SelectAgenda />
       <Effect />
       <Ability />
-      <ButtonBase
+      {/* <ButtonBase
         label="리포트로 돌아가기"
         size="S"
         className="mt-[148px] self-center"
         onClick={() => router.push("/report")}
-      />
+      /> */}
     </div>
   );
 };
