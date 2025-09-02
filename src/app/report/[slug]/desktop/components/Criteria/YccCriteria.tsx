@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import ScoreCalculationMethod from "./DCA/ScoreCalculationMethod";
 import YccEvaluationCriteria from "./YCC/YccPossibility.tsx";
@@ -6,8 +7,10 @@ import SelectAgenda from "./YCC/SelectAgenda";
 import Effect from "./YCC/Effect";
 import Ability from "./YCC/Ability";
 import GrayButton from "@/components/common/GrayButton";
+import { useRouter } from "next/navigation";
 
 const YccCriteria = () => {
+  const router = useRouter();
   return (
     <div className="flex flex-col items-start w-full">
       <div className="flex flex-row items-center w-full">
@@ -28,6 +31,7 @@ const YccCriteria = () => {
       <GrayButton
         label="리포트로 돌아가기"
         className="w-[175px] px-[30px] py-3 mt-[148px] self-center mb-[178px] cursor-pointer"
+        onClick={() => router.push("/report")}
       />
     </div>
   );

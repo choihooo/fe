@@ -1,8 +1,10 @@
 import React from "react";
 import ScoreList, { type ScoreItem } from "./ScoreList";
 import GrayButton from "@/components/common/GrayButton";
+import { useRouter } from "next/navigation";
 
 const YccScoreDetail = () => {
+  const router = useRouter();
   const items: ScoreItem[] = [
     {
       order: "7점",
@@ -84,6 +86,7 @@ const YccScoreDetail = () => {
       <GrayButton
         label="리포트로 돌아가기"
         className="w-[175px] px-[30px] py-3 mt-[148px] self-center mb-[23px] cursor-pointer"
+        onClick={() => router.push("/report")}
       />
     </div>
   );
