@@ -94,7 +94,7 @@ function SBIBank() {
               <br />
               <BlueSpan>
                 1 금융권은 은행·카드·보험·증권 등 각 계열사의 핵심 서비스를 한
-                앱(App)에서 해결할 수 있는 '슈퍼앱'
+                앱(App)에서 해결할 수 있는 &apos;슈퍼앱&apos;
               </BlueSpan>{" "}
               으로 탈바꿈하며 경쟁 격화
               <br />

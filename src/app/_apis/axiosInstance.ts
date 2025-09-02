@@ -2,7 +2,6 @@ import axios, { AxiosRequestConfig } from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const CONTENT_TYPE_JSON = "application/json";
-const LOGIN_PATH = "/login";
 
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   _retry?: boolean;
