@@ -104,7 +104,7 @@ function LotteRia() {
               있음
               <br />
               이러한 <BlueSpan>도전적 시도</BlueSpan>를 젊은 층에게 공감 받아
-              <BlueSpan>브랜드 선호도는 증가</BlueSpan>하는 추세이며,{" "}
+              <BlueSpan> 브랜드 선호도는 증가</BlueSpan>하는 추세이며,{" "}
               <BlueSpan>
                 온라인 상 버거 프렌차이즈 브랜드 중 가장 높은 긍정률
               </BlueSpan>

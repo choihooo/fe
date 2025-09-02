@@ -69,7 +69,7 @@ function Tams() {
               <div className="flex-1">
                 <div className="font-B01-M text-gray-800 mb-[12px]">
                   [잘 익은 탄산의 맛] 이라는 메세지로
-                  <BlueSpan>과즙감에 집중하는 커뮤니케이션</BlueSpan>
+                  <BlueSpan> 과즙감에 집중하는 커뮤니케이션</BlueSpan>
                   진행
                 </div>
                 <div className="flex gap-1 font-B02-R text-gray-500 mt-[12px]">
