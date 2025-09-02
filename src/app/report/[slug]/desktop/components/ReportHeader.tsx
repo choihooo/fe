@@ -107,7 +107,7 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
             disabled={!hasFeedback}
             className="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors font-B02-SB text-gray-700"
           >
-            {hasFeedback ? "피드백 남기기" : "피드백 작성완료"}
+            {hasFeedback ? "피드백 작성완료" : "피드백 남기기"}
           </button>
 
           {/* 공유 버튼 */}
