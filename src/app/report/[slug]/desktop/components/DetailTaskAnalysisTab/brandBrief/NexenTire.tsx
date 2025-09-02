@@ -12,7 +12,6 @@ function NexenTire() {
       <div>
         <div className="p-[30px] border border-gray-200 rounded-[20px]">
           <div className="font-T03-SB text-gray-900 mb-[32px]">브랜드 소개</div>
-
           <div className="space-y-[20px]">
             <div className="flex gap-[16px]">
               <div className="font-B01-M text-gray-500 min-w-[80px]">
@@ -114,7 +113,7 @@ function NexenTire() {
               </BlueSpan>
               <br />
               캠페인 메인타겟은 4050대(주구매층)이나, 성장을 위해
-              <BlueSpan>엔트리타겟 20대와 소통 강화 필요</BlueSpan>
+              <BlueSpan> 엔트리타겟 20대와 소통 강화 필요</BlueSpan>
               <br />
               타이어 브랜드들은 전통적으로 스포츠/게임/패션 등과 협업하여 20대의
               인지도 및 친숙도를 강화
@@ -171,10 +170,10 @@ function NexenTire() {
           <div className="space-y-[8px] font-B01-M">
             <DashList>
               <BlueSpan>20대의 문화 트렌드를 반영</BlueSpan>해, 넥센타이어만의
-              <BlueSpan>진정성 있는 브랜드 가치와 기술력</BlueSpan>을 효과적으로
-              전달하고, 인지도 제고는 물론 <BlueSpan>팬덤</BlueSpan>까지
-              이끌어낼 수 있는 <BlueSpan>컬처 마케팅</BlueSpan> 및 커뮤니케이션
-              방안
+              <BlueSpan> 진정성 있는 브랜드 가치와 기술력</BlueSpan>을
+              효과적으로 전달하고, 인지도 제고는 물론 <BlueSpan>팬덤</BlueSpan>{" "}
+              까지 이끌어낼 수 있는 <BlueSpan>컬처 마케팅</BlueSpan> 및
+              커뮤니케이션 방안
             </DashList>
           </div>
         </div>

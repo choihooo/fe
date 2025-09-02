@@ -2,7 +2,6 @@ import axios, { AxiosRequestConfig } from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const CONTENT_TYPE_JSON = "application/json";
-const LOGIN_PATH = "/login";
 
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   _retry?: boolean;
@@ -42,12 +41,13 @@ const processQueue = (error: unknown, token?: string) => {
 
 const handleLogoutAndRedirect = () => {
   if (typeof window !== "undefined") {
-    console.log("🔐 토큰 만료로 인한 로그아웃 처리 시작");
+    console.log("🔐 토큰 만료로 인한 자동 로그아웃 처리 시작");
     localStorage.clear();
     console.log("🧹 localStorage 클리어 완료");
 
-    window.location.replace(LOGIN_PATH);
-    console.log("🔄 로그인 페이지로 리디렉션 시도");
+    // 일관성을 위해 홈으로 리다이렉션
+    window.location.replace("/home");
+    console.log("🔄 홈 페이지로 리디렉션 시도");
   }
 };
 

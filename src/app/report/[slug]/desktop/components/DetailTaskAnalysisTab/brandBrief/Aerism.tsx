@@ -60,7 +60,7 @@ function Aerism() {
           {/* 브랜드 소개 팁 */}
           <div className="px-[30px] py-[34px] bg-blue-50 rounded-[20px] mt-[14px]">
             <div className="flex gap-[16px] font-T03-SB text-blue-main mb-[32px]">
-              <Tip /> 브랜드 핵심 가치
+              <Tip /> 수상한 Tip
             </div>
             <div className="font-B01-R text-gray-900">
               - 땀을 빠르게 흡수하고 건조하는 에어리즘, 쾌적함의 기준을 제시한
@@ -80,7 +80,7 @@ function Aerism() {
             <div className="space-y-[8px] font-B01-M">
               <DashList>
                 에어리즘은 <BlueSpan>기능성 이너웨어 시장</BlueSpan>에서 기술력,
-                제품 다양성, 글로벌 인지도 측면에서 <BlueSpan>독보적</BlueSpan>{" "}
+                제품 다양성, 글로벌 인지도 측면에서 <BlueSpan>독보적 </BlueSpan>
                 국내 다양한 브랜드에서 이너웨어 중심의 냉감 제품을 잇따라
                 출시하며 경쟁 과열
               </DashList>
@@ -125,9 +125,9 @@ function Aerism() {
               <DashList>
                 여름에 입는 시원한 소재’라는 인지가 강하지만, 에어리즘은 땀을
                 빨리 흡수하고 건조하는 드라이 기능과 매끄러운 감촉을 갖춰
-                <BlueSpan>모든 계절에 입기 좋은 소재</BlueSpan>→ 이 차별점을
+                <BlueSpan> 모든 계절에 입기 좋은 소재 </BlueSpan>→ 이 차별점을
                 기반으로
-                <BlueSpan>중장기적 연간 상품으로 육성 필요</BlueSpan>
+                <BlueSpan> 중장기적 연간 상품으로 육성 필요</BlueSpan>
                 <br />
                 <br />
                 주요 제품은 에어리즘 이너웨어
@@ -220,7 +220,7 @@ function Aerism() {
                   {" "}
                   이너웨어/여름의 사용성에 대해서는 이미 잘 알려져있으니 해당
                   이미지 확대는 지양할 것
-                </BlueSpan>
+                </BlueSpan>{" "}
               </DashList>
             </div>
           </div>

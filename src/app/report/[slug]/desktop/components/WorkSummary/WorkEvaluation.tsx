@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import ReportHeader from "../ReportHeader";
 import Summary from "./Summary";
 import AllEvalution from "./AllEvalution";
@@ -30,9 +31,20 @@ const WorkEvaluation = ({
   workName,
   workMembers,
 }: WorkEvaluationProps) => {
-  const [view, setView] = useState<View>("report");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
+  // 쿼리 파라미터에서 현재 뷰 가져오기
+  const currentView = (searchParams?.get("view") as View) || "report";
 
-  if (view === "criteria") {
+  // 뷰 변경 시 쿼리 파라미터 업데이트
+  const handleViewChange = (newView: View) => {
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set("view", newView);
+    router.push(currentUrl.pathname + currentUrl.search, { scroll: false });
+  };
+
+  if (currentView === "criteria") {
     return (
       <div>
         <DcaCriteria contestName={contestName} />
@@ -40,14 +52,14 @@ const WorkEvaluation = ({
           <ButtonBase
             label="돌아가기"
             size="S"
-            onClick={() => setView("report")}
+            onClick={() => handleViewChange("report")}
           />
         </div>
       </div>
     );
   }
 
-  if (view === "scoreDetail") {
+  if (currentView === "scoreDetail") {
     return (
       <div>
         <YccScoreDetail />
@@ -56,7 +68,7 @@ const WorkEvaluation = ({
           <ButtonBase
             label="돌아가기"
             size="S"
-            onClick={() => setView("report")}
+            onClick={() => handleViewChange("report")}
           />
         </div>
       </div>
@@ -88,7 +100,7 @@ const WorkEvaluation = ({
             </span>
           }
           className="flex pt-3 pl-[22px] pr-4 cursor-pointer"
-          onClick={() => setView("criteria")}
+          onClick={() => handleViewChange("criteria")}
         />
         <ButtonBase
           label={
@@ -100,7 +112,7 @@ const WorkEvaluation = ({
             </span>
           }
           size="S"
-          onClick={() => setView("scoreDetail")}
+          onClick={() => handleViewChange("scoreDetail")}
         />
       </div>
 

@@ -6,11 +6,12 @@ import UserProfileContainer from "./UserProfileContainer";
 import LogoutIcon from "../../../../public/icons/LogoutIcon";
 import GrayIconChevronRight from "../../../../public/icons/GrayIconChevronRight";
 import CornerIcon from "../../../../public/icons/CornerIcon";
-import { logout } from "@/app/_apis/auth";
+import { useLogout } from "@/hooks/queries/useAuth";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
 function UserProfilePanel() {
   const isMobile = useIsMobile();
+  const logoutMutation = useLogout();
 
   const labelFontClass = isMobile ? "font-B02-M" : "font-B01-M";
 
@@ -31,17 +32,14 @@ function UserProfilePanel() {
 
   const handleLogout = async () => {
     try {
-      await logout();
+      await logoutMutation.mutateAsync();
+      // 로그아웃 성공 시 홈으로 이동
+      window.location.href = "/home";
     } catch (error) {
-      console.error("로그아웃 API 호출 실패:", error);
+      console.error("로그아웃 처리 중 오류 발생:", error);
+      // 에러 발생 시에도 홈으로 이동 (이미 localStorage는 정리됨)
+      window.location.href = "/home";
     }
-
-    localStorage.removeItem("profileImage");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("userId");
-
-    window.location.href = "/home";
   };
 
   return (

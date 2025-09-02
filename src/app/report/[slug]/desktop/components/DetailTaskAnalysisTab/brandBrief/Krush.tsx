@@ -54,8 +54,8 @@ function Krush() {
                   <br />캔 상단 탭 전체가 시원하게 열리는 형태라 마치{" "}
                   <BlueSpan>작은 맥주잔</BlueSpan>처럼 즐길 수 있고, 캔 입구가
                   넓어 얼음이나 소주, 레몬즙 등을
-                  <BlueSpan>섞어 마시기</BlueSpan>에 좋음, 음용 시 맛과 함께
-                  <BlueSpan>시각적인 즐거움</BlueSpan>도 느낄 수 있는 것이 특징
+                  <BlueSpan> 섞어 마시기</BlueSpan>에 좋음, 음용 시 맛과 함께
+                  <BlueSpan> 시각적인 즐거움</BlueSpan>도 느낄 수 있는 것이 특징
                 </div>
                 <div className="flex gap-1 font-B02-R text-gray-500 mt-[12px]">
                   <div>-</div>
@@ -107,7 +107,8 @@ function Krush() {
             <div className="flex gap-[3.5px]">
               <div>-</div>
               <div>
-                특히 한국의 주류문화의 특성상 주로 술자리를 함께 하는 사람들
+                특히 한국의 주류문화의 특성상 주로 술자리를 함께 하는
+                사람들&nbsp;
                 <BlueSpan>
                   다수의 선호 의견에 따라서 주류 브랜드를 선택
                 </BlueSpan>
@@ -204,7 +205,7 @@ function Krush() {
           <div className="space-y-[8px] font-B01-M">
             <DashList>
               신규 출시된 풀오픈캔 제품을 통해 소비자들에게 크러시만의
-              <BlueSpan>차별화된 음용 경험과 브랜드의 뉴니스</BlueSpan> 주고자
+              <BlueSpan> 차별화된 음용 경험과 브랜드의 뉴니스</BlueSpan> 주고자
               함
             </DashList>
             <DashList>
@@ -261,11 +262,19 @@ function Krush() {
                 <br />
                 [참고] 크게 열리는 탄산 러시 최근 캠페인 영상
                 <br /> &lt;지금 필요한 건, 크게 터지는 탄산 러시&gt; 광고 영상:
-                <a href="https://www.youtube.com/watch?v=wJwQD0GMlaI" target="_blank" className="underline">
+                <a
+                  href="https://www.youtube.com/watch?v=wJwQD0GMlaI"
+                  target="_blank"
+                  className="underline"
+                >
                   링크
                 </a>{" "}
                 <br /> &lt;빠짐 없이, 크게 터지는 탄산 러시&gt; 광고 영상:
-                <a href="https://www.youtube.com/watch?v=wM1MIbQbucQ" target="_blank" className="underline">
+                <a
+                  href="https://www.youtube.com/watch?v=wM1MIbQbucQ"
+                  target="_blank"
+                  className="underline"
+                >
                   링크
                 </a>{" "}
                 <br /> &lt;풀오픈캔으로 크게 열리는 탄산 러시&gt; 광고 영상:

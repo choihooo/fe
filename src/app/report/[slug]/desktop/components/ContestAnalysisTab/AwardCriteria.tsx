@@ -7,7 +7,7 @@ interface CoreCapabilityCardProps {
 
 function CoreCapabilityCard({ title, description }: CoreCapabilityCardProps) {
   return (
-    <div className="border border-blue-main px-[35px] py-[27px] rounded-lg flex-1">
+    <div className="border border-blue-main px-[35px] py-[27px] rounded-[16px] flex-1">
       <h3 className="text-blue-main font-T03-SB mb-[10px]">{title}</h3>
       <p className="text-gray-700 font-B01-R">{description}</p>
     </div>
