@@ -15,6 +15,8 @@ import {
   DeleteReportVisibilityRequest,
   DeleteReportVisibilityResponse,
   WorkYCCEvaluationResponse,
+  ScoreDetailResponse,
+  EvaluationType,
 } from "./schemas/reportResponse";
 export async function GetReport(page: number): Promise<ReportResponse> {
   const res = await authAxiosInstance.get<ReportResponse>("/v1/reports", {
@@ -125,6 +127,16 @@ export async function DeleteReportVisibility(
   const res = await authAxiosInstance.patch<DeleteReportVisibilityResponse>(
     `/v1/reports/${workId}/visibility`,
     body
+  );
+  return res.data;
+}
+
+export async function PersonalDetailEvaluation(
+  workId: number,
+  type: EvaluationType
+): Promise<ScoreDetailResponse> {
+  const res = await authAxiosInstance.get<ScoreDetailResponse>(
+    `/v1/personal-works/${workId}/evaluation/${type}`
   );
   return res.data;
 }

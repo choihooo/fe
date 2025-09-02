@@ -19,9 +19,12 @@ import {
   VerifyReportCode,
   DeleteReportVisibility,
   WorkYccEvaluation,
+  PersonalDetailEvaluation,
 } from "@/app/_apis/report";
 import { reportKeys } from "./index";
 import {
+  EvaluationType,
+  ScoreDetailResponse,
   WorkAllEvaluationResponse,
   WorkYCCEvaluationResponse,
 } from "@/app/_apis/schemas/reportResponse";
@@ -182,5 +185,18 @@ export function useDeleteReportVisibility() {
       // 첫 페이지 목록 무효화 (필요시 확장)
       queryClient.invalidateQueries({ queryKey: reportKeys.list(0) });
     },
+  });
+}
+
+export function useScoreDetail(
+  workId: number,
+  type: EvaluationType,
+  options?: QueryOpts<ScoreDetailResponse>
+) {
+  return useQuery({
+    queryKey: ["PersonalDetailEvaluation", workId, type],
+    queryFn: () => PersonalDetailEvaluation(workId, type),
+    enabled: !!workId && !!type,
+    ...options,
   });
 }
