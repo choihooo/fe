@@ -33,7 +33,7 @@ const WorkEvaluation = ({
 }: WorkEvaluationProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   // 쿼리 파라미터에서 현재 뷰 가져오기
   const currentView = (searchParams?.get("view") as View) || "report";
 
@@ -62,7 +62,7 @@ const WorkEvaluation = ({
   if (currentView === "scoreDetail") {
     return (
       <div>
-        <YccScoreDetail />
+        <YccScoreDetail contestName={contestName} workName={workName} />
 
         <div className="flex justify-end mt-6">
           <ButtonBase

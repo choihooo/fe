@@ -3,7 +3,12 @@ import ScoreList, { type ScoreItem } from "./ScoreList";
 import GrayButton from "@/components/common/GrayButton";
 import { useRouter } from "next/navigation";
 
-const YccScoreDetail = () => {
+interface YccScoreDetailProps {
+  contestName: string;
+  workName: string;
+}
+
+const YccScoreDetail = ({ contestName, workName }: YccScoreDetailProps) => {
   const router = useRouter();
   const items: ScoreItem[] = [
     {
@@ -35,11 +40,12 @@ const YccScoreDetail = () => {
 
   return (
     <div className="flex flex-col items-start w-full">
-      <div className="flex flex-row items-center w-full">
-        <div className="text-gray-900 font-B01-M">너에게서 나를 보다</div>
-        <span className="mx-3 text-gray-200">|</span>
-        <div className="text-gray-700 font-B01-R">YCC</div>
+      <div className="flex flex-row items-center">
+        <div className="text-gray-900 font-B01-M">{workName}</div>
+        <span className="mx-3 text-gray-300">|</span>
+        <div className="text-gray-700 font-B01-R">{contestName}</div>
       </div>
+
       <div className="text-gray-900 font-semibold text-4xl mt-4">
         점수 상세보기
       </div>
