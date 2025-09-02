@@ -87,15 +87,15 @@ function SBIBank() {
 
           <div className="space-y-[20px] font-B01-M">
             <DashList>
-              <BlueSpan>간편/접근성으로 수요를 이끌던 인터넷 뱅킹 3사</BlueSpan>
+              <BlueSpan>간편/접근성으로 수요를 이끌던 인터넷 뱅킹 3사</BlueSpan>{" "}
               (카카오뱅크, 케이뱅크, 토스)가 저축은행 주요 수익군인 중저신용자
               대출 공급까지 확대하며 공격적 접근
               <br />
               <br />
               <BlueSpan>
                 1 금융권은 은행·카드·보험·증권 등 각 계열사의 핵심 서비스를 한
-                앱(App)에서 해결할 수 있는 ‘슈퍼앱’
-              </BlueSpan>
+                앱(App)에서 해결할 수 있는 '슈퍼앱'
+              </BlueSpan>{" "}
               으로 탈바꿈하며 경쟁 격화
               <br />
               <br />

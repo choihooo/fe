@@ -9,11 +9,13 @@ import WorkEvaluation from "./components/WorkSummary/WorkEvaluation";
 type ContestName = "DCA" | "YCC";
 
 const DesktopReport = () => {
-  const [activeTab, setActiveTab] = useState("공모전 분석");
   const params = useParams() as { slug?: string };
   const router = useRouter();
   const searchParams = useSearchParams();
   const workId = Number(params?.slug);
+
+  // 쿼리 파라미터에서 현재 탭 가져오기
+  const currentTab = searchParams?.get("tab") || "공모전 분석";
 
   const [showVerifiedToast, setShowVerifiedToast] = useState(false);
   useEffect(() => {
@@ -21,10 +23,10 @@ const DesktopReport = () => {
     if (verified === "1") {
       setShowVerifiedToast(true);
       const timeout = setTimeout(() => setShowVerifiedToast(false), 3000);
-      router.replace(`/report/${workId}`);
+      router.replace(`/report/${workId}?tab=${currentTab}`);
       return () => clearTimeout(timeout);
     }
-  }, [searchParams, router, workId]);
+  }, [searchParams, router, workId, currentTab]);
 
   const { data: reportData, isLoading, error } = useReportDetail(workId);
   const contestName = reportData?.result?.contestName as
@@ -36,12 +38,17 @@ const DesktopReport = () => {
     ? ["공모전 분석", "개인 출품작 분석"]
     : ["공모전 분석", "세부 과제 분석", "개인 출품작 분석"];
 
-  // 로딩 중 스켈레톤
+  // YCC인데 세부 과제 분석 탭이 선택된 경우 공모전 분석으로 리다이렉트
   useEffect(() => {
-    if (isYcc && activeTab === "세부 과제 분석") {
-      setActiveTab("공모전 분석");
+    if (isYcc && currentTab === "세부 과제 분석") {
+      router.replace(`/report/${workId}?tab=공모전 분석`);
     }
-  }, [isYcc, activeTab]);
+  }, [isYcc, currentTab, router, workId]);
+
+  // 탭 변경 시 쿼리 파라미터 업데이트
+  const handleTabChange = (tab: string) => {
+    router.push(`/report/${workId}?tab=${tab}`, { scroll: false });
+  };
 
   if (isLoading) {
     return (
@@ -95,12 +102,8 @@ const DesktopReport = () => {
         <div className="fixed flex items-center gap-3 bottom-[44px] right-[120px] z-50 rounded-[10px] bg-blue-50 text-gray-900 px-5 py-4 font-B02-M">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="26"
-            height="26"
-            viewBox="0 0 26 26"
-            fill="none"
-            aria-hidden="true"
-            focusable="false"
+            width="26" height="26" viewBox="0 0 26 26" fill="none"
+            aria-hidden="true" focusable="false"
           >
             <rect width="26" height="26" rx="13" fill="#256AFF" />
             <path
@@ -120,9 +123,9 @@ const DesktopReport = () => {
         {tabs.map((tab) => (
           <div
             key={tab}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => handleTabChange(tab)}
             className={`px-[17px] py-[17px] cursor-pointer transition-colors ${
-              activeTab === tab
+              currentTab === tab
                 ? "text-blue-main border-b-2 border-blue-main font-B02-SB"
                 : "text-gray-300 hover:text-gray-700 font-B02-M"
             }`}
@@ -135,7 +138,7 @@ const DesktopReport = () => {
       <div className="w-full py-[86px]">
         <div className="w-[996px] mx-auto">
           {/* 탭 컨텐츠 */}
-          {activeTab === "공모전 분석" && contestName && (
+          {currentTab === "공모전 분석" && contestName && (
             <ContestAnalysis
               contestName={contestName}
               workId={workId}
@@ -145,7 +148,7 @@ const DesktopReport = () => {
             />
           )}
 
-          {activeTab === "세부 과제 분석" && !isYcc && contestName && (
+          {currentTab === "세부 과제 분석" && !isYcc && contestName && (
             <DetailTaskAnalysis
               contestName={contestName}
               workId={workId}
@@ -155,7 +158,7 @@ const DesktopReport = () => {
             />
           )}
 
-          {activeTab === "개인 출품작 분석" && contestName && (
+          {currentTab === "개인 출품작 분석" && contestName && (
             <WorkEvaluation
               contestName={contestName}
               workId={workId}
