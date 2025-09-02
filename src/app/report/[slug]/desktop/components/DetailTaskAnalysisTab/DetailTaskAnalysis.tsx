@@ -10,9 +10,10 @@ interface DetailTaskAnalysisProps {
   brand: string;
   workName: string;
   workMembers: string[];
+  hasFeedback: boolean;
 }
 
-function DetailTaskAnalysis({ contestName, workId, brand, workName, workMembers }: DetailTaskAnalysisProps) {
+function DetailTaskAnalysis({ contestName, workId, brand, workName, workMembers, hasFeedback }: DetailTaskAnalysisProps) {
   return (
     <div>
       <ReportHeader 
@@ -20,7 +21,8 @@ function DetailTaskAnalysis({ contestName, workId, brand, workName, workMembers 
         contestName={contestName}
         brand={brand}
         workMembers={workMembers}
-        workId={workId}
+        workId={workId} 
+        hasFeedback={hasFeedback}
       />
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
       <BriefInterpretationSection workId={workId} />

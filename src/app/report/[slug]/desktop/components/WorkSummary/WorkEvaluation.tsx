@@ -20,6 +20,7 @@ interface WorkEvaluationProps {
   brand: string;
   workName: string;
   workMembers: string[];
+  hasFeedback: boolean;
 }
 
 type View = "report" | "criteria" | "scoreDetail";
@@ -30,10 +31,11 @@ const WorkEvaluation = ({
   brand,
   workName,
   workMembers,
+  hasFeedback,
 }: WorkEvaluationProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   // 쿼리 파라미터에서 현재 뷰 가져오기
   const currentView = (searchParams?.get("view") as View) || "report";
 
@@ -83,6 +85,7 @@ const WorkEvaluation = ({
         brand={brand}
         workMembers={workMembers}
         workId={workId}
+        hasFeedback={hasFeedback}
       />
 
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />

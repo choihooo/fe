@@ -9,6 +9,7 @@ interface ReportHeaderProps {
   brand: string;
   workMembers: string[];
   workId: number;
+  hasFeedback?: boolean;
 }
 
 const ReportHeader: React.FC<ReportHeaderProps> = ({
@@ -17,6 +18,7 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
   brand,
   workMembers,
   workId,
+  hasFeedback,
 }) => {
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -102,9 +104,10 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
           {/* 피드백 버튼 */}
           <button
             onClick={handleOpenFeedbackModal}
+            disabled={!hasFeedback}
             className="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-[10px] transition-colors font-B02-SB text-gray-700"
           >
-            피드백 남기기
+            {hasFeedback ? "피드백 남기기" : "피드백 작성완료"}
           </button>
 
           {/* 공유 버튼 */}
