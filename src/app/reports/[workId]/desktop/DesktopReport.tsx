@@ -33,6 +33,13 @@ const DesktopReport = () => {
     | ContestName
     | undefined;
 
+  useEffect(() => {
+    const status = (error as any)?.response?.status;
+    if (status === 403) {
+      router.replace(`/reports/verify-code`);
+    }
+  }, [error, router, workId]);
+
   const isYcc = reportData?.result?.contestName === "YCC";
   const tabs = isYcc
     ? ["공모전 분석", "개인 출품작 분석"]
@@ -75,6 +82,8 @@ const DesktopReport = () => {
   }
 
   if (error) {
+    const status = (error as any)?.response?.status;
+    if (status === 403) return null; // 리다이렉트 진행 중
     return (
       <div className="w-full">
         <div className="text-red-500 text-center py-8">
