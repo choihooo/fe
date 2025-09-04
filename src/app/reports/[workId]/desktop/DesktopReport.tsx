@@ -5,6 +5,7 @@ import { useReportDetail } from "@/hooks/queries";
 import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
 import DetailTaskAnalysis from "./components/DetailTaskAnalysisTab/DetailTaskAnalysis";
 import WorkEvaluation from "./components/WorkSummary/WorkEvaluation";
+import { isAxiosError } from "axios";
 
 type ContestName = "DCA" | "YCC";
 
@@ -34,8 +35,7 @@ const DesktopReport = () => {
     | undefined;
 
   useEffect(() => {
-    const status = (error as any)?.response?.status;
-    if (status === 403) {
+    if (isAxiosError(error) && error.response?.status === 403) {
       router.replace(`/reports/verify-code`);
     }
   }, [error, router, workId]);
@@ -82,8 +82,7 @@ const DesktopReport = () => {
   }
 
   if (error) {
-    const status = (error as any)?.response?.status;
-    if (status === 403) return null; // 리다이렉트 진행 중
+    if (isAxiosError(error) && error.response?.status === 403) return null; // 리다이렉트 진행 중
     return (
       <div className="w-full">
         <div className="text-red-500 text-center py-8">
