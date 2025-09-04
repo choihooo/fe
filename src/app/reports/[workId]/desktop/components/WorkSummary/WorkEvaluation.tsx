@@ -36,18 +36,12 @@ const WorkEvaluation = ({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // 브라우저 뒤로 가기 시 /reports 페이지로 이동
   useEffect(() => {
     const handlePopState = () => {
       router.push("/reports");
     };
-
-    // 현재 페이지를 히스토리에 추가
-    window.history.pushState(null, "", window.location.href);
-
-    // popstate 이벤트 리스너 추가
+    window.history.pushState(null, "", window.location.href);    
     window.addEventListener("popstate", handlePopState);
-
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
