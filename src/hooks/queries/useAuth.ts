@@ -77,7 +77,11 @@ export function useAuth() {
 
     // localStorage 변경 감지
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === "accessToken" || e.key === "name" || e.key === "profileImage") {
+      if (
+        e.key === "accessToken" ||
+        e.key === "name" ||
+        e.key === "profileImage"
+      ) {
         checkAuth();
       }
     };
@@ -94,7 +98,10 @@ export function useAuth() {
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener("localStorageChange", handleCustomStorageChange);
+      window.removeEventListener(
+        "localStorageChange",
+        handleCustomStorageChange
+      );
     };
   }, []);
 
@@ -140,17 +147,16 @@ export function useLogout() {
     mutationFn: logout,
     onSuccess: () => {
       if (typeof window !== "undefined") {
-        // 모든 인증 관련 데이터 정리
-        localStorage.clear();
-        console.log("✅ 로그아웃 성공: localStorage 정리 완료");
+        Object.keys(localStorage).forEach((key) => {
+          if (key !== "socialLogin") {
+            localStorage.removeItem(key);
+          }
+        });
       }
-
-      // 모든 쿼리 데이터 정리
       queryClient.clear();
-      console.log("✅ 로그아웃 성공: 쿼리 데이터 정리 완료");
     },
     onError: (error) => {
-      console.error("❌ 로그아웃 API 실패:", error);
+      console.error("로그아웃 실패:", error);
 
       if (typeof window !== "undefined") {
         // API 실패 시에도 모든 인증 관련 데이터 정리
