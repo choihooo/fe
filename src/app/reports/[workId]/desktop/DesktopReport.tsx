@@ -36,7 +36,7 @@ const DesktopReport = () => {
 
   useEffect(() => {
     if (isAxiosError(error) && error.response?.status === 403) {
-      router.replace(`/reports/verify-code`);
+      router.replace(`/reports/${workId}/verify-code`);
     }
   }, [error, router, workId]);
 
