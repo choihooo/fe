@@ -167,3 +167,28 @@ export interface DeleteReportVisibilityResponse {
   message: string;
   result: string;
 }
+
+export type EvaluationType =
+  | "TARGET_FITNESS"
+  | "BRAND_UNDERSTANDING"
+  | "DCA_MEDIA_SELECTION"
+  | "PROBLEM_DEFINITION"
+  | "DCA_FEASIBILITY"
+  | "YCC_FEASIBILITY"
+  | "YCC_MEDIA_SELECTION"
+  | "AGENDA_SELECTION"
+  | "INFLUENCE"
+  | "DELIVERY";
+
+export interface ScoreDetailResponse {
+  isSuccess: boolean;
+  message: string;
+  result: {
+    detailEvaluations: {
+      code: string;
+      label: string;
+      score: number;
+      description: string;
+    };
+  };
+}

@@ -25,7 +25,7 @@ const ConfirmModal = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 w-full">
-      <div className="w-[328px] rounded-2xl px-5 pb-5 pt-[30px] bg-white shadow-shadow-1">
+      <div className="w-[328px] rounded-[10px] px-5 pb-5 pt-[30px] bg-white shadow-shadow-1">
         <div className="text-center text-black font-T03-B">{title}</div>
         <div className="text-center text-gray-500 font-B02-M mb-6">
           {description}

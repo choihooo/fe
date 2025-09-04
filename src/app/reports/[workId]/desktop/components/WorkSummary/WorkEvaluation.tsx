@@ -64,6 +64,13 @@ const WorkEvaluation = ({
     return (
       <div>
         <DcaCriteria contestName={contestName} />
+        <div className="flex justify-center mt-[148px]">
+          <ButtonBase
+            label="리포트로 돌아가기"
+            size="S"
+            onClick={() => handleViewChange("report")}
+          />
+        </div>
       </div>
     );
   }
@@ -71,7 +78,19 @@ const WorkEvaluation = ({
   if (currentView === "scoreDetail") {
     return (
       <div>
-        <YccScoreDetail contestName={contestName} workName={workName} />
+        <YccScoreDetail
+          contestName={contestName}
+          workName={workName}
+          workId={workId}
+        />
+
+        <div className="flex justify-center mt-[148px]">
+          <ButtonBase
+            label="리포트로 돌아가기"
+            size="S"
+            onClick={() => handleViewChange("report")}
+          />
+        </div>
       </div>
     );
   }
