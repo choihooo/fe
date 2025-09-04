@@ -1,7 +1,5 @@
 "use client";
 
-import Header from "@/components/common/Header";
-import Footer from "@/app/home/components/Footer";
 import GrayButton from "@/components/common/GrayButton";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +17,9 @@ const MobileReport = () => {
           <div className="w-10 h-10 mx-auto mb-4 rounded-full bg-blue-50 flex items-center justify-center">
             <span className="text-blue-main text-[22px] leading-none">!</span>
           </div>
-          <div className="text-gray-900 font-T04-SB mb-6">PC로 확인해주세요</div>
+          <div className="text-gray-900 font-T04-SB mb-6">
+            PC로 확인해주세요
+          </div>
           <GrayButton
             label="돌아가기"
             className="w-[88px] mx-auto"

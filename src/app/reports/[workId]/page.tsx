@@ -8,7 +8,7 @@ import MobileReport from "./mobile/MobileReport";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useRouter } from "next/navigation";
 
-function page() {
+function Page() {
   const isMobile = useIsMobile();
   const router = useRouter();
 
@@ -32,4 +32,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
