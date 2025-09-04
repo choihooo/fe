@@ -36,6 +36,7 @@ function Header({ theme }: HeaderProps) {
 
   const { isWriting, setIsWriting } = useSubmitStore();
   const logoutMutation = useLogout();
+  const pendingHrefRef = useRef<string | null>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -78,6 +79,7 @@ function Header({ theme }: HeaderProps) {
     const isMovingToAnotherPage = pathname !== href;
 
     if (isInApplicationDetailPage && isWriting && isMovingToAnotherPage) {
+      pendingHrefRef.current = href;
       setShowConfirm(true);
     } else {
       setMenuOpen(false);
@@ -92,7 +94,13 @@ function Header({ theme }: HeaderProps) {
 
   const handleCancelLeave = () => {
     setShowConfirm(false);
-    window.location.reload();
+    setMenuOpen(false);
+    const target = pendingHrefRef.current;
+    if (target) {
+      setIsWriting(false);
+      router.push(target);
+      pendingHrefRef.current = null;
+    }
   };
 
   const handleLogout = async () => {
