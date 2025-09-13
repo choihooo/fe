@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useReportDetail } from "@/hooks/queries";
-import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
+
 import DetailTaskAnalysis from "./components/DetailTaskAnalysisTab/DetailTaskAnalysis";
 import WorkEvaluation from "./components/WorkSummary/WorkEvaluation";
 import { isAxiosError } from "axios";
+import ContestAnalysis from "./components/ContestAnalysisTab/ContestAnalysis";
 
 type ContestName = "DCA" | "YCC";
 
