@@ -5,7 +5,7 @@ import ContestCapability from "./ContestCapability";
 import AwardCriteria from "./AwardCriteria";
 
 interface ContestAnalysisProps {
-  contestName: string;
+  contestName: "DCA" | "YCC";
   workId: number;
   brand: string;
   workName: string;
@@ -31,14 +31,16 @@ function ContestAnalysis({
         workId={workId}
         hasFeedback={hasFeedback}
       />
+
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
+
       <div className="flex justify-between items-center w-full">
         <ContestCard contest={contestName} />
         <ContestCapability contest={contestName} />
       </div>
 
       <div className="flex justify-between items-center w-full mt-[108px]">
-        <AwardCriteria />
+        <AwardCriteria contestName={contestName} />
       </div>
     </div>
   );
