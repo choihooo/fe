@@ -20,12 +20,16 @@ const DesktopReport = () => {
   const currentTab = searchParams?.get("tab") || "공모전 분석";
 
   const [showVerifiedToast, setShowVerifiedToast] = useState(false);
+
   useEffect(() => {
     const verified = searchParams?.get("verified");
     if (verified === "1") {
       setShowVerifiedToast(true);
       const timeout = setTimeout(() => setShowVerifiedToast(false), 3000);
-      router.replace(`/reports/${workId}?tab=${currentTab}`);
+      setTimeout(() => {
+        router.replace(`/reports/${workId}?tab=${currentTab}`);
+      }, 0);
+
       return () => clearTimeout(timeout);
     }
   }, [searchParams, router, workId, currentTab]);
