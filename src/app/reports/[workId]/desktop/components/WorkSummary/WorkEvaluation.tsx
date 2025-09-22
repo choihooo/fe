@@ -11,6 +11,7 @@ import DcaCriteria from "../Criteria/DcaCriteria";
 import YccScoreDetail from "../ScoreDetail/YccScoreDetail";
 import RadarChartComponent from "./RadarChartComponent.tsx";
 import { Arrow } from "../../../../../../../public";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 type ContestName = "DCA" | "YCC";
 
@@ -35,12 +36,13 @@ const WorkEvaluation = ({
 }: WorkEvaluationProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handlePopState = () => {
       router.push("/reports");
     };
-    window.history.pushState(null, "", window.location.href);    
+    window.history.pushState(null, "", window.location.href);
     window.addEventListener("popstate", handlePopState);
     return () => {
       window.removeEventListener("popstate", handlePopState);
@@ -109,10 +111,19 @@ const WorkEvaluation = ({
       <div className="w-full h-[1.2px] bg-gray-100 mt-[36px] mb-[52px]" />
       <Summary workId={workId} />
       <RadarChartComponent workId={workId} contestName={contestName} />
-      <div className="w-full border-t border-gray-300 border-dashed mt-[108px] mb-[108px]" />
+      <div
+        className={`w-full border-t border-gray-300 border-dashed ${
+          isMobile ? "gap-6 mt-9 mb-9 " : "mt-[108px] mb-[108px]"
+        }`}
+      />
+
       <AllEvalution workId={workId} contestName={contestName} />
 
-      <div className="flex flex-row items-center justify-end mt-20 w-full gap-[10px]">
+      <div
+        className={`flex flex-row items-center justify-end w-full gap-[10px] ${
+          isMobile ? "mt-9" : "mt-20"
+        }`}
+      >
         <GrayButton
           label={
             <span className="flex items-center gap-1">
