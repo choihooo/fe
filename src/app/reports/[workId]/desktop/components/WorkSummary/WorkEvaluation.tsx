@@ -66,7 +66,11 @@ const WorkEvaluation = ({
     return (
       <div>
         <DcaCriteria contestName={contestName} />
-        <div className="flex justify-center mt-[148px]">
+        <div
+          className={`flex justify-center ${
+            isMobile ? "mt-[68px] mb-[252px]" : "mt-[148px]"
+          }`}
+        >
           <ButtonBase
             label="리포트로 돌아가기"
             size="S"
