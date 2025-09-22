@@ -45,7 +45,7 @@ function DetailTaskAnalysis({
       <ReflectionConsistencySection workId={workId} />
 
       {/*  */}
-      <BriefAnalysisSection brandName={"에어리즘"} />
+      <BriefAnalysisSection brandName={"SBI 저축은행 사이다뱅크"} />
     </div>
   );
 }
