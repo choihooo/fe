@@ -1,5 +1,7 @@
+"use client";
 import Image from "next/image";
 import React from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface CoreCapabilityCardProps {
   title: string;
@@ -7,10 +9,28 @@ interface CoreCapabilityCardProps {
 }
 
 function CoreCapabilityCard({ title, description }: CoreCapabilityCardProps) {
+  const isMobile = useIsMobile();
+
   return (
-    <div className="border border-blue-main pl-[35px] pr-[17px] py-[27px] rounded-[16px] flex-1">
-      <h3 className="text-blue-main font-T03-SB mb-[10px]">{title}</h3>
-      <p className="text-gray-700 font-B01-R">{description}</p>
+    <div
+      className={`border border-blue-main rounded-[16px] flex-1 ${
+        isMobile ? "px-[35px] py-[27px]" : "pl-[35px] pr-[17px] py-[27px]"
+      }`}
+    >
+      <h3
+        className={`text-blue-main mb-[10px] ${
+          isMobile ? "font-T04-SB" : "font-T03-SB"
+        }`}
+      >
+        {title}
+      </h3>
+      <p
+        className={`text-gray-700 ${
+          isMobile ? "font-B02-R leading-relaxed" : "font-B01-R"
+        }`}
+      >
+        {description}
+      </p>
     </div>
   );
 }
@@ -34,13 +54,29 @@ function AwardCard({
   width,
   height,
 }: AwardCardProps) {
+  const isMobile = useIsMobile();
   return (
-    <div className="bg-white rounded-[16px] py-[27px] px-[35px] border border-gray-200">
+    <div className="bg-white rounded-[16px] py-[27px] px-[35px] border border-gray-200 w-full">
       <div className="mb-3">
-        <h3 className="font-T03-B text-blue-main mb-[9px]">{title}</h3>
-        <div className="flex gap-[14px] mb-[27px]">
-          <div className="text-gray-800 font-T04-SB">{subtitle}</div>
-          <div className="flex gap-2">
+        <h3
+          className={`text-blue-main mb-[9px] ${
+            isMobile ? "font-T04-SB" : "font-T03-B"
+          }`}
+        >
+          {" "}
+          {title}
+        </h3>
+
+        <div className="flex flex-wrap gap-[14px] mb-[27px]">
+          <div
+            className={`text-gray-800 ${
+              isMobile ? "font-B01-R" : "font-T04-SB"
+            }`}
+          >
+            {subtitle}
+          </div>
+
+          <div className="flex gap-2 flex-wrap">
             {tags?.map((tag, index) => (
               <span
                 key={index}
@@ -65,7 +101,11 @@ function AwardCard({
 
       <div>
         <p className="text-gray-500 font-B01-M mb-[10px]">Summary</p>
-        <pre className="text-gray-900 font-B01-M whitespace-pre-line w-[418px]">
+        <pre
+          className={`text-gray-900 w-full whitespace-pre-line ${
+            isMobile ? "font-B02-R" : "font-B01-M"
+          }`}
+        >
           {summary}
         </pre>
       </div>
@@ -80,9 +120,13 @@ function CapabilityAndAwardsSection({
   capabilities: { title: string; description: string }[];
   works: AwardCardProps[];
 }) {
+  const isMobile = useIsMobile();
+
   return (
     <>
-      <div className="grid grid-cols-2 gap-4">
+      <div
+        className={`gap-4 ${isMobile ? "flex flex-col" : "grid grid-cols-2"}`}
+      >
         {capabilities.map((capability, index) => (
           <CoreCapabilityCard
             key={index}
@@ -92,7 +136,11 @@ function CapabilityAndAwardsSection({
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div
+        className={`gap-6 mt-6 ${
+          isMobile ? "flex flex-col" : "grid grid-cols-2"
+        }`}
+      >
         {works.map((work, index) => (
           <AwardCard key={index} {...work} />
         ))}
